@@ -10,17 +10,17 @@ import AlbumIcon from '@material-ui/icons/Album';
 import PeopleIcon from '@material-ui/icons/People';
 import ShareIcon from '@material-ui/icons/Share';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import Grid from "@material-ui/core/Grid"
 
-
-class DiscoverBar extends React.Component {
-    render () { 
+class PrimaryList extends React.Component {
+    render () {
         return (
-            <Box style = {{backgroundColor : 'grey'}}> 
+            <Grid item>
                 <List component="nav" aria-label="main list">
-                    <ListSubheader style = {{textAlign : "center"}}>
+                    <ListSubheader style = {{textAlign : "center", color: "white", paddingBottom: "2%"}}>
                         <ListItemText primary = "Discover"/>
                     </ListSubheader>
-                    
+                    <Divider/>
                     <ListItem button>
                         <ListItemIcon>
                             <MusicNoteIcon/>
@@ -46,6 +46,15 @@ class DiscoverBar extends React.Component {
                         <ListItemText primary="Shared With Me" />
                     </ListItem>
                 </List>
+            </Grid>
+        )
+    }   
+}
+
+class SecondaryList extends React.Component {
+    render () {
+        return (
+            <Grid item>
                 <Divider />
                 <List component="nav" aria-label="secondary list">
                     <ListItem button>
@@ -55,6 +64,20 @@ class DiscoverBar extends React.Component {
                         <ListItemText primary="Your Connections" />
                     </ListItem>
                 </List>
+            </Grid>
+        )
+    }  
+}
+
+
+class DiscoverBar extends React.Component {
+    render () { 
+        return (
+            <Box style = {{color : 'white', backgroundColor: "grey"}}> 
+                <Grid container direction = "column" justify = 'space-between' style = {{height: 'inherit'}}>
+                    <PrimaryList/>
+                    <SecondaryList/>
+                </Grid>
             </Box>
         )
     }

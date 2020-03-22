@@ -5,7 +5,7 @@ import Grid from "@material-ui/core/Grid"
 function App() {
   return (
     <div>
-      <h1 style = {{backgroundColor : 'orange',color : 'grey' ,textAlign: 'center', padding: "10px"}}> Placeholder Nav Bar </h1>
+      <h1 style = {{backgroundColor : 'orange',color : 'grey' ,textAlign: 'center', padding: "10px", margin : 0}}> Placeholder Nav Bar </h1>
       <Grid container justify = "space-between" alignItems = "stretch">        
         <DiscoverBar/>
       </Grid>
