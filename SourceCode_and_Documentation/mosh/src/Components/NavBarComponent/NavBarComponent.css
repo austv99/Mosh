@@ -1,0 +1,17 @@
+.app__bar {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background: #7f03fc;
+    width: 100vw;
+    height: 10vh;
+    box-shadow: 2px 2px 2px #59595c;
+    padding-left: 2rem;
+    font-family: "Lato";
+}
+
+.prof {
+    width: 8vw;
+    height: 8vh;
+}
