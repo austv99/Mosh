@@ -1,9 +1,15 @@
 import React from 'react';
+import DiscoverBar from "./components/discoverBar"
+import Grid from "@material-ui/core/Grid"
 
 function App() {
   return (
-    <div style = {{backgroundColor: "orange"}}>
-      <h1 style = {{color : 'grey' ,textAlign: 'center', marginTop: 0, padding: "10px"}}> Placeholder Nav Bar </h1>
+    <div>
+      <h1 style = {{backgroundColor : 'orange',color : 'grey' ,textAlign: 'center', padding: "10px"}}> Placeholder Nav Bar </h1>
+      <Grid container justify = "space-between" alignItems = "stretch">        
+        <DiscoverBar/>
+      </Grid>
+
     </div>
 
   );
