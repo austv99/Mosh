@@ -67,7 +67,7 @@ class SecondaryList extends React.Component {
             <Box>
                 <Divider />
                 <List component="nav" aria-label="secondary list">
-                    <ListItem button>
+                    <ListItem button onClick = {(event) => this.props.handleSelection(event,"Your Connections")} selected = {this.props.selectedTag === "Your Connections"}>
                         <ListItemIcon>
                             <PeopleIcon/>
                         </ListItemIcon>

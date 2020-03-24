@@ -23,7 +23,7 @@ class MobileDrawer extends React.Component {
                 >
                 <div>
                     <PrimaryList primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-                    <SecondaryList/>
+                    <SecondaryList selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
                 </div>
                 </Drawer>
             </Hidden>
@@ -44,7 +44,7 @@ class DesktopDrawer extends React.Component {
                 >
                 <div className={this.props.toolbar} />
                 <PrimaryList primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-                <SecondaryList/>
+                <SecondaryList selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
                 </Drawer>
             </Hidden>
         )

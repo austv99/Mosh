@@ -11,7 +11,6 @@ class MainApp extends React.Component {
         this.state = {
             mobileOpen : false, 
             primaryTags : ["Music", "Concerts", "People", "Shared With Me"],
-            secondaryTags : ["Your Connections"],
             selectedTag: "Music"
         }
     }
@@ -36,7 +35,7 @@ class MainApp extends React.Component {
                 <NavBar appBar = {this.props.classes.appBar} menuButton = {this.props.classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
                 
                 <nav className={this.props.classes.drawer}>
-                    {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+
                     <MobileDrawer container = {this.props.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
                     drawerPaper = {this.props.classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
