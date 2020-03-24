@@ -3,6 +3,40 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import NavBar from "./components/navBar"
 import {DesktopDrawer, MobileDrawer} from "./components/drawers"
+import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    display: 'flex',
+  },
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
+    },
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+});
 
 class MainApp extends React.Component {
     constructor(props) {
@@ -28,25 +62,27 @@ class MainApp extends React.Component {
     }
     
     render () {
+        const {classes} = this.props;
+        
         return  (
-            <div className={this.props.classes.root}>
+            <div className={classes.root}>
                 <CssBaseline />
       
-                <NavBar appBar = {this.props.classes.appBar} menuButton = {this.props.classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
+                <NavBar appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
                 
-                <nav className={this.props.classes.drawer}>
+                <nav className={classes.drawer}>
 
-                    <MobileDrawer container = {this.props.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
-                    drawerPaper = {this.props.classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
+                    <MobileDrawer container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
+                    drawerPaper = {classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
                     
-                    <DesktopDrawer drawerPaper = {this.props.drawerPaper} toolbar = {this.props.classes.toolbar} primaryTags = {this.state.primaryTags}
+                    <DesktopDrawer drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
                     handleSelection = {this.handleSelection} selectedTag = {this.state.selectedTag}/>
                 </nav>
 
 
-                <main className={this.props.classes.content}>
-                    <div className={this.props.classes.toolbar} />
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
                     <Typography paragraph>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                     ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
@@ -65,4 +101,11 @@ class MainApp extends React.Component {
     }
 }
 
-export default MainApp;
+MainApp.propTypes = {
+    classes: PropTypes.object.isRequired,
+    // Injected by the documentation to work in an iframe.
+    // You won't need it on your project.
+    container: PropTypes.object,
+};
+
+export default withStyles(styles, {withTheme : true}) (MainApp);
