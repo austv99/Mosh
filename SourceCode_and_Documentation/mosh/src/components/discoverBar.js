@@ -11,38 +11,51 @@ import PeopleIcon from '@material-ui/icons/People';
 import ShareIcon from '@material-ui/icons/Share';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
+
+
 class PrimaryList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    
+    
+    renderButton(title) {
+        var icon
+            
+        if (title === "Music") {
+            icon = <MusicNoteIcon/>
+        } else if (title === "Concerts") {
+            icon = <AlbumIcon/>
+        } else if (title === "People") {
+            icon = <GroupAddIcon/>
+        } else if (title === "Shared With Me") {
+            icon = <ShareIcon/>
+        }
+        
+        return ( 
+            <ListItem button key = {title} onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
+                <ListItemIcon>
+                    {icon}
+                </ListItemIcon>
+                <ListItemText primary = {title}/>
+            </ListItem>
+        )
+    }
+
+    renderButtons() {
+        let buttons = this.props.primaryTags.map(title => this.renderButton(title));
+        
+        return buttons;
+    }
+
     render () {
         return (
             <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
                 <ListSubheader style = {{textAlign : "center", paddingBottom: "2%"}}>
                     <ListItemText primary = "Discover"/>
                 </ListSubheader>
-                <Divider/>
-                <ListItem button>
-                    <ListItemIcon>
-                        <MusicNoteIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Music" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <AlbumIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Concerts" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <GroupAddIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="People" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                        <ShareIcon/>
-                    </ListItemIcon>
-                    <ListItemText primary="Shared With Me" />
-                </ListItem>
+                <Divider/>                
+                {this.renderButtons()}
             </List>
         )
     }   

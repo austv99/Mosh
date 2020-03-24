@@ -7,23 +7,27 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 
-class NavBar extends React.Component {    
-    render () {        
+class NavBar extends React.Component {
+    render() {
         return (
-            <div>
-                <AppBar position="static" color = 'primary' > 
+            <AppBar position="fixed" className={this.props.appBar}>
                 <Toolbar>
-                    <IconButton edge="start" style = {{marginRight : "1%"}} color="inherit" aria-label="menu">
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" style = {{ flexGrow : 1 }}>
-                        Mosh
-                    </Typography>
-                    <Button color="inherit">Log out</Button>
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={this.props.handleDrawerToggle}
+                    className={this.props.menuButton}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Typography variant="h6" style = {{ flexGrow : 1 }}>
+                    Mosh
+                </Typography>
+                <Button color="inherit">Log out</Button>
                 </Toolbar>
-                </AppBar>
-            </div>   
-          );
+            </AppBar>
+        )
     }
 }
 
