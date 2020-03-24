@@ -13,12 +13,7 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 
 
-class PrimaryList extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
-    
+class PrimaryList extends React.Component {    
     renderButton(title) {
         var icon
             

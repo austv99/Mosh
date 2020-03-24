@@ -2,7 +2,7 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import NavBar from "./components/navBar"
-import {DesktopDrawer, MobileDrawer} from "./components/drawer"
+import {DesktopDrawer, MobileDrawer} from "./components/drawers"
 
 class MainApp extends React.Component {
     constructor(props) {
