@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const YoutubeResult= () => {
 
-    const [search,setSearch] = useState("");
+    const [result,setResult] = useState("");
     //var playlistID = "PLzMXToX8Kzqggrhr-v0aWQA2g8pzWLBrR";
     var userKey = 'AIzaSyBhklDEhDYrLwf5mMkLKsA34Btqjpj8S7k';
 
@@ -31,7 +31,7 @@ const YoutubeResult= () => {
                 console.log(title);
                 //title is an array
                 
-                setSearch(title[0])
+                setResult(title[0])
             })
             ;
     
@@ -39,7 +39,7 @@ const YoutubeResult= () => {
     }, [URL]);
     return (
         <div className="search-params">
-            {search}
+            {result}
         </div>
     );
 };
