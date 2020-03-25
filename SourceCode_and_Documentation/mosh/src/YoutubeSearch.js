@@ -1,9 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import YoutubeResult from './YoutubeResult';
 const YoutubeSearch= () => {
-	//const [location, setLocation] = useState("Seattle,WA");
     const [submitted,setSubmitted] = useState("");
-
     const [search,setSearch] = useState("");
     useEffect(() => {
         setSubmitted("false"); 
@@ -15,7 +13,6 @@ const YoutubeSearch= () => {
 				onSubmit={e => {
 					e.preventDefault(); //prevents sending html post form
                     setSubmitted("true"); 
-         
                 }}
             >
                 <label htmlFor="SongName">
@@ -31,20 +28,7 @@ const YoutubeSearch= () => {
 				<button>Submit</button>
                 <YoutubeResult InputTitle={search} isSubmitted={submitted}/>
 			</form>
-			
         </div>
     );
 };
-
-/*TMP
-                {isSubmitted && }
-setSubmitted(true); 
-                    //note that we dont need submit for this to work  
-                    useEffect(() => {
-        setSubmitted(false); 
-    }, [search]);
-    
-        const [isSubmitted,setSubmitted] = useState(false);
-
- */
 export default YoutubeSearch;
