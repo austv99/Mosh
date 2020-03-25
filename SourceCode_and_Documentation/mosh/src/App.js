@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 //import { Router, Link } from "@reach/router";
 import './App.css';
-import YoutubeResult from './YoutubeResult';
+import YoutubeSearch from './YoutubeSearch';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
           Edit <code>src/App.js</code> and save to reload.
         </p>
         
-        <YoutubeResult />
+        <YoutubeSearch />
       </header>
     </div>
   );
