@@ -1,0 +1,76 @@
+import React from 'react';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+
+import {DiscPri, DiscSec} from "./discoverBar"
+import {HomePri , HomeSec} from "./homescreenBar"
+
+class MobileDrawer extends React.Component {
+    render() {
+        return (
+            <>
+            <Hidden smUp implementation="css">
+                <Drawer
+                container={this.props.container}
+                variant="temporary"
+                anchor="left"
+                open={this.props.open}
+                onClose={this.props.handleDrawerToggle}
+                classes={{
+                    paper: this.props.drawerPaper,
+                }}
+                ModalProps={{
+                    keepMounted: true, // Better open performance on mobile.
+                }}
+                >
+                <div>
+                    
+                    {this.props.type==="home" ?
+                    <React.Fragment>
+                    <HomePri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+                    <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+                    </React.Fragment>
+                    :
+                    <React.Fragment>
+                    <DiscPri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+                    <DiscSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+                    </React.Fragment> 
+                    }
+                </div>
+                </Drawer>
+            </Hidden>
+            </>
+        )
+    }
+}
+
+class DesktopDrawer extends React.Component {
+    render () {
+        return (
+            <Hidden xsDown implementation="css">
+                <Drawer
+                classes={{
+                    paper: this.props.drawerPaper,
+                }}
+                variant="permanent"
+                open
+                >
+                <div className={this.props.toolbar} />
+                {this.props.type==="home" ?
+                    <React.Fragment>
+                    <HomePri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+                    <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+                    </React.Fragment>
+                    :
+                    <React.Fragment>
+                    <DiscPri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+                    <DiscSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+                    </React.Fragment> 
+                }
+                </Drawer>
+            </Hidden>
+        )
+    }
+}
+
+export {MobileDrawer, DesktopDrawer}

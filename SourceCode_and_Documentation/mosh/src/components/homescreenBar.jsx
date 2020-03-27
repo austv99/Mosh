@@ -13,7 +13,7 @@ import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 
 
-class PrimaryList extends React.Component {    
+class HomePri extends React.Component {    
     renderButton(title) {
         var icon
             
@@ -47,7 +47,7 @@ class PrimaryList extends React.Component {
         return (
             <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
                 <ListSubheader style = {{textAlign : "center", paddingBottom: "2%"}}>
-                    <ListItemText primary = "Discover"/>
+                    <ListItemText primary = "Your Interests"/>
                 </ListSubheader>
                 <Divider/>                
                 {this.renderButtons()}
@@ -56,7 +56,7 @@ class PrimaryList extends React.Component {
     }   
 }
 
-class SecondaryList extends React.Component {
+class HomeSec extends React.Component {
     render () {
         return (
             <Box>
@@ -74,4 +74,4 @@ class SecondaryList extends React.Component {
     }  
 }
 
-export {PrimaryList, SecondaryList}
+export {HomePri, HomeSec}
