@@ -67,11 +67,12 @@ class MainApp extends React.Component {
         return  (
             <div className={classes.root}>
                 <CssBaseline />
-      
+
+                {/* Navbar Goes Here */}
                 <NavBar appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
                 
-                <nav className={classes.drawer}>
-
+                <nav className={classes.drawer}> 
+                    {/* Side Bar Goes Here  */}
                     <MobileDrawer container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
                     drawerPaper = {classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
@@ -83,6 +84,9 @@ class MainApp extends React.Component {
 
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
+                    
+                    {/* Main Body of page goes here */}
+                    
                     <Typography paragraph>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                     ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
