@@ -1,12 +1,12 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
-import NavBar from "./components/navBar"
-import {DesktopDrawer, MobileDrawer} from "./components/drawers"
+import NavBar from "../components/navBar"
+import {DesktopDrawer, MobileDrawer} from "../components/drawers"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const styles = theme => ({
   root: {
@@ -38,14 +38,13 @@ const styles = theme => ({
   },
 });
 
-class MainApp extends React.Component {
+class Homescreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             mobileOpen : false, 
-            primaryTags : ["Music", "Concerts", "People", "Shared With Me"],
-            selectedTag: "Music"
+            primaryTags : ["Drake", "Travis Scott", "The Weeknd", "Lil Uzi Vert"],
         }
     }
 
@@ -67,26 +66,22 @@ class MainApp extends React.Component {
         return  (
             <div className={classes.root}>
                 <CssBaseline />
-
-                {/* Navbar Goes Here */}
+      
                 <NavBar appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
                 
-                <nav className={classes.drawer}> 
-                    {/* Side Bar Goes Here  */}
-                    <MobileDrawer container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
+                <nav className={classes.drawer}>
+
+                    <MobileDrawer type="home" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
                     drawerPaper = {classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
                     
-                    <DesktopDrawer drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
+                    <DesktopDrawer type="home" drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
                     handleSelection = {this.handleSelection} selectedTag = {this.state.selectedTag}/>
                 </nav>
 
 
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    
-                    {/* Main Body of page goes here */}
-                    
                     <Typography paragraph>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                     ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
@@ -105,11 +100,11 @@ class MainApp extends React.Component {
     }
 }
 
-MainApp.propTypes = {
+Homescreen.propTypes = {
     classes: PropTypes.object.isRequired,
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
     container: PropTypes.object,
 };
 
-export default withStyles(styles, {withTheme : true}) (MainApp);
+export default withStyles(styles, {withTheme : true}) (Homescreen);
