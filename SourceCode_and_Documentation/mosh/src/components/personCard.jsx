@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
@@ -27,8 +27,8 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0
   },
   cover: {
-    width: "20%",
-    maxWidth : 151
+    width: 151,
+    height: 151
   },
   controls: {
     display: 'flex',
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MusicCard(props) {
+export default function PersonCard(props) {
   const classes = useStyles();
   // const theme = useTheme();
 
@@ -51,7 +51,7 @@ export default function MusicCard(props) {
         <CardMedia
             className={classes.cover}
             image = {props.img}
-            title="Album Art"
+            title="Avatar Image"
         />
         <div className={classes.details}>
             <CardContent className={classes.content}>
@@ -60,16 +60,13 @@ export default function MusicCard(props) {
                       <b> {props.title} </b>
                   </Typography>
                   <Typography variant="subtitle2" color="textSecondary">
-                      <b> Artist </b> : {props.artist}
-                  </Typography>
-                  <Typography variant="subtitle2" color="textSecondary">
-                      <b> Album </b> : {props.album}
+                      <b> Interests </b> : {props.likes}
                   </Typography>
                 </ThemeProvider>
             </CardContent>
             <div style = {{display: 'flex', justifyContent: "flex-end", alignItems : "flex-start"}}>
-              <IconButton aria-label="play/pause" style = {{paddingTop: 0}}>
-                <PlayArrowIcon className={classes.playIcon} />
+              <IconButton aria-label="addPerson" style = {{paddingTop: 0}}>
+                <AddCircleIcon className={classes.playIcon} />
               </IconButton>
             </div>
         </div>
