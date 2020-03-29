@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 
 class NavBar extends React.Component {
+    
     render() {
         return (
             <AppBar position="fixed" className={this.props.appBar}>
