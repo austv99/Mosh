@@ -15,7 +15,7 @@ function discoverPeople() {
             <Grid style = {cardStyles}>
                 <PersonCard title = "Donald Trump" likes = "Making America Great Again" img = "http://highlighthollywood.com/wp-content/uploads/2015/09/donald-trump-incapable-of-embarrassment-r.jpg"/>
             </Grid>
-    </div>
+        </div>
     )
 }
 

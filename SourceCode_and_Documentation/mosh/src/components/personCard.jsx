@@ -27,18 +27,15 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0
   },
   cover: {
-    width: 151,
-    height: 151
+    minWidth: 62,
+    width: "25%",
+    maxWidth : 151
   },
   controls: {
     display: 'flex',
     alignItems: 'center',
     paddingLeft: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    // height: 30,
-    // width: 40
   },
 }));
 
