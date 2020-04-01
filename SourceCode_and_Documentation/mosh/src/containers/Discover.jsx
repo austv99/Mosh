@@ -97,7 +97,7 @@ class Discover extends React.Component {
                     
                     {/* Main Body of page goes here */}
                     <Switch>
-                        <Route path = "/discover" exact component = {discoverText}/>
+                        <Route path = "/discover" exact component = {discoverMusic}/>
                         <Route path = "/discover/music"  component = {discoverMusic}/>
                         <Route path = '/discover/concerts'  component = {discoverConcerts}/>
                         <Route path = '/discover/people' component = {discoverPeople}/>
