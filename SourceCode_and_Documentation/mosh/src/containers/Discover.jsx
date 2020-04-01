@@ -71,10 +71,9 @@ class Discover extends React.Component {
           }
         })
     }
-    
     render () {
         const {classes} = this.props;
-        
+        // console.log(this.state.primaryTags);
         return  (
             <div className={classes.root}>
                 <CssBaseline />

@@ -14,7 +14,7 @@ class NavBar extends React.Component {
         return (
             <AppBar position="fixed" className={this.props.appBar}>
                 <Toolbar>
-                <IconButton
+                {/* <IconButton
                     color="inherit"
                     aria-label="open drawer"
                     edge="start"
@@ -22,18 +22,16 @@ class NavBar extends React.Component {
                     className={this.props.menuButton}
                 >
                     <MenuIcon />
-                </IconButton>
+                </IconButton> */}
                 <Typography variant="h6" style = {{ flexGrow : 1 }}>
-                    <Link to="/home" style={{ textDecoration: 'none', color: 'inherit '}}>
+                    <Link to="/" style={{ textDecoration: 'none', color: 'inherit '}}>
                     Mosh
                     </Link>
                 </Typography>
-                
-                <Link to="/discover" style={{ textDecoration: 'none', color: 'inherit '}}>
-                <Button color="inherit">Discover</Button>
-                </Link>
-                <Link to="/" style={{ textDecoration: 'none', color: 'inherit '}}>
-                <Button color="inherit">Log out</Button>
+                <Link to="/home" style={{ textDecoration: 'none', color: 'inherit '}}>
+                <Button color="inherit">Sign In</Button>
+                </Link><Link to="/signup" style={{ textDecoration: 'none', color: 'inherit '}}>
+                <Button color="inherit">Sign Up</Button>
                 </Link>
                 </Toolbar>
             </AppBar>

@@ -2,9 +2,12 @@ import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import NavBar from "../components/navBar"
-import {DesktopDrawer, MobileDrawer} from "../components/drawers"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
+import newsFeed from '../components/newsFeed'
+import artistPage from '../components/artistPage'
+import { Switch, Route } from 'react-router-dom'
+import { DesktopDrawer, MobileDrawer } from "../components/drawers";
 
 const drawerWidth = 200;
 
@@ -44,7 +47,8 @@ class Homescreen extends React.Component {
 
         this.state = {
             mobileOpen : false, 
-            primaryTags : ["Drake", "Travis Scott", "The Weeknd", "Lil Uzi Vert"],
+            primaryTags : ["Drake", "Travis Scott", "Lil Uzi Vert", "The Weeknd"],
+            selectedTag: ""
         }
     }
 
@@ -57,7 +61,11 @@ class Homescreen extends React.Component {
     handleSelection = (event, title) => {
         this.setState(() => ({
             selectedTag : title
-        }))
+        }), () => {
+          if (this.state.mobileOpen === true) {
+            this.handleDrawerToggle();
+          }
+        })
     }
     
     render () {
@@ -66,7 +74,8 @@ class Homescreen extends React.Component {
         return  (
             <div className={classes.root}>
                 <CssBaseline />
-      
+
+                {/* Navbar Goes Here */}
                 <NavBar appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
                 
                 <nav className={classes.drawer}>
@@ -82,18 +91,16 @@ class Homescreen extends React.Component {
 
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                    ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-                    facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-                    gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-                    donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-                    Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-                    imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-                    arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-                    donec massa sapien faucibus et molestie ac.
-                    </Typography>
+                    
+                    {/* Main Body of page goes here */}
+                    <Switch>
+                        <Route path = "/home" exact component = {newsFeed}/>
+                        <Route path = "/home/Drake" component= {artistPage}/>
+                        <Route path = "/home/TravisScott" component= {artistPage}/>
+                        <Route path = "/home/LilUziVert" component= {artistPage}/>
+                        <Route path = "/home/TheWeeknd" component= {artistPage}/>
+                        
+                    </Switch>
                 </main>
             </div>
         )
@@ -106,5 +113,15 @@ Homescreen.propTypes = {
     // You won't need it on your project.
     container: PropTypes.object,
 };
+
+
+// const discoverText = () => {
+//   return (
+//     <Typography>
+//         Please select something from the side bar
+//     </Typography>
+//   )
+// }
+
 
 export default withStyles(styles, {withTheme : true}) (Homescreen);

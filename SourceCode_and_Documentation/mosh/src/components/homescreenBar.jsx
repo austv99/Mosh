@@ -11,29 +11,35 @@ import PeopleIcon from '@material-ui/icons/People';
 import ShareIcon from '@material-ui/icons/Share';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
+import {Link} from 'react-router-dom';
 
-
-class HomePri extends React.Component {    
+export class HomePri extends React.Component {    
     renderButton(title) {
-        var icon
+        var icon;
             
-        if (title === "Music") {
-            icon = <MusicNoteIcon/>
-        } else if (title === "Concerts") {
-            icon = <AlbumIcon/>
-        } else if (title === "People") {
-            icon = <GroupAddIcon/>
-        } else if (title === "Shared With Me") {
-            icon = <ShareIcon/>
-        }
+        // if (title === "music") {
+        //     icon = <MusicNoteIcon/>
+        //     button_text = "Music"
+        // } else if (title === "concerts") {
+        //     icon = <AlbumIcon/>
+        //     button_text = "Concerts";
+        // } else if (title === "people") {
+        //     icon = <GroupAddIcon/>
+        //     button_text = "People";
+        // } else if (title === "shared") {
+        //     icon = <ShareIcon/>
+        //     button_text = "Shared With Me"
+        // }
         
         return ( 
-            <ListItem button key = {title} onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
-                <ListItemIcon>
-                    {icon}
-                </ListItemIcon>
-                <ListItemText primary = {title}/>
-            </ListItem>
+            <Link to = {`/home/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
+                <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
+                    {/* <ListItemIcon>
+                        {icon}
+                    </ListItemIcon> */}
+                    <ListItemText primary = {title}/>
+                </ListItem>
+            </Link>
         )
     }
 
@@ -56,22 +62,22 @@ class HomePri extends React.Component {
     }   
 }
 
-class HomeSec extends React.Component {
+export class HomeSec extends React.Component {
     render () {
         return (
             <Box>
                 <Divider />
                 <List component="nav" aria-label="secondary list">
-                    <ListItem button onClick = {(event) => this.props.handleSelection(event,"Your Connections")} selected = {this.props.selectedTag === "Your Connections"}>
-                        <ListItemIcon>
-                            <PeopleIcon/>
-                        </ListItemIcon>
-                        <ListItemText primary="Your Connections" />
-                    </ListItem>
+                    <Link to = "/discover/connections" style = {{textDecoration: 'none', color: "inherit"}}>
+                        <ListItem button onClick = {(event) => this.props.handleSelection(event,"connections")} selected = {this.props.selectedTag === "connections"}>
+                            <ListItemIcon>
+                                <PeopleIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Your Interests" />
+                        </ListItem>
+                    </Link>
                 </List>
             </Box>
         )
     }  
 }
-
-export {HomePri, HomeSec}
