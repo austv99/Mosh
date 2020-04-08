@@ -30,7 +30,8 @@ class NavBar extends React.Component {
                 </Typography>
                 <Link to="/home" style={{ textDecoration: 'none', color: 'inherit '}}>
                 <Button color="inherit">Sign In</Button>
-                </Link><Link to="/signup" style={{ textDecoration: 'none', color: 'inherit '}}>
+                </Link>
+                <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit '}}>
                 <Button color="inherit">Sign Up</Button>
                 </Link>
                 </Toolbar>
