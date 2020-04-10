@@ -5,31 +5,12 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import { Box, ListSubheader } from "@material-ui/core";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import AlbumIcon from '@material-ui/icons/Album';
 import PeopleIcon from '@material-ui/icons/People';
-import ShareIcon from '@material-ui/icons/Share';
-import GroupAddIcon from '@material-ui/icons/GroupAdd';
 
 import {Link} from 'react-router-dom';
 
 export class HomePri extends React.Component {    
     renderButton(title) {
-        var icon;
-            
-        // if (title === "music") {
-        //     icon = <MusicNoteIcon/>
-        //     button_text = "Music"
-        // } else if (title === "concerts") {
-        //     icon = <AlbumIcon/>
-        //     button_text = "Concerts";
-        // } else if (title === "people") {
-        //     icon = <GroupAddIcon/>
-        //     button_text = "People";
-        // } else if (title === "shared") {
-        //     icon = <ShareIcon/>
-        //     button_text = "Shared With Me"
-        // }
         
         return ( 
             <Link to = {`/home/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>

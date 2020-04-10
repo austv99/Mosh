@@ -1,6 +1,5 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import NavBar from "../components/navBar"
 import {DesktopDrawer, MobileDrawer} from "../components/drawers"
 import { withStyles } from '@material-ui/core/styles';
@@ -118,13 +117,13 @@ Discover.propTypes = {
 };
 
 
-const discoverText = () => {
-  return (
-    <Typography>
-        Please select something from the side bar
-    </Typography>
-  )
-}
+// const discoverText = () => {
+//   return (
+//     <Typography>
+//         Please select something from the side bar
+//     </Typography>
+//   )
+// }
 
 
 export default withStyles(styles, {withTheme : true}) (Discover);
