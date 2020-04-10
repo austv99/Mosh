@@ -1,5 +1,5 @@
 import React from 'react'
-import ConcertCard from "../concertCard"
+import ConcertCard from "./discoverCards/concertCard"
 import {Grid} from '@material-ui/core'
 
 function discoverConcerts() {

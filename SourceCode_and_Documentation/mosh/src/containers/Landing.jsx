@@ -1,7 +1,7 @@
 import React from 'react';
 import NavBar from './navBarLand';
 import Image from './landing_back.png';
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import Heart from './heart.svg';
 import Sync from './sync.svg';
 import Track from './track.svg';

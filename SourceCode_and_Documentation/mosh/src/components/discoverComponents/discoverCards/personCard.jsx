@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import ProfileModal from "../profileModal"
 
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
@@ -41,7 +42,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersonCard(props) {
   const classes = useStyles();
-  // const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card className={classes.root}>
@@ -62,12 +71,12 @@ export default function PersonCard(props) {
                 </ThemeProvider>
             </CardContent>
             <div style = {{display: 'flex', justifyContent: "flex-end", alignItems : "flex-start"}}>
-              <IconButton aria-label="addPerson" style = {{paddingTop: 0}}>
+              <IconButton aria-label="addPerson" style = {{paddingTop: 0}} onClick = {handleOpen}>
                 <AddCircleIcon className={classes.playIcon} />
               </IconButton>
             </div>
         </div>
-
+        <ProfileModal open = {open} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected}/>
     </Card>
   );    
 }

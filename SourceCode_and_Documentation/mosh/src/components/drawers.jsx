@@ -7,17 +7,17 @@ import {HomePri , HomeSec} from "./homescreenBar"
 
 class MobileDrawer extends React.Component {
     render() {
-        console.log(window.location.pathname);
+        // console.log(window.location.pathname);
         var discoverTags = ["music", "concerts", "people", "shared"];
         var artistTags = ["Drake", "Travis Scott", "Lil Uzi Vert", "The Weeknd"];
         var renderBars;
         if (window.location.pathname.startsWith("/discover")) {
-            renderBars = [
-                <>
+            renderBars = 
+                <React.Fragment>
                 <DiscPri primaryTags = {discoverTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
                 <DiscSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
-                </>
-            ];
+                </React.Fragment>
+            ;
         } else {
             renderBars = [
             <>
@@ -54,22 +54,25 @@ class MobileDrawer extends React.Component {
 
 class DesktopDrawer extends React.Component {
     render () {
-        console.log(window.location.pathname);
-        var discoverTags = ["music", "concerts", "people", "shared"];
+        // console.log(window.location.pathname);
+        // var discoverTags = ["music", "concerts", "people", "shared"];
         var artistTags = ["Drake", "Travis Scott", "Lil Uzi Vert", "The Weeknd"];
         var renderBars;
+
+        // console.log(this.props.primaryTags);
+        
         if (window.location.pathname.startsWith("/discover")) {
-            renderBars = [
+            renderBars = 
                 <>
-                <DiscPri primaryTags = {discoverTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-                <DiscSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+                    <DiscPri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+                    <DiscSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
                 </>
-            ];
+            ;
         } else {
             renderBars = [
             <>
-            <HomePri primaryTags = {artistTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-            <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+                <HomePri primaryTags = {artistTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+                <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
             </>
             ];
         }

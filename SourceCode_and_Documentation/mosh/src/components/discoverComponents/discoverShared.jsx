@@ -1,6 +1,6 @@
 import React from 'react'
 import {Grid} from '@material-ui/core'
-import MusicCard from "../musicCard"
+import MusicCard from "./discoverCards/musicCard"
 
 function discoverShared() {
     const cardStyles = {
