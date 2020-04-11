@@ -4,8 +4,9 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import Button from "@material-ui/core/Button"
+import Button from "@material-ui/core/Button";
 
+import ConcertModal from "../concertModal"
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
 let textTheme = createMuiTheme();
@@ -43,7 +44,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ConcertCard(props) {
   const classes = useStyles();
-  // const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card className={classes.root}>
@@ -67,10 +76,11 @@ export default function ConcertCard(props) {
                 </ThemeProvider>
             </CardContent>
             <div style = {{display: 'flex', justifyContent: "center", alignItems : "flex-start"}}>
-                <Button variant="contained" color="default" className = {classes.button}>
-                    Book Tickets
+                <Button variant="contained" color="default" className = {classes.button} onClick = {handleOpen}>
+                    View More
                 </Button>
             </div>
+            <ConcertModal open = {open} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected}/>
         </div>
 
     </Card>
