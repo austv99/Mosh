@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import ProfileModal from "../profileModal"
+import UserProfileModal from "../userProfileModal"
 
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
@@ -42,13 +43,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PersonCard(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  let [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => {
+  let handleOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  let handleClose = () => {
     setOpen(false);
   };
 
@@ -76,7 +77,8 @@ export default function PersonCard(props) {
               </IconButton>
             </div>
         </div>
-        <ProfileModal open = {open} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected}/>
+        {/* <ProfileModal open = {open} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected}/> */}
+        <UserProfileModal open = {open} handleOpen = {handleOpen} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected}/>
     </Card>
   );    
 }

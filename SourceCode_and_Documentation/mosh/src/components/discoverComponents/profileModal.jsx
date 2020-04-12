@@ -44,11 +44,11 @@ export default function ProfileModal(props) {
             <div className={classes.paper} style = {{textAlign : "center"}}>
                 <ImageAvatar img = {props.img} /> 
                 <h2>{props.title}</h2>
-                <p>Interests : Sample Interests</p>
-                <p>Favourite Album: Place Holder Artist</p>
-                <p>Favourite Artist : Some Wierd and unknown artist</p>
-                <p>Resides In: Some Country</p>
-                <p>Connected Platforms: Facebook, Spotify, Apple Music</p>
+                <p><b>Interests</b> : Sample Interests</p>
+                <p><b>Favourite Album</b> : Place Holder Artist</p>
+                <p><b>Favourite Artist</b> : Some Wierd and unknown artist</p>
+                <p><b>Resides In</b> : Some Country</p>
+                <p><b>Connected Platforms</b> : Facebook, Spotify, Apple Music</p>
                 <Button variant="contained" color={props.connected ? "primary" : "secondary"}>
                     {props.connected ? "Connect" : "Disconnect"}
                 </Button>
