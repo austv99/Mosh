@@ -34,10 +34,10 @@ export class DiscPri extends React.Component {
         return ( 
             <Link to = {`/discover/${title.toLowerCase()}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
                 <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
-                    <ListItemIcon>
+                    <ListItemIcon style={{ color: "#ffffff" }}>
                         {icon}
                     </ListItemIcon>
-                    <ListItemText primary = {button_text}/>
+                    <ListItemText primary = {button_text} style={{ color: "#ffffff" }}/>
                 </ListItem>
             </Link>
         )
@@ -51,11 +51,11 @@ export class DiscPri extends React.Component {
 
     render () {
         return (
-            <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
+            <List component="nav" aria-label="main list" style = {{flexGrow : 1, backgroundColor:"#292b2a"}}>
                 <ListSubheader style = {{textAlign : "center", paddingBottom: "2%"}}>
-                    <ListItemText primary = "Discover"/>
+                    <ListItemText primary = "Discover" style={{ color: "#ffffff" }}/>
                 </ListSubheader>
-                <Divider/>                
+                <Divider />                
                 {this.renderButtons()}
             </List>
         )
@@ -65,13 +65,13 @@ export class DiscPri extends React.Component {
 export class DiscSec extends React.Component {
     render () {
         return (
-            <Box>
+            <Box style={{backgroundColor:"#292b2a", color: "#ffffff"}}>
                 <Divider />
                 <List component="nav" aria-label="secondary list">
                     <Link to = "/discover/connections" style = {{textDecoration: 'none', color: "inherit"}}>
                         <ListItem button onClick = {(event) => this.props.handleSelection(event,"connections")} selected = {this.props.selectedTag === "connections"}>
                             <ListItemIcon>
-                                <PeopleIcon/>
+                                <PeopleIcon style={{ color: "#ffffff" }}/>
                             </ListItemIcon>
                             <ListItemText primary="Your Connections" />
                         </ListItem>

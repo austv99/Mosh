@@ -6,13 +6,17 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
+import SearchIcon from '@material-ui/icons/Search';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ShareIcon from '@material-ui/icons/Share';
+import PersonIcon from '@material-ui/icons/Person';
 
 
 class NavBar extends React.Component {
     
     render() {
         return (
-            <AppBar position="fixed" className={this.props.appBar}>
+            <AppBar position="fixed" className={this.props.appBar} style={{ background:'#000000', opacity:'0.8', boxShadow: 'none'}}>
                 <Toolbar>
                 <IconButton
                     color="inherit"
@@ -28,13 +32,20 @@ class NavBar extends React.Component {
                     Mosh
                     </Link>
                 </Typography>
-                
-                <Link to="/discover" style={{ textDecoration: 'none', color: 'inherit '}}>
-                <Button color="inherit">Discover</Button>
-                </Link>
-                <Link to="/" style={{ textDecoration: 'none', color: 'inherit '}}>
-                <Button color="inherit">Log out</Button>
-                </Link>
+                <div style={{display: "flex", flexDirection:"row", alignItems:"center"}}>
+                    <Link style={{ textDecoration: 'none', color: 'inherit ', margin: "5px"}}>
+                    <PersonIcon />
+                    </Link>
+                    <Link to="/discover" style={{ textDecoration: 'none', color: 'inherit ', margin: "5px"}}>
+                    <SearchIcon />
+                    </Link>
+                    <Link to="/share" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
+                    <ShareIcon />
+                    </Link>
+                    <Link to="/" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
+                        <ExitToAppIcon />
+                    </Link>
+                </div>
                 </Toolbar>
             </AppBar>
         )
