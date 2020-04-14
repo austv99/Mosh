@@ -9,7 +9,7 @@ export default function NavBar () {
     
         return (
             <>
-            <AppBar position="fixed" style={{ background:'#000000', opacity:'0.8', boxShadow: 'none'}}>
+            <AppBar position="fixed" style={{ background:'#303030', boxShadow: 'none'}}>
                 <Toolbar>
                 <Typography variant="h6" style = {{ flexGrow : 1 }}>
                     <Link to="/" style={{ textDecoration: 'none', color: 'inherit '}}>

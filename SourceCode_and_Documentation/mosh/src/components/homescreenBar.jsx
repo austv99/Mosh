@@ -14,10 +14,7 @@ export class HomePri extends React.Component {
         
         return ( 
             <Link to = {`/home/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
-                <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
-                    {/* <ListItemIcon>
-                        {icon}
-                    </ListItemIcon> */}
+                <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title} style = {{paddingLeft: "20px"}}> 
                     <ListItemText primary = {title}/>
                 </ListItem>
             </Link>
@@ -33,7 +30,7 @@ export class HomePri extends React.Component {
     render () {
         return (
             <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
-                <ListSubheader style = {{textAlign : "center", paddingBottom: "2%"}}>
+                <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
                     <ListItemText primary = "Your Interests"/>
                 </ListSubheader>
                 <Divider/>                
@@ -51,7 +48,7 @@ export class HomeSec extends React.Component {
                 <List component="nav" aria-label="secondary list">
                     <Link to = "/discover/connections" style = {{textDecoration: 'none', color: "inherit"}}>
                         <ListItem button onClick = {(event) => this.props.handleSelection(event,"connections")} selected = {this.props.selectedTag === "connections"}>
-                            <ListItemIcon>
+                            <ListItemIcon style = {{color: "inherit"}}>
                                 <PeopleIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Your Interests" />

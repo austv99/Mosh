@@ -35,7 +35,7 @@ export default function NavBarShare(props) {
     };
 
     return (
-        <AppBar position="fixed" className={props.appBar} style={{ background:'#000000', opacity:'0.8', boxShadow: 'none'}}>
+        <AppBar position="fixed" className={props.appBar} style={{ background:'#303030', boxShadow: 'none'}}>
             <Toolbar>
 
             <Typography variant="h6" style = {{ flexGrow : 1 }}>

@@ -34,10 +34,10 @@ export class DiscPri extends React.Component {
         return ( 
             <Link to = {`/discover/${title.toLowerCase()}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
                 <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
-                    <ListItemIcon style={{ color: "#ffffff" }}>
+                    <ListItemIcon style={{ color: "inherit" }}>
                         {icon}
                     </ListItemIcon>
-                    <ListItemText primary = {button_text} style={{ color: "#ffffff" }}/>
+                    <ListItemText primary = {button_text} style={{ color: "inherit" }}/>
                 </ListItem>
             </Link>
         )
@@ -51,9 +51,9 @@ export class DiscPri extends React.Component {
 
     render () {
         return (
-            <List component="nav" aria-label="main list" style = {{flexGrow : 1, backgroundColor:"#292b2a"}}>
-                <ListSubheader style = {{textAlign : "center", paddingBottom: "2%"}}>
-                    <ListItemText primary = "Discover" style={{ color: "#ffffff" }}/>
+            <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
+                <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color: "inherit"}}>
+                    <ListItemText primary = "Discover"/>
                 </ListSubheader>
                 <Divider />                
                 {this.renderButtons()}
@@ -65,13 +65,13 @@ export class DiscPri extends React.Component {
 export class DiscSec extends React.Component {
     render () {
         return (
-            <Box style={{backgroundColor:"#292b2a", color: "#ffffff"}}>
+            <Box style={{color: "inherit"}}>
                 <Divider />
                 <List component="nav" aria-label="secondary list">
                     <Link to = "/discover/connections" style = {{textDecoration: 'none', color: "inherit"}}>
                         <ListItem button onClick = {(event) => this.props.handleSelection(event,"connections")} selected = {this.props.selectedTag === "connections"}>
-                            <ListItemIcon>
-                                <PeopleIcon style={{ color: "#ffffff" }}/>
+                            <ListItemIcon style={{ color: "inherit" }}>
+                                <PeopleIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Your Connections" />
                         </ListItem>
