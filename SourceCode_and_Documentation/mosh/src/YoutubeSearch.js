@@ -1,5 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import YoutubeResult from './YoutubeResult';
+import YoutubeLiked from './YoutubeLiked';
+
 const YoutubeSearch= () => {
     const [submitted,setSubmitted] = useState("");
     const [search,setSearch] = useState("");
@@ -27,6 +29,8 @@ const YoutubeSearch= () => {
 				</label>
 				<button>Submit</button>
                 <YoutubeResult InputTitle={search} isSubmitted={submitted}/>
+                <YoutubeLiked/>
+
 			</form>
         </div>
     );
