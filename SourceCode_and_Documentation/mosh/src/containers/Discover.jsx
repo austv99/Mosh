@@ -1,6 +1,5 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import Typography from '@material-ui/core/Typography';
 import NavBar from "../components/navBar"
 import {DesktopDrawer, MobileDrawer} from "../components/drawers"
 import { withStyles } from '@material-ui/core/styles';
@@ -38,6 +37,8 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    // backgroundColor: "#292b2a",
+    // color: "white",
   },
   content: {
     flexGrow: 1,

@@ -1,6 +1,5 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-// import Typography from '@material-ui/core/Typography';
 import NavBar from "../components/navBar"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';

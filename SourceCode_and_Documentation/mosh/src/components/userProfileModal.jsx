@@ -4,9 +4,9 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import SettingsIcon from '@material-ui/icons/Settings';
-import ImageAvatar from "../avatar"
+import ImageAvatar from "./avatar"
 import { IconButton } from '@material-ui/core';
-import SettingsModal from "./settingsModal"
+import SettingsModal from "./discoverComponents/settingsModal"
 
 const useStyles = makeStyles((theme) => ({
   modal: {

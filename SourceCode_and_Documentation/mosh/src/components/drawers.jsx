@@ -13,18 +13,18 @@ class MobileDrawer extends React.Component {
         var renderBars;
         if (window.location.pathname.startsWith("/discover")) {
             renderBars = 
-                <React.Fragment>
+                <>
                 <DiscPri primaryTags = {discoverTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
                 <DiscSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
-                </React.Fragment>
+                </>
             ;
         } else {
-            renderBars = [
+            renderBars = 
             <>
             <HomePri primaryTags = {artistTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
             <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
             </>
-            ];
+            ;
         }
         return (
             <>
@@ -42,9 +42,8 @@ class MobileDrawer extends React.Component {
                     keepMounted: true, // Better open performance on mobile.
                 }}
                 >
-                <div>
-                {renderBars}}
-                </div>
+                <div className={this.props.toolbar} />
+                {renderBars}
                 </Drawer>
             </Hidden>
             </>
@@ -69,12 +68,12 @@ class DesktopDrawer extends React.Component {
                 </>
             ;
         } else {
-            renderBars = [
+            renderBars = 
             <>
                 <HomePri primaryTags = {artistTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
                 <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
             </>
-            ];
+            ;
         }
         return (
             <Hidden xsDown implementation="css">
