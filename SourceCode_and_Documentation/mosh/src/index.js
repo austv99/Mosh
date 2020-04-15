@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 
 import * as firebase from 'firebase';
 import firebaseconfig from './firebase.config';
-//firebase.initializeApp(firebaseconfig);
+firebase.initializeApp(firebaseconfig);
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

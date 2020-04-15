@@ -29,7 +29,7 @@ const YoutubeSearch= () => {
 				</label>
 				<button>Submit</button>
                 <YoutubeResult InputTitle={search} isSubmitted={submitted}/>
-                <YoutubeLiked/>
+                <YoutubeLiked isSubmitted={submitted}/>
 
 			</form>
         </div>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-const {gapi} = require('googleapis');
 // Google's OAuth 2.0 endpoint for requesting an access token
 var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
 var clientId = '542831090816-lvee4kg89nat6q1bsefe2n2itoup4su2.apps.googleusercontent.com';
@@ -17,11 +16,11 @@ const YoutubeLiked= (params) => {
 
     //AUTHENTICATION
     
-    return (<div >
-                <button className="googleBtn" type="button">
-                    Sign in With Google
-                </button>
-            </div>);
+    // return (<div >
+    //             <button className="googleBtn" type="button">
+    //                 Sign in With Google
+    //             </button>
+    //         </div>);
 
     
 
@@ -36,11 +35,13 @@ const YoutubeLiked= (params) => {
     var options2 = {
         part:'contentDetails',
         key:userKey,
-        client_id:clientId,
+        access_token:'',
         playlistId:'',
         maxResults:10
     }
     useEffect(() => {
+        var access_token = document.getElementById("channel-data").innerHTML
+        options2.access_token=access_token
         console.log(params)
         // GET request using fetch inside useEffect React hook
         
@@ -59,6 +60,7 @@ const YoutubeLiked= (params) => {
         }).then(() =>{
             var query1 = Object.keys(options2).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(options2[k])).join('&');
             var URL1 = ' https://www.googleapis.com/youtube/v3/playlistItems?' + query1;
+            console.log(URL1)
             fetch(URL1)
             .then(response => response.json())
             .then(responseData => {
@@ -73,7 +75,7 @@ const YoutubeLiked= (params) => {
             })
         });
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    });
+    },[params]);
     return (
         <div className="liked_videos">
             {result.length === 0 ? (
