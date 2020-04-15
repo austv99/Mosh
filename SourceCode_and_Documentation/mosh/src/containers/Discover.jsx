@@ -118,14 +118,4 @@ Discover.propTypes = {
     container: PropTypes.object,
 };
 
-
-// const discoverText = () => {
-//   return (
-//     <Typography>
-//         Please select something from the side bar
-//     </Typography>
-//   )
-// }
-
-
 export default withStyles(styles, {withTheme : true}) (Discover);

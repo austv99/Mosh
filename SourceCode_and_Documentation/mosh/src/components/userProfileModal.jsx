@@ -15,11 +15,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#292b2a",
+    color: "rgba(255, 255, 255, 0.7)",
+    // backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    // outline: 'none',
+    outline: 'none',
   },
 }));
 
@@ -56,7 +58,7 @@ export default function UserProfileModal(props) {
             <Fade in={props.open}>
                 <div className={classes.paper} style = {{textAlign : "center"}}>
                     <ImageAvatar img = {props.img} /> 
-                    <h2>{props.title}</h2>
+                    <h2 style = {{color: '#fff'}}>{props.title}</h2>
                     <p><b>Interests</b> : Sample Interests</p>
                     <p><b>Favourite Album</b> : Place Holder Artist</p>
                     <p><b>Favourite Artist</b> : Some Wierd and unknown artist</p>
@@ -65,7 +67,7 @@ export default function UserProfileModal(props) {
                     {/* <Button variant="contained" color={props.connected ? "primary" : "secondary"}>
                         {props.connected ? "Connect" : "Disconnect"}
                     </Button> */}
-                    <IconButton onClick = {handleSettingsOpen}>
+                    <IconButton onClick = {handleSettingsOpen} style = {{color: "inherit"}}>
                         <SettingsIcon/>
                     </IconButton>
                 </div>

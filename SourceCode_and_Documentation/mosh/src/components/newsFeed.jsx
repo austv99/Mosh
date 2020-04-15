@@ -9,7 +9,7 @@ export default function NewsFeed(props) {
         const [post, setPost] = useState("");
         
         const cardStyles = {
-            marginBottom : "3%"
+            marginBottom : "3%",
             }
         
             const handleChange = content => event => {
@@ -20,7 +20,7 @@ export default function NewsFeed(props) {
             <>
                 <Grid style = {cardStyles}>
                     <PostCard title = "Donald Trump" tag="Tag: General" content = "Make music great again!" img = "http://highlighthollywood.com/wp-content/uploads/2015/09/donald-trump-incapable-of-embarrassment-r.jpg"/>
-                </Grid>,
+                </Grid>
                 <Grid style = {cardStyles}>
                     <PostCard title = "Sco Mo" tag="Tag: General" content = "Stay inside, listen to music" img = "https://pbs.twimg.com/profile_images/1116081523394891776/AYnEcQnG_400x400.png"/>
                 </Grid>
@@ -39,6 +39,7 @@ export default function NewsFeed(props) {
         
         return(
         <>
+
             <TextField
                 id="filled-full-width"
                 label="What's on your mind?"
@@ -54,12 +55,16 @@ export default function NewsFeed(props) {
                 }}
                 variant="filled"
             />
-            <Button variant="contained" color="primary" onClick={() => addPost(post)}>
-                Post!
-            </Button>
+            <div style = {{display: "flex", justifyContent: "center", marginBottom: "10px"}}>
+                <Button variant="contained" color="primary" onClick={() => addPost(post)}>
+                    Post!
+                </Button>
+            </div>
+
             <div style = {{display: "flex", flexDirection: "column"}}> 
-            {posts}
-            </div> 
+                {posts}
+            </div>
+            
         </>
         
 

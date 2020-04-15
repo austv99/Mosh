@@ -12,6 +12,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Mosh from './mosh.png';
 
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+});
 
 export default function NavBar () {
     const [inOpen, setInOpen] = React.useState(false);
@@ -48,76 +56,86 @@ export default function NavBar () {
                 </Toolbar>
             </AppBar>
              <Dialog open={inOpen} onClose={handleInClose} aria-labelledby="form-dialog-title" maxWidth='xl'>
-             <DialogTitle id="form-dialog-title">Mosh</DialogTitle>
-             <DialogContent>
-               <DialogContentText>
-                Log in to Mosh.
-               </DialogContentText>
-               <TextField
-                 autoFocus
-                 margin="dense"
-                 id="name"
-                 label="Email Address"
-                 type="email"
-                 fullWidth
-               />
-               <TextField
-                id="standard-password-input"
-                label="Password"
-                type="password"
-                autoComplete="current-password"
+             <ThemeProvider theme = {theme}>   
+             <div style = {{backgroundColor: "#292b2a"}}>
+              <DialogTitle id="form-dialog-title" style = {{color: "#ffffff"}}>Mosh</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Log in to Mosh.
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Email Address"
+                  type="email"
+                  fullWidth
                 />
-             </DialogContent>
-             <DialogActions>
-               <Button onClick={handleInClose} color="primary">
-                 Cancel
-               </Button>
-               <Button onClick={handleInClose} color="primary">
-                 Log In
-               </Button>
-             </DialogActions>
+                <TextField
+                  id="standard-password-input"
+                  label="Password"
+                  type="password"
+                  autoComplete="current-password"
+                  />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleInClose} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={handleInClose} color="primary">
+                  Log In
+                </Button>
+              </DialogActions>
+             </div>
+             </ThemeProvider>
            </Dialog>
+           
+           
            <Dialog open={upOpen} onClose={handleUpClose} aria-labelledby="form-dialog-title" maxWidth='xl'>
-             <div style={{backgroundColor:"#292b2a", color:"#ffffff"}}>
-             <DialogTitle id="form-dialog-title">Mosh</DialogTitle>
+            <ThemeProvider theme = {theme}>            
+             <div style = {{backgroundColor: "#292b2a"}}>
+             <DialogTitle id="form-dialog-title" style = {{color: "#ffffff"}}>Mosh</DialogTitle>
+             
+        
              <DialogContent>
-               <DialogContentText style={{color:"#ffffff"}}>
-                We're excited to have you here.
-                Sign Up to unlock a new music community.
-               </DialogContentText>
-               <DialogContentText style={{color:"#ffffff"}}>
-                Sign Up to unlock a new music community.
-               </DialogContentText>
-               <TextField
-                 autoFocus
-                 margin="dense"
-                 id="standard-required"
-                 label="Name"
-                 type="name"
-                 fullWidth
-               />
-               <TextField
-                 margin="dense"
-                 id="email"
-                 label="Email Address"
-                 type="email"
-                 fullWidth
-               />
-               <TextField
+
+              <DialogContentText>
+              We're excited to have you here.
+              Sign Up to unlock a new music community.
+              </DialogContentText>
+
+              <DialogContentText>
+              Sign Up to unlock a new music community.
+              </DialogContentText>
+
+              <TextField
+                  autoFocus
+                  id="standard-required"
+                  label="Name"
+                  type="name"
+                  fullWidth
+              />
+              <TextField
+                id="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+              />
+              <TextField
                 id="standard-password-input"
                 label="Password"
                 type="password"
                 autoComplete="current-password"
                 fullWidth
-                />
-                <TextField
+              />
+              <TextField
                 id="standard-password-input"
                 label="Retype Password"
                 type="password"
                 autoComplete="current-password"
                 fullWidth
-                />
-             </DialogContent>
+              />
+              </DialogContent>
              <DialogActions>
                <Button onClick={handleUpClose} color="primary">
                  Cancel
@@ -128,7 +146,9 @@ export default function NavBar () {
              </DialogActions>
         
              </div>
+             </ThemeProvider>
            </Dialog>
+
            </>
         )
     

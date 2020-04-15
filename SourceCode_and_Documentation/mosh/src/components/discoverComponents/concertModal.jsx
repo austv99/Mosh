@@ -14,11 +14,13 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#292b2a",
+    color: "rgba(255, 255, 255, 0.7)",
+    // backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    // outline: 'none', //Remove background glow around modals
+    outline: 'none', //Remove background glow around modals
   },
 }));
 
@@ -43,7 +45,7 @@ export default function ConcertModal(props) {
         <Fade in={props.open}>
             <div className={classes.paper} style = {{textAlign : "center"}}>
                 <ImageAvatar img = {props.img} /> 
-                <h2>{props.title} - Concert Title</h2>
+                <h2 style = {{color: "#fff"}}>{props.title} - Concert Title</h2>
                 <p><b>Venue:</b> Quodos Bank Arena</p>
                 <p><b>Date:</b> 20 April, 2020</p>
                 <p><b>Time:</b> 8pm</p>

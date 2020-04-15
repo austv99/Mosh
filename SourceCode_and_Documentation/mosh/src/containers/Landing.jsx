@@ -4,6 +4,7 @@ import Image from './landing_back.png';
 import Heart from './heart.svg';
 import Sync from './sync.svg';
 import Track from './track.svg';
+
 const styles = {
     background: {
         backgroundImage: `url(${Image})`,
@@ -61,7 +62,6 @@ const Landing = (props) => {
     
     return (
         <>
-        
         <NavBar />
         <div style={styles.background}>
             <div style={styles.divContainer}>

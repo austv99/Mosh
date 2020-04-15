@@ -33,12 +33,6 @@ const useStyles = makeStyles((theme) => ({
     width: "25%",
     maxWidth : 151
   },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
 }));
 
 export default function PersonCard(props) {
@@ -78,7 +72,6 @@ export default function PersonCard(props) {
             </div>
         </div>
         <ProfileModal open = {open} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected}/>
-        {/* <UserProfileModal open = {open} handleOpen = {handleOpen} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected}/> */}
     </Card>
   );    
 }
