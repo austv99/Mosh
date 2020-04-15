@@ -5,6 +5,7 @@ import Homescreen from "./containers/Homescreen";
 import Landing from "./containers/Landing";
 import Connect from "./containers/Connect";
 import Share from "./containers/Share";
+import Spotify from "./containers/Spotify";
 
 
 function App() {
@@ -25,6 +26,9 @@ function App() {
         </Route>
         <Route path="/share">
           <Share />
+        </Route>
+        <Route path="/spotify">
+          <Spotify />
         </Route>
       </Router>
     </div>
