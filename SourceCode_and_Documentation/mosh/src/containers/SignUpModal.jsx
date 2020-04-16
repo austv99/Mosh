@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
-import fire from '../config/fire'
+import { fire }from '../config/fire'
 
 const theme = createMuiTheme({
     palette: {
@@ -31,14 +31,14 @@ export default function SignUpModal(props) {
             alert(error);
         })
     }
-     
+
     return (
         <Dialog open={props.upOpen} onClose={props.handleUpClose} aria-labelledby="form-dialog-title" maxWidth='xl'>
-            <ThemeProvider theme = {theme}>            
+            <ThemeProvider theme = {theme}>
              <form style = {{backgroundColor: "#292b2a"}} onSubmit = {handleSubmit}>
              <DialogTitle id="form-dialog-title" style = {{color: "#ffffff"}}>Mosh</DialogTitle>
-             
-        
+
+
              <DialogContent>
 
               <DialogContentText>
@@ -95,7 +95,7 @@ export default function SignUpModal(props) {
                  Sign Up
                </Button>
              </DialogActions>
-        
+
              </form>
              </ThemeProvider>
         </Dialog>

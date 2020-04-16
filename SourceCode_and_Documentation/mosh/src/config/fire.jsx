@@ -11,17 +11,14 @@ const config = {
   measurementId: "G-QVRJRKC8QL"
 };
 
+const uiConfig ={
+  signInFlow: "popup",
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID
+  ],
+  callbacks:{ signInSuccess: () => false }
+}
 const fire = firebase.initializeApp(config);
-export default fire;
 
-
-
- // {this.state.user ? (<Homescreen/>) : (<SignIn/>)}
-// this line is for checking log in state
-// <Router>
-//   <Route exact path="/"><Landing/></Route>
-//   <Route path="/discover"><Discover/></Route>
-//   <Route path="/home"><Homescreen/></Route>
-//   <Route path="/signin"><SignIn/></Route>
-//   <Route path="/signup"><SignUp/></Route>
-// </Router>
+export {fire,uiConfig}

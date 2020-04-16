@@ -11,7 +11,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import PersonIcon from '@material-ui/icons/Person';
 import UserProfileModal from "./userProfileModal"
 import { makeStyles } from '@material-ui/core/styles';
-import fire from '../config/fire'
+import { fire } from '../config/fire'
 
 
 let avatar_url = "https://scontent.fsyd4-1.fna.fbcdn.net/v/t1.0-9/p960x960/83084529_2426902500959534_3911554766622162944_o.jpg?_nc_cat=111&_nc_sid=09cbfe&_nc_oc=AQllXWmPqGoO6LfqqdQXj3li1iED8jgdjzvkZpYuheTtHyu36Z6s40d69qRY94r_bx4&_nc_ht=scontent.fsyd4-1.fna&_nc_tp=6&oh=37b6656b3e75b655ea06f9a44eb9c2e9&oe=5EBAD30E";
@@ -32,7 +32,7 @@ function NavBar(props) {
     const handleOpen = () => {
         setOpen(true);
     };
-    
+
     const handleClose = () => {
         setOpen(false);
     };

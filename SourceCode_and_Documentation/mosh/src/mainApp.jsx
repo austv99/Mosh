@@ -1,4 +1,4 @@
-import fire from './config/fire';
+import {fire} from './config/fire';
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Discover from "./containers/Discover";

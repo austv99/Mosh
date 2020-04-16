@@ -4,7 +4,6 @@ import NavBar from "../components/navBar"
 import {DesktopDrawer, MobileDrawer} from "../components/drawers"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-
 import {Switch, Route} from 'react-router-dom'
 import discoverConcerts from '../components/discoverComponents/discoverConcerts'
 import discoverPeople from "../components/discoverComponents/discoverPeople"
@@ -51,7 +50,7 @@ class Discover extends React.Component {
         super(props);
 
         this.state = {
-            mobileOpen : false, 
+            mobileOpen : false,
             primaryTags : ["music", "concerts", "people", "shared"],
             selectedTag: "music"
         }
@@ -61,7 +60,7 @@ class Discover extends React.Component {
         this.setState((state) => ({
             mobileOpen : !state.mobileOpen
         }))
-    }; 
+    };
 
     handleSelection = (event, title) => {
         this.setState(() => ({
@@ -81,13 +80,13 @@ class Discover extends React.Component {
 
                 {/* Navbar Goes Here */}
                 <NavBar appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
-                
+
                 <nav className={classes.drawer}>
 
-                    <MobileDrawer type="discover" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
+                    <MobileDrawer type="discover" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle}
                     drawerPaper = {classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
-                    
+
                     <DesktopDrawer type="discover" drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
                     handleSelection = {this.handleSelection} selectedTag = {this.state.selectedTag}/>
                 </nav>
@@ -95,7 +94,7 @@ class Discover extends React.Component {
 
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    
+
                     {/* Main Body of page goes here */}
                     <Switch>
                         <Route path = "/discover" exact component = {discoverMusic}/>

@@ -6,29 +6,27 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-
-import fire from '../config/fire'
+import { fire , uiConfig} from "../config/fire"
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
 
 const theme = createMuiTheme({
     palette: {
       type: 'dark',
     },
   });
-
 export default function SignInModal(props) {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(email);
         // console.log(password);
 
         fire.auth().signInWithEmailAndPassword(email, password).then((u)=>{
-            //Nothing to do here            
+            //Nothing to do here
         }).catch((error) => {
             alert(error.message);
         });
@@ -36,7 +34,7 @@ export default function SignInModal(props) {
 
     return (
         <Dialog open={props.inOpen} onClose={props.handleInClose} aria-labelledby="form-dialog-title" maxWidth='xl'>
-            <ThemeProvider theme = {theme}>   
+            <ThemeProvider theme = {theme}>
             <DialogTitle id="form-dialog-title" style = {{backgroundColor: "#292b2a", color: "#ffffff"}}>Mosh</DialogTitle>
             <form style = {{backgroundColor: "#292b2a"}} onSubmit = {handleSubmit}>
                 <DialogContent>
@@ -64,7 +62,7 @@ export default function SignInModal(props) {
                         }}
                     />
                 </DialogContent>
-                
+
                 <DialogActions>
                     <Button onClick={props.handleInClose} color="primary">
                         Cancel
@@ -73,6 +71,9 @@ export default function SignInModal(props) {
                         Log In
                     </Button>
                 </DialogActions>
+                <DialogContent>
+                  <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={fire.auth()}/>
+                </DialogContent>
             </form>
             </ThemeProvider>
         </Dialog>
