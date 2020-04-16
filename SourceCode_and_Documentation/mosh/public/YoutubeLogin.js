@@ -64,7 +64,8 @@ function updateSigninStatus(isSignedIn) {
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token
     console.log(access_token)
     auth_token=access_token;
-    showChannelData(access_token)
+    var displayedToken = document.getElementById('token')
+    displayedToken.innerHTML = access_token;
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
