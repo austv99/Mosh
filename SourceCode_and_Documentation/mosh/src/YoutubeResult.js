@@ -53,7 +53,7 @@ const YoutubeResult= (params) => {
     return (
         <div className="search-params">
             {result.length === 0 ? (
-				<h1>Nothing to see here ;)</h1>
+				<h1>Type in something and press submit to search for a song ;)</h1>
 			) : (result)}
         </div>
     );

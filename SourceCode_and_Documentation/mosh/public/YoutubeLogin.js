@@ -17,6 +17,8 @@ const channelInput = document.getElementById('channel-input');
 const videoContainer = document.getElementById('video-container');
 
 const defaultChannel = 'techguyweb';
+var auth_token = '';
+
 
 // Form submit and change channel
 channelForm.addEventListener('submit', e => {
@@ -61,6 +63,7 @@ function updateSigninStatus(isSignedIn) {
     //ReactDOM.render("<YoutubeLiked />", document.getElementById('root'));
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token
     console.log(access_token)
+    auth_token=access_token;
     showChannelData(access_token)
   } else {
     authorizeButton.style.display = 'block';

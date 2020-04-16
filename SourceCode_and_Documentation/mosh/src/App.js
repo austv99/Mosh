@@ -3,6 +3,7 @@ import logo from './logo.svg';
 //import { Router, Link } from "@reach/router";
 import './App.css';
 import YoutubeSearch from './YoutubeSearch';
+import ScriptsLoad from './ScriptsLoad';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         
         <YoutubeSearch />
       </header>
+      <ScriptsLoad/>
     </div>
   );
 }
