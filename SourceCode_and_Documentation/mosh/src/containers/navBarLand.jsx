@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 class NavBar extends React.Component {
-    
+
     render() {
         return (
             <AppBar position="fixed" className={this.props.appBar}>
@@ -26,7 +26,7 @@ class NavBar extends React.Component {
                     Mosh
                     </Link>
                 </Typography>
-                <Link to="/home" style={{ textDecoration: 'none', color: 'inherit '}}>
+                <Link to="/signin" style={{ textDecoration: 'none', color: 'inherit '}}>
                 <Button color="inherit">Sign In</Button>
                 </Link>
                 <Link to="/signup" style={{ textDecoration: 'none', color: 'inherit '}}>
