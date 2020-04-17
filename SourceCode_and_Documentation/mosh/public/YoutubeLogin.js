@@ -91,42 +91,33 @@ function showChannelData(data) {
 }
 
 // Get channel from API
-function getChannel(channel) {
+function getChannel(channel){
   gapi.client.youtube.channels
     .list({
-      part: 'snippet,contentDetails,statistics',
+      part: 'id',
       forUsername: channel
     })
     .then(response => {
-      console.log(response);
-      const channel = response.result.items[0];
-
-      const output = `
-        <ul class="collection">
-          <li class="collection-item">Title: ${channel.snippet.title}</li>
-          <li class="collection-item">ID: ${channel.id}</li>
-          <li class="collection-item">Subscribers: ${numberWithCommas(
-            channel.statistics.subscriberCount
-          )}</li>
-          <li class="collection-item">Views: ${numberWithCommas(
-            channel.statistics.viewCount
-          )}</li>
-          <li class="collection-item">Videos: ${numberWithCommas(
-            channel.statistics.videoCount
-          )}</li>
-        </ul>
-        <p>${channel.snippet.description}</p>
-        <hr>
-        <a class="btn grey darken-2" target="_blank" href="https://youtube.com/${
-          channel.snippet.customUrl
-        }">Visit Channel</a>
-      `;
-      showChannelData(output);
-      
-      const playlistId = channel.contentDetails.relatedPlaylists.uploads;
+      console.log(response.result)
+      channel=response.result.items[0].id
+      getMusicVideos(channel)
+    })
+}
+function getMusicVideos(channel) {
+  gapi.client.youtube.channelSections
+    .list({
+      part: 'snippet,contentDetails',
+      channelId: channel
+    })
+    .then(response => {
+      const playlists = response.result.items;
+      console.log(playlists)  
+      //we assume if position 0 its music videos
+      musicVideos = playlists.find(item => item.snippet.position === 0);
+      const playlistId = musicVideos.contentDetails.playlists[0];
       requestVideoPlaylist(playlistId);
     })
-    .catch(err => alert('No Channel By That Name'));
+    .catch(err => console.log(err));
 }
 
 // Add commas to number
@@ -155,7 +146,7 @@ function requestVideoPlaylist(playlistId) {
 
         output += `
           <div class="col s3">
-          <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${videoId}" frameborder="0"></iframe>
           </div>
         `;
       });
