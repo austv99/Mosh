@@ -5,7 +5,6 @@ import Homescreen from "./containers/Homescreen";
 import Landing from "./containers/Landing";
 import Connect from "./containers/Connect";
 import Share from "./containers/Share";
-import Spotify from "./containers/Spotify";
 
 
 function App() {
@@ -18,17 +17,14 @@ function App() {
         <Route path="/discover">
             <Discover/>
         </Route>
-        <Route path="/home">
+        <Route path="/home/:token">
             <Homescreen/>
         </Route>
         <Route path="/connect">
           <Connect />
         </Route>
-        <Route path="/share">
+        <Route path="/share/:token">
           <Share />
-        </Route>
-        <Route path="/spotify">
-          <Spotify />
         </Route>
       </Router>
     </div>

@@ -5,9 +5,17 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import newsFeed from '../components/newsFeed'
 import artistPage from '../components/artistPage'
-import { Switch, Route } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useParams
+} from "react-router-dom";
 import { DesktopDrawer, MobileDrawer } from "../components/drawers";
+import Spotify from 'spotify-web-api-js';
 
+const spotifyApi = new Spotify();
 const drawerWidth = 200;
 
 const styles = theme => ({
@@ -43,13 +51,33 @@ const styles = theme => ({
 class Homescreen extends React.Component {
     constructor(props) {
         super(props);
-
+        let path = window.location.pathname.replace("/home/", "");
+        let token;
+        if (path.startsWith("token/")) {
+          token = path.replace("token/", "");
+        }
         this.state = {
             mobileOpen : false, 
-            primaryTags : ["Drake", "Travis Scott", "Lil Uzi Vert", "The Weeknd"],
-            selectedTag: ""
+            // primaryTags : ["Drake", "Travis Scott", "Lil Uzi Vert", "The Weeknd"],
+            selectedTag: "",
+            artists: [],
+            token: token,
         }
+        if (this.state.token) {
+          spotifyApi.setAccessToken(this.state.token);
+      }
     }
+  //   getTopTracks() {
+  //     let list = [];
+  //     spotifyApi.getMyTopArtists()
+  //         .then((response) => {
+  //             // response.items.map(obj => list.push([obj.name, obj.images[0].url, obj.external_urls.spotify, obj.genres]))
+  //             response.items.map(obj => list.push(obj.name));
+              
+
+  //           })
+  //     return list;
+  // }
 
     handleDrawerToggle = () => {
         this.setState((state) => ({
@@ -69,21 +97,21 @@ class Homescreen extends React.Component {
     
     render () {
         const {classes} = this.props;
-        
+
         return  (
             <div className={classes.root}>
                 <CssBaseline />
 
                 {/* Navbar Goes Here */}
-                <NavBar appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
+                <NavBar appBar = {classes.appBar} token={this.state.token} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
                 
                 <nav className={classes.drawer}>
 
                     <MobileDrawer type="home" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
-                    drawerPaper = {classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
+                    drawerPaper = {classes.drawerPaper} primaryTags = {this.state.token} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
                     
-                    <DesktopDrawer type="home" drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
+                    <DesktopDrawer type="home" drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.token}
                     handleSelection = {this.handleSelection} selectedTag = {this.state.selectedTag}/>
                 </nav>
 
@@ -93,11 +121,11 @@ class Homescreen extends React.Component {
                     
                     {/* Main Body of page goes here */}
                     <Switch>
-                        <Route path = "/home" exact component = {newsFeed}/>
-                        <Route path = "/home/Drake" component= {artistPage}/>
-                        <Route path = "/home/TravisScott" component= {artistPage}/>
+                        <Route path = {"/home"}exact component = {newsFeed}/>
+                        <Route path = "/home/artist/:artist" component= {artistPage}/>
+                        {/* <Route path = "/home/TravisScott" component= {artistPage}/>
                         <Route path = "/home/LilUziVert" component= {artistPage}/>
-                        <Route path = "/home/TheWeeknd" component= {artistPage}/>
+                        <Route path = "/home/TheWeeknd" component= {artistPage}/> */}
                         
                     </Switch>
                 </main>
@@ -111,6 +139,7 @@ Homescreen.propTypes = {
     // Injected by the documentation to work in an iframe.
     // You won't need it on your project.
     container: PropTypes.object,
+    // token: PropTypes.string
 };
 
 

@@ -28,7 +28,7 @@ class NavBar extends React.Component {
                     <MenuIcon />
                 </IconButton>
                 <Typography variant="h6" style = {{ flexGrow : 1 }}>
-                    <Link to="/home" style={{ textDecoration: 'none', color: 'inherit '}}>
+                    <Link to={"/home/token/" + this.props.token} style={{ textDecoration: 'none', color: 'inherit '}}>
                     Mosh
                     </Link>
                 </Typography>
@@ -36,10 +36,10 @@ class NavBar extends React.Component {
                     <Link style={{ textDecoration: 'none', color: 'inherit ', margin: "5px"}}>
                     <PersonIcon />
                     </Link>
-                    <Link to="/discover" style={{ textDecoration: 'none', color: 'inherit ', margin: "5px"}}>
+                    <Link to={"/discover/token/" + this.props.token} style={{ textDecoration: 'none', color: 'inherit ', margin: "5px"}}>
                     <SearchIcon />
                     </Link>
-                    <Link to="/share" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
+                    <Link to={"/share/token/" + this.props.token} style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
                     <ShareIcon />
                     </Link>
                     <Link to="/" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>

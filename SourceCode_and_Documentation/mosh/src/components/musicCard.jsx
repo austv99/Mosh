@@ -106,7 +106,7 @@ export default function MusicCard(props) {
         <div style={{backgroundColor: "#292b2a", color:"#ffffff"}}>
         <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
-          <img src={props.img} alt="" />
+          <img src={props.img} alt="" style={{width: "250px", height:"250px"}}/>
           <DialogContentText id="alert-dialog-description" style={{color:"#ffffff"}}>
             {props.artist}
           </DialogContentText>
@@ -116,7 +116,9 @@ export default function MusicCard(props) {
           <div style={{display: "flex", flexDirection: "column"}}>
           <div style={{display: "flex", alignItems: "center"}}>
           <img src={SpotifyIcon} alt="" style={{margin: "5px", paddingRight: "2vw"}}/>
+          <a href={props.link} style={{textDecoration: "none", color:"inherit"}}>
           <h4>Listen on Spotify</h4>
+          </a>
           <IconButton onClick={handleClickShare}>
             <ShareIcon style={{paddingLeft: "1vw", color: "#ffffff"}}/>
           </IconButton>

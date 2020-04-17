@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NavBar from './ConnectBar';
 import Button from '@material-ui/core/Button';
 import SpotifyIcon from './spotify.svg';
 import YoutubeIcon from './youtube.svg';
 import Image from './landing_back.png';
-import * as SpotifyFunctions from '../spotifyFunctions.js';
 import DoneIcon from '@material-ui/icons/Done';
-import { Link } from 'react-router-dom';
+import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import Spotify from 'spotify-web-api-js';
+import Homescreen from './Homescreen';
+
+const spotifyApi = new Spotify();
 
 const styles = {
     divContainer: {
@@ -35,23 +38,29 @@ const styles = {
 }
 
 
-class Connect extends Component {
-    constructor(props) {
-		super(props)
-		this.state = {
-			loggedInToSpotify: false,
-			accessToken: null
-		}
-	}
+class Connect extends React.Component {
+    constructor() {
+        super();
+        const params = this.getHashParams();
+        const token = params.access_token;
+        if (token) {
+            spotifyApi.setAccessToken(token);
+        }
+        this.state = {
+            loggedIn: token ? true : false,
+            token: token
+        }
+    }
+    getHashParams() {
+        var hashParams = {};
+        var e, r = /([^&;=]+)=?([^&;]*)/g,
+            q = window.location.hash.substring(1);
+        while ( e = r.exec(q)) {
+           hashParams[e[1]] = decodeURIComponent(e[2]);
+        }
+        return hashParams;
+    }
 
-	componentDidMount(){
-	//will check URL for accessToken hash. If it's not there, it will show the connect-spotify-button as a link
-	//which will then redirect back to your site with the hash. If there is a hash, then we will jump right into the player
-        const accessToken = SpotifyFunctions.parseLogin();
-        const token = accessToken.access_token;
-        console.log(token);
-		token ? this.setState(() => ({loggedInToSpotify: true, accessToken: token})) : this.setState(() => ({loggedInToSpotify: false, accessToken: null}));
-	}
     render() {
     return(
         <>
@@ -63,19 +72,13 @@ class Connect extends Component {
         <div style={styles.buttons}>
             <div style={{display: "flex", alignItems: "center"}}>
             <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "40vw", margin: "10px",}} >
-                <a href={SpotifyFunctions.spotifyLogin()} style={{textDecoration: 'none'}}> 
+                <a href="http://localhost:8888" style={{textDecoration: 'none'}}> 
                 <div style={{display: "flex"}}>
                     <img src={SpotifyIcon} alt="" style={{paddingRight:"5vw"}}/>
                     <h3 style={{color: "#2D8642"}}>Connect with Spotify</h3>
                 </div>
                 </a>
             </Button>
-            {this.state.loggedInToSpotify ? 
-            <div style={{backgroundColor:"#000000", height:"25px", width:"25px", borderRadius:"50%" }}>
-                <DoneIcon />
-            </div>
-            : 
-            <div></div>}
             </div>
             <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "40vw", margin: "10px"}} >
             <div style={{display: "flex"}}>
@@ -88,16 +91,15 @@ class Connect extends Component {
         <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "20vw", margin: "10px"}} >
         Skip for now
         </Button>
-        <Link to={{
-            pathname: '/home',
-            state: {
-                spotifyToken: this.state.accessToken
-            }
-        }} style={{textDecoration: 'none', color: 'inherit'}}>
+        
         <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "20vw", margin: "10px"}} >
+        <Link to={"/home/token/" + this.state.token} style={{textDecoration:'none', color:'inherit'}}>
         Continue
-        </Button>
         </Link>
+        </Button>
+        <Switch>
+            <Route path="/home/:token" component={Homescreen} />
+        </Switch>
         </div>
         </div>
         </div>
