@@ -8,13 +8,13 @@ import {HomePri , HomeSec} from "./homescreenBar"
 class MobileDrawer extends React.Component {
     render() {
         // console.log(window.location.pathname);
-        var discoverTags = ["music", "concerts", "people", "shared"];
+        // var discoverTags = ["music", "concerts", "people", "shared"];
         var artistTags = ["Drake", "Travis Scott", "Lil Uzi Vert", "The Weeknd"];
         var renderBars;
         if (window.location.pathname.startsWith("/discover")) {
             renderBars = 
                 <>
-                <DiscPri primaryTags = {discoverTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+                <DiscPri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
                 <DiscSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
                 </>
             ;
@@ -22,7 +22,7 @@ class MobileDrawer extends React.Component {
             renderBars = 
             <>
             <HomePri primaryTags = {artistTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-            <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+            {/* <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/> */}
             </>
             ;
         }
@@ -71,7 +71,7 @@ class DesktopDrawer extends React.Component {
             renderBars = 
             <>
                 <HomePri primaryTags = {artistTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-                <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+                {/* <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/> */}
             </>
             ;
         }

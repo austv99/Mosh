@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 
-import { fire }from '../config/fire'
+import { fire } from '../config/fire'
 
 const theme = createMuiTheme({
     palette: {
@@ -26,9 +26,16 @@ export default function SignUpModal(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fire.auth().createUserWithEmailAndPassword(email, password)
-        .catch((error) => {
-            alert(error);
+        fire.auth().createUserWithEmailAndPassword(email, password).then(() => {
+          fire.auth().currentUser.updateProfile({
+            displayName: name,
+            photoURL: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
+          }).catch(err => {
+            alert(err.message);
+          })
+        })
+        .catch((err) => {
+            alert(err.message);
         })
     }
 

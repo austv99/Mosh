@@ -45,8 +45,6 @@ const useStyles = makeStyles((theme) => ({
 export default function PostCard(props) {
   const classes = useStyles();
 
-  const[count, setCount] = useState(0);
-  
   return (
     <Card className={classes.root}>
         <CardMedia
@@ -70,22 +68,13 @@ export default function PostCard(props) {
                 </ThemeProvider>
             </CardContent>
             <div style = {{display: 'flex', justifyContent: "flex-end", alignItems : "center", flexWrap: "wrap-reverse"}}>
-                {/* <h5>{props.tag}</h5>  */}
-                {/* <ThumbUpAltIcon/> */}
-                <h5>{count} likes </h5> 
-                <IconButton className = {classes.button} onClick={() => setCount(count + 1)}>
+                <h5>{props.count} likes </h5> 
+                <IconButton className = {classes.button} onClick = {props.handleLike}> 
                   <ThumbUpAltIcon/>
                 </IconButton>
                 <IconButton className = {classes.button}>
                   <ChatBubbleIcon/>
                 </IconButton >
-                
-                {/* <Button variant="contained" color="default" className = {classes.button} onClick={() => setCount(count + 1)} size = "small">
-                    Like
-                </Button> */}
-                {/* <Button variant="contained" color="default" className = {classes.button} size = "small">
-                    Comment
-                </Button> */}
             </div>
         </div>
 

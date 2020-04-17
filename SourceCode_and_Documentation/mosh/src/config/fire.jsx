@@ -1,4 +1,7 @@
-import firebase from 'firebase';
+import firebase from 'firebase/app';
+// import auth from 'firebase/auth'
+import 'firebase/auth'
+import 'firebase/firestore'
 
 const config = {
   apiKey: "AIzaSyAeREgt3YM_FPtwhYnMWF_AijkdYwyykR0",
@@ -17,8 +20,9 @@ const uiConfig ={
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID
   ],
-  callbacks:{ signInSuccess: () => false }
+  callbacks:{ signInSuccessWithAuthResult: () => false }
 }
+
 const fire = firebase.initializeApp(config);
 
 export {fire,uiConfig}

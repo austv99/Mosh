@@ -53,6 +53,18 @@ class Homescreen extends React.Component {
         }
     }
 
+    // componentDidMount() {
+    //   let db = fire.firestore();
+
+    //   db.collection('posts').get().then(snapshots => {
+    //     snapshots.forEach(doc => {
+    //       console.log(doc.data());
+    //     });
+    //   }).catch(err => {
+    //     alert(err.message);
+    //   })
+    // }
+
     handleDrawerToggle = () => {
         this.setState((state) => ({
             mobileOpen : !state.mobileOpen
@@ -99,8 +111,7 @@ class Homescreen extends React.Component {
                         <Route path = "/home/Drake" component= {artistPage}/>
                         <Route path = "/home/TravisScott" component= {artistPage}/>
                         <Route path = "/home/LilUziVert" component= {artistPage}/>
-                        <Route path = "/home/TheWeeknd" component= {artistPage}/>
-                        
+                        <Route path = "/home/TheWeeknd" component= {artistPage}/>  
                     </Switch>
                 </main>
             </div>

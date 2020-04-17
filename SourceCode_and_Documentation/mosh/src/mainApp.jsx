@@ -9,6 +9,7 @@ import Share from "./containers/Share";
 
 import {Redirect} from "react-router-dom";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -26,10 +27,9 @@ class App extends Component {
     fire.auth().onAuthStateChanged((user) => {
 
       if (user) {
-        console.log(user.email);
+        console.log(user);
         this.setState({ user });
         localStorage.setItem('user', user.uid);
-
       } else {
         console.log("No user");
         this.setState({ user: null });
@@ -62,33 +62,4 @@ class App extends Component {
     )}
 }
 
- export default App;
- // <Router>
- //   <Route path="/signin"><SignIn/></Route>
- //   <Route path="/signup"><SignUp/></Route>
- // </Router>
- //   <Router>
- //     <Route exact path="/"><Landing/></Route>
- //     <Route path="/discover"><Discover/></Route>
- //     {this.state.user ?(<Homescreen/>) :(<Landing/>)}
- //   </Router>
-
-//
-// uiConfig = {
-//   signInFlow: "popup",
-//   signinOptions: [
-//     firebase.auth.FacebookAuthProvider.Provider_ID
-//   ],
-//   callbacks: {
-//     signInSuccess : () => false
-//   }
-// }
-
-
-  // render(){
-  //   return (
-  //     <div className="App">
-
-  //     </div>
-  //   );
-  // }
+export default App;
