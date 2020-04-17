@@ -18,7 +18,7 @@ const YoutubeLiked= (params) => {
     const [auth,setAuth] = useState("NotAuthorised");
     function handleChange(e){
         setAuth("Authorised")
-        console.log("AUTHORISED???")
+        //console.log("AUTHORISED???")
     }
     function useDidMount() {
         const [didMount, setDidMount] = useState(false)
@@ -45,14 +45,14 @@ const YoutubeLiked= (params) => {
             fetch(likedURL)
             .then(response => response.json())
             .then(responseData => {
-                //console.log(responseData);
+                console.log(responseData);
                 if (responseData.items == null){
                     console.log(responseData)
                 } else {
-                    videoId = (responseData.items).map(a => a.snippet.id);
+                    videoId = (responseData.items).map(a => a.id);
                     console.log(videoId);
                     console.log(responseData)
-                    setResult(videoId[0])
+                    //setResult(videoId[0])
                 }
             }).then(() =>{
                 //https://developers.google.com/youtube/v3/docs/search/list
@@ -63,22 +63,22 @@ const YoutubeLiked= (params) => {
                     part:'snippet',
                     maxResults:10,
                     type:'video',
-                    relatedToVideoID:videoId[0]
-
+                    relatedToVideoId:videoId[0]
                 }
+                console.log(videoId[0])
                 const relatedQuery = Object.keys(relatedOptions).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(relatedOptions[k])).join('&');
                 var relatedURL = 'https://www.googleapis.com/youtube/v3/search?' + relatedQuery;
                 fetch(relatedURL)
                 .then(response => response.json())
                 .then(responseData => {
-                    //console.log(responseData);
+                    console.log(responseData);
                     if (responseData.items == null){
                         console.log(responseData)
                     } else {
+
                         var recommendedTitles = (responseData.items).map(a => a.snippet.title);
                         console.log(recommendedTitles);
-                        console.log(responseData)
-                        setResult(recommendedTitles)
+                        setResult(recommendedTitles.join(" , "))
                     }
                 })
             });
@@ -90,12 +90,15 @@ const YoutubeLiked= (params) => {
     console.log(auth)
     
     return (
-        <div className="liked_videos">
+        <div className="liked_videos" >
+            
+            <div> Recommended Titles:</div>
             {result.length === 0 ? (
-				<h1>Type in something to see liked vids ;)</h1>
+				<div>Type in something to see liked vids ;)</div>
 			) : (result)}
-            <div id="token" onClick={handleChange}>ClickToViewTags</div>
-
+            <div id="token" style={{display: "none"}}></div>
+            <br/>
+            <button onClick={handleChange}>Click to View Recommended Titles</button>
         </div>
     );
 };

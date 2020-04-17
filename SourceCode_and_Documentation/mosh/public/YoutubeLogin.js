@@ -122,7 +122,7 @@ function getChannel(channel) {
         }">Visit Channel</a>
       `;
       showChannelData(output);
-
+      
       const playlistId = channel.contentDetails.relatedPlaylists.uploads;
       requestVideoPlaylist(playlistId);
     })
@@ -138,7 +138,7 @@ function requestVideoPlaylist(playlistId) {
   const requestOptions = {
     playlistId: playlistId,
     part: 'snippet',
-    maxResults: 10
+    maxResults: 10,
   };
 
   const request = gapi.client.youtube.playlistItems.list(requestOptions);
