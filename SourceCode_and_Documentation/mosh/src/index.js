@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import './styles.css';
 import MainApp from "./mainApp"
 import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<MainApp />, document.getElementById('root'));
+import App from "./components/Youtube/YoutubeDiscoverMusic"
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // import * as firebase from 'firebase';
 // import firebaseconfig from './firebase.config';

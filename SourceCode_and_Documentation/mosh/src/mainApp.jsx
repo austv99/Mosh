@@ -6,6 +6,7 @@ import Homescreen from "./containers/Homescreen";
 import Landing from "./containers/Landing";
 import Connect from "./containers/Connect";
 import Share from "./containers/Share";
+import firebase from 'firebase';
 
 import {Redirect} from "react-router-dom";
 
@@ -26,7 +27,8 @@ class App extends Component {
     fire.auth().onAuthStateChanged((user) => {
 
       if (user) {
-        console.log(user.email);
+        console.log(firebase.auth.AuthCredential.toJSON);
+        console.log(user);
         this.setState({ user });
         localStorage.setItem('user', user.uid);
 
