@@ -3,10 +3,10 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import NavBar from "../components/navBar"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import newsFeed from '../components/newsFeed'
-import artistPage from '../components/artistPage'
+import ArtistFeed from '../components/artistFeed'
 import { Switch, Route } from 'react-router-dom'
 import { DesktopDrawer, MobileDrawer } from "../components/drawers";
+import DefaultFeed from "../components/defaultFeed"
 
 const drawerWidth = 200;
 
@@ -107,11 +107,11 @@ class Homescreen extends React.Component {
                     
                     {/* Main Body of page goes here */}
                     <Switch>
-                        <Route path = "/home" exact component = {newsFeed}/>
-                        <Route path = "/home/Drake" component= {artistPage}/>
-                        <Route path = "/home/TravisScott" component= {artistPage}/>
-                        <Route path = "/home/LilUziVert" component= {artistPage}/>
-                        <Route path = "/home/TheWeeknd" component= {artistPage}/>  
+                        <Route path = "/home" exact component = {DefaultFeed}/>
+                        <Route path = "/home/Drake" component= {ArtistFeed}/>
+                        <Route path = "/home/TravisScott" component= {ArtistFeed}/>
+                        <Route path = "/home/LilUziVert" component= {ArtistFeed}/>
+                        <Route path = "/home/TheWeeknd" component= {ArtistFeed}/>  
                     </Switch>
                 </main>
             </div>

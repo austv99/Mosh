@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -59,7 +59,7 @@ export default function PostCard(props) {
                     <Typography variant="h6">
                         <b> {props.title} </b>
                     </Typography>
-                    <Typography variant = "caption">{props.tag}</Typography> 
+                    <Typography variant = "caption"> Tag: {props.tag === "" ? "General" : props.tag} </Typography> 
                   </div>
 
                   <h5>

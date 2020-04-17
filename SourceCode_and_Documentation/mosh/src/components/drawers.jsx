@@ -3,7 +3,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 
 import {DiscPri, DiscSec} from "./discoverComponents/discoverBar"
-import {HomePri , HomeSec} from "./homescreenBar"
+import {HomePri} from "./homescreenBar"
 
 class MobileDrawer extends React.Component {
     render() {
