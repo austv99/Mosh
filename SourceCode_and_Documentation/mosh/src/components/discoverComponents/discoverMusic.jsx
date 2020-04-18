@@ -24,18 +24,18 @@ class discoverMusic extends React.Component {
     }
       
     getRecom() {
-        // let artists = ["0Y5tJX1MQlPlqiwlOH1tJY", "5K4W6rqBFWDnAN6FQUkS6x"];
-        let artists = [];
-        spotifyApi.getMyTopArtists({
-            limit: 4
-        })
-                .then((response) => {
-                    console.log(response);
-                    response.items.map(obj => artists.push(obj.id));
-                }, (err) => {
-                    console.error(err);
-            })
-        console.log(artists);
+        let artists = ["0Y5tJX1MQlPlqiwlOH1tJY", "5K4W6rqBFWDnAN6FQUkS6x"];
+        // let artists = [];
+        // spotifyApi.getMyTopArtists({
+        //     limit: 4
+        // })
+        //         .then((response) => {
+        //             console.log(response);
+        //             response.items.map(obj => artists.push(obj.id));
+        //         }, (err) => {
+        //             console.error(err);
+        //     })
+        // console.log(artists);
         spotifyApi.getRecommendations({
             // seed_artists: //CHANGE TO TOP ARTISTS
             seed_artists: artists,
