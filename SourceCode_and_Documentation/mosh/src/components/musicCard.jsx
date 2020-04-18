@@ -116,7 +116,7 @@ export default function MusicCard(props) {
           <div style={{display: "flex", flexDirection: "column"}}>
           <div style={{display: "flex", alignItems: "center"}}>
           <img src={SpotifyIcon} alt="" style={{margin: "5px", paddingRight: "2vw"}}/>
-          <a href={props.link} style={{textDecoration: "none", color:"inherit"}}>
+          <a href={props.link} style={{textDecoration: "none", color:"inherit"}} target="_blank" rel="noopener noreferrer">
           <h4>Listen on Spotify</h4>
           </a>
           <IconButton onClick={handleClickShare}>
