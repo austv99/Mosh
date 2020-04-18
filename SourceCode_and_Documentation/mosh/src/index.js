@@ -4,7 +4,7 @@ import './styles.css';
 import MainApp from "./mainApp"
 import * as serviceWorker from './serviceWorker';
 import App from "./components/Youtube/YoutubeDiscoverMusic"
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<MainApp />, document.getElementById('root'));
 
 // import * as firebase from 'firebase';
 // import firebaseconfig from './firebase.config';

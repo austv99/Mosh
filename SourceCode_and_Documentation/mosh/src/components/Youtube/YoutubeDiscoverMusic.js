@@ -46,6 +46,12 @@ class App extends Component {
         document.body.appendChild(script);
     }
     handleIsSignedIn(isSignedIn) {
+        gapi.client.init({
+            apiKey: API_KEY,
+            clientId: CLIENT_ID,
+            discoveryDocs: DISCOVERY_DOCS,
+            scope: AUTH_SCOPES.join(' '),
+        })
         if (isSignedIn) {
             console.log('loaded firebase',count)
             const auth2 = gapi.auth2.getAuthInstance()
@@ -91,30 +97,29 @@ class App extends Component {
         if (this.state.gapiReady) {
             console.log('gapi: client:auth2 loaded', gapi.auth2.getAuthInstance())
 
-            gapi.client.init({
-                apiKey: API_KEY,
-                clientId: CLIENT_ID,
-                discoveryDocs: DISCOVERY_DOCS,
-                scope: AUTH_SCOPES.join(' '),
-            })
+            
             if(this.state.isSignedIn === false){
                 this.handleIsSignedIn(true)
             }
             //console.log(this.state.access_token)
-            return (
-            <div style={{ color: 'white' }}>
-                <h1>GAPI is loaded and ready to use.</h1>
-                {this.state.isSignedIn === false ? (
-				    <h2>Not Logged In Yet</h2>
-                ) : (
-                    <YoutubeLiked access_token={this.state.access_token}></YoutubeLiked>
-                )
-                }
+            // return (
+            // <div style={{ color: 'white' }}>
+            //     <h1>GAPI is loaded and ready to use.</h1>
+            //     {this.state.isSignedIn === false ? (
+			// 	    <h2>Not Logged In Yet</h2>
+            //     ) : (
+            //         <YoutubeLiked access_token={this.state.access_token}></YoutubeLiked>
+            //     )
+            //     }
                 
-            </div>
+            // </div>
+            // );
+            return(
+                <div></div>
             );
         } else return (
-            <h1 style={{ color: 'white' }}> Not loaded</h1>
+            //<h1 style={{ color: 'white' }}> Not loaded</h1>
+            <div></div>
         )
     }
 

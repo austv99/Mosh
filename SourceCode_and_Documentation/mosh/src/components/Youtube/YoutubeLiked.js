@@ -79,9 +79,24 @@ const YoutubeLiked= (accessTokenObject) => {
                         console.log(responseData)
                     } else {
 
-                        var recommendedTitles = (responseData.items).map(a => a.snippet.title);
+                        var recommendedTitles = (responseData.items).map(a => a.snippet);
                         console.log(recommendedTitles);
-                        setResult(recommendedTitles.join(" , "))
+                        var recommendedTitlesId = (responseData.items).map(a => a.id.videoId);
+                        console.log(recommendedTitlesId);
+
+                        //setResult(recommendedTitles.join(" , "))
+                        let output = '<br><h4 class="center-align">Recommended Videos</h4>';
+                    
+                        // Loop through videos and append output
+                        recommendedTitlesId.forEach(item => {
+                            output += `
+                                <iframe width="auto" height="auto" src="https://www.youtube.com/embed/${item}" frameborder="0" allowfullscreen></iframe>
+                            `;
+                        });
+                        setResult(output)
+                    
+                        // // Output videos
+                        // videoContainer.innerHTML = output;
                     }
                 })
             });
@@ -98,7 +113,11 @@ const YoutubeLiked= (accessTokenObject) => {
             <div> Recommended Titles:</div>
             {result.length === 0 ? (
 				<div>Type in something to see liked vids ;)</div>
-			) : (result)}
+			) : (
+                <div className="row" id="video-container">
+                    <div dangerouslySetInnerHTML={{__html:result}}></div>
+                </div>
+            )}
             <div id="token" style={{display: "none"}}></div>
             <br/>
             <button onClick={handleChange}>Click to View Recommended Titles</button>
