@@ -6,15 +6,43 @@ import Divider from '@material-ui/core/Divider';
 import { Box, ListSubheader } from "@material-ui/core";
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleIcon from '@material-ui/icons/People';
-
+import Spotify from 'spotify-web-api-js';
 import {Link} from 'react-router-dom';
 
+const spotifyApi = new Spotify();
+
 export class HomePri extends React.Component {    
+    constructor(props) {
+        super(props);
+        this.state = {
+            token: this.props.primaryTags,
+            list: [],
+        }
+        if (this.state.token) {
+          spotifyApi.setAccessToken(this.state.token);
+      }
+      this.getTopArtists();
+      
+    }
+    getTopArtists() {
+        spotifyApi.getMyTopArtists()
+                .then((response) => {
+                    response.items.map(obj => this.setState(prevState=> ({
+                        list: [...prevState.list,obj.name]
+                        
+                      })))
+                }, (err) => {
+                    console.error(err);
+            })
+    }
     renderButton(title) {
-        
+        // console.log(title);
         return ( 
-            <Link to = {`/home/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
-                <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title} style = {{paddingLeft: "20px"}}> 
+            <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
+                <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
+                    {/* <ListItemIcon>
+                        {icon}
+                    </ListItemIcon> */}
                     <ListItemText primary = {title}/>
                 </ListItem>
             </Link>
@@ -22,18 +50,21 @@ export class HomePri extends React.Component {
     }
 
     renderButtons() {
-        let buttons = this.props.primaryTags.map(title => this.renderButton(title));
+        let buttons = this.state.list.map(title => this.renderButton(title));
         
         return buttons;
+        
+        
     }
 
     render () {
+        
         return (
             <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
                 <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
                     <ListItemText primary = "Your Interests"/>
                 </ListSubheader>
-                <Divider/>                
+                <Divider/>         
                 {this.renderButtons()}
             </List>
         )

@@ -1,5 +1,5 @@
 /* global gapi */
-
+//https://github.com/lacymorrow/album-art USE THIS FOR ALBUM ART
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import {fire,uiconfig} from '../../config/fire'

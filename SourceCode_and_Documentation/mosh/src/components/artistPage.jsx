@@ -11,7 +11,7 @@ class artistPage extends React.Component {
             }
         var artist = window.location.pathname;
         artist = artist.split("/");
-        var name = artist[2];
+        var name = artist[3];
         name = name.replace(/([A-Z])/g, ' $1').trim()
         return(
             <>

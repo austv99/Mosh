@@ -30,9 +30,8 @@ export class DiscPri extends React.Component {
             icon = <ShareIcon/>
             button_text = "Shared With Me"
         }
-        
         return ( 
-            <Link to = {`/discover/${title.toLowerCase()}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
+            <Link to = {"/discover/" + title.toLowerCase() + "/" + this.props.token} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
                 <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
                     <ListItemIcon style={{ color: "inherit" }}>
                         {icon}
@@ -50,6 +49,7 @@ export class DiscPri extends React.Component {
     }
 
     render () {
+        
         return (
             <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
                 <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color: "inherit"}}>
