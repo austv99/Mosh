@@ -9,8 +9,11 @@ var userKey = 'AIzaSyBhklDEhDYrLwf5mMkLKsA34Btqjpj8S7k';
 
 
 
-const YoutubeLiked= (params) => {
+const YoutubeLiked= (accessTokenObject) => {
     
+    //console.log(accessTokenObject)
+    //console.log(accessTokenObject.access_token)
+    const access_token = accessTokenObject.access_token
     // Load the API's client and auth2 modules.
     // Call the initClient function after the modules load.
     //gapi.load('client:auth2', initClient);
@@ -30,9 +33,9 @@ const YoutubeLiked= (params) => {
     const didMount = useDidMount()
     useEffect(() => {
         var videoId=''
-        if(didMount){
-            var access_token = document.getElementById("token").innerHTML
-            console.log(params)
+        if(didMount && auth !== "NotAuthorised"){
+            //var access_token = document.getElementById("token").innerHTML
+            //console.log(params)
             var videoOptions = {
                 access_token:access_token,
                 key:userKey, 
@@ -86,8 +89,8 @@ const YoutubeLiked= (params) => {
 
         }; 
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    },[auth,params]);
-    console.log(auth)
+    },[auth,access_token]);
+    //console.log(auth)
     
     return (
         <div className="liked_videos" >
