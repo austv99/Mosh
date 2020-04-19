@@ -66,6 +66,7 @@ class DesktopDrawer extends React.Component {
                 </>
             ;
         } else {
+            console.log(window.gapi)
             renderBars = 
             <>
             <HomePri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>

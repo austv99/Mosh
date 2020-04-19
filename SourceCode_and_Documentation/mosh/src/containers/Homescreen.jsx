@@ -99,7 +99,8 @@ class Homescreen extends React.Component {
     
     render () {
         const {classes} = this.props;
-
+        //console.log(this.state.gapi)
+        console.log(window.gapi)
         return  (
             <div className={classes.root}>
                 <CssBaseline />

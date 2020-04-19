@@ -8,35 +8,53 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleIcon from '@material-ui/icons/People';
 import Spotify from 'spotify-web-api-js';
 import {Link} from 'react-router-dom';
-
+import App from './Youtube/YoutubeDiscoverMusic';
+import {handleIsSignedIn,getYoutubeData} from './Youtube/YoutubeFunctions';
 const spotifyApi = new Spotify();
-
 export class HomePri extends React.Component {    
     constructor(props) {
         super(props);
         this.state = {
             token: this.props.primaryTags,
             list: [],
+            //gapi:window.gapi,
         }
         if (this.state.token) {
           spotifyApi.setAccessToken(this.state.token);
-      }
+        }
       this.getTopArtists();
-      
     }
     getTopArtists() {
+        // async function callAsync() {
+        //     var x = await handleIsSignedIn(false)
+        //     async function callAsync2() {
+        //         var YoutubeData = await getYoutubeData("tags")
+        //         console.log(YoutubeData)
+        //         return YoutubeData
+        //     }
+        //     return callAsync2()
+        // }
+
+        // callAsync().then(YoutubeData => {
+        //     console.log(YoutubeData)
+        //     YoutubeData.map(obj => this.setState(prevState=> ({
+        //         list: [...prevState.list,obj]
+                
+        //     })))
+        //     console.log(this.state.list)
+        // })
         spotifyApi.getMyTopArtists()
-                .then((response) => {
-                    response.items.map(obj => this.setState(prevState=> ({
-                        list: [...prevState.list,obj.name]
-                        
-                      })))
-                }, (err) => {
-                    console.error(err);
-            })
+        .then((response) => {
+            response.items.map(obj => this.setState(prevState=> ({
+                list: [...prevState.list,obj.name]
+                
+            })))
+        }, (err) => {
+            console.error(err);
+        })
     }
     renderButton(title) {
-        // console.log(title);
+        //console.log(title);
         return ( 
             <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
                 <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
@@ -51,21 +69,27 @@ export class HomePri extends React.Component {
 
     renderButtons() {
         let buttons = this.state.list.map(title => this.renderButton(title));
-        
+
         return buttons;
         
         
     }
 
     render () {
-        
+        var buttons = this.renderButtons()
+        console.log(buttons)
+        var divdd = <div>what</div>
+        console.log(divdd)
         return (
             <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
                 <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
                     <ListItemText primary = "Your Interests"/>
                 </ListSubheader>
-                <Divider/>         
-                {this.renderButtons()}
+                <Divider/>      
+                <div>
+                    {buttons}
+                </div>   
+                {/* <App type={"tags"}></App> */}
             </List>
         )
     }   

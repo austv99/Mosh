@@ -4,8 +4,19 @@ import './styles.css';
 import MainApp from "./mainApp"
 import * as serviceWorker from './serviceWorker';
 import App from "./components/Youtube/YoutubeDiscoverMusic"
-ReactDOM.render(<MainApp />, document.getElementById('root'));
+/*global gapi */
+ReactDOM.render(<MainApp/>, document.getElementById('root'));
+const script = document.createElement("script");
+script.src = "https://apis.google.com/js/api.js";
+script.onload = () => {
+    gapi.load('client:auth2', () => {
+        gapi.client.setApiKey("AIzaSyBhklDEhDYrLwf5mMkLKsA34Btqjpj8S7k");
+        gapi.client.load('youtube', 'v3', () => {
+        })
+    });
 
+}
+document.body.appendChild(script);
 // import * as firebase from 'firebase';
 // import firebaseconfig from './firebase.config';
 // firebase.initializeApp(firebaseconfig);

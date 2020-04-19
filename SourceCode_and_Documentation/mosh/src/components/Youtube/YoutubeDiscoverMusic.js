@@ -27,8 +27,11 @@ class App extends Component {
         this.state = ({
           gapiReady: false,
           isSignedIn: false,
-          access_token: ''
+          access_token: '',
+          type: this.props.type,
+          loading:false,
         });
+        
         //this.authListener = this.authListener.bind(this);
       }
     loadYoutubeApi() {
@@ -42,47 +45,63 @@ class App extends Component {
                 this.setState({ gapiReady: true });
                 })
             });
+
         }
         document.body.appendChild(script);
     }
     handleIsSignedIn(isSignedIn) {
-        gapi.client.init({
-            apiKey: API_KEY,
-            clientId: CLIENT_ID,
-            discoveryDocs: DISCOVERY_DOCS,
-            scope: AUTH_SCOPES.join(' '),
-        })
-        if (isSignedIn) {
+        if (!isSignedIn) {
+            gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: AUTH_SCOPES.join(' '),
+            })
             console.log('loaded firebase',count)
             const auth2 = gapi.auth2.getAuthInstance()
-            auth2.signIn()
-            .then(() => {
+            console.log(auth2.isSignedIn.get())
+            if (auth2.isSignedIn.get()){
                 const currentUser = auth2.currentUser.get()
-                const profile = currentUser.getBasicProfile()
-                console.log('gapi: user signed in!', {
-                    name: profile.getName(),
-                    imageURL: profile.getImageUrl(),
-                    email: profile.getEmail(),
-                })
                 const authResponse = currentUser.getAuthResponse(true)
-                const credential = firebase.auth.GoogleAuthProvider.credential(
-                    authResponse.id_token,
-                    authResponse.access_token
-                )
-                //sign in to firebase
-                fb.auth().signInWithCredential(credential)
-                .then(({ user }) => {
-                    console.log('firebase: user signed in!', {
-                    displayName: user.displayName,
-                    email: user.email,
-                    photoURL: user.photoURL,
-                    })
-                })
-                //make api calls from here
+                this.state.access_token = authResponse.access_token
+                console.log("already Signed In")
                 this.setState({isSignedIn:true})
-                this.setState({access_token:authResponse.access_token})
 
-            })
+            } else {
+                auth2.signIn()
+                .then(() => {
+                    console.log("SIGNING IN")
+                    const currentUser = auth2.currentUser.get()
+                    const profile = currentUser.getBasicProfile()
+                    console.log('gapi: user signed in!', {
+                        name: profile.getName(),
+                        imageURL: profile.getImageUrl(),
+                        email: profile.getEmail(),
+                    })
+                    const authResponse = currentUser.getAuthResponse(true)
+                    const credential = firebase.auth.GoogleAuthProvider.credential(
+                        authResponse.id_token,
+                        authResponse.access_token
+                    )
+                    //sign in to firebase
+                    fb.auth().signInWithCredential(credential)
+                    .then(({ user }) => {
+                        console.log('firebase: user signed in!', {
+                        displayName: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoURL,
+                        })
+                    }).then(() => {
+                        this.state.access_token = authResponse.access_token
+                        this.setState({isSignedIn:true})
+                        console.log("rerender")
+                    });
+                    //make api calls from here
+                    
+                })
+            }
+            
+
         } else {
             console.log('gapi: user is not signed in')
         }
@@ -95,28 +114,34 @@ class App extends Component {
     }
     render() {
         if (this.state.gapiReady) {
-            console.log('gapi: client:auth2 loaded', gapi.auth2.getAuthInstance())
-
             
-            if(this.state.isSignedIn === false){
-                this.handleIsSignedIn(true)
+            console.log("before",this.state)
+
+            //if(this.state.isSignedIn === false && gapi.auth2.getAuthInstance() === null){
+                //console.log('gapi: client:auth2 loaded', gapi.auth2.getAuthInstance())
+            if (!this.state.loading){
+                this.state.loading= true
+                this.handleIsSignedIn(this.state.isSignedIn)
+
             }
-            //console.log(this.state.access_token)
-            // return (
-            // <div style={{ color: 'white' }}>
-            //     <h1>GAPI is loaded and ready to use.</h1>
-            //     {this.state.isSignedIn === false ? (
-			// 	    <h2>Not Logged In Yet</h2>
-            //     ) : (
-            //         <YoutubeLiked access_token={this.state.access_token}></YoutubeLiked>
-            //     )
-            //     }
+            console.log(this.state)
+            //console.log(this.state.type)
+
+            return (
+            <div style={{ color: 'white' }}>
+                <h1>GAPI is loaded and ready to use.</h1>
+                {(this.state.isSignedIn === false || this.state.access_token === "") ? (
+				    <h2>Not Logged In Yet</h2>
+                ) : (
+                    <YoutubeLiked params={this.state} ></YoutubeLiked>
+                )
+                }
                 
-            // </div>
-            // );
-            return(
-                <div></div>
+            </div>
             );
+            // return(
+            //     <div></div>
+            // );
         } else return (
             //<h1 style={{ color: 'white' }}> Not loaded</h1>
             <div></div>
