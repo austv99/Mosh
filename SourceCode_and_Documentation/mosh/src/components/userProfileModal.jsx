@@ -7,6 +7,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import ImageAvatar from "./avatar"
 import { IconButton } from '@material-ui/core';
 import SettingsModal from "./discoverComponents/settingsModal"
+import {fire} from "../config/fire"
+import {useEffect} from "react";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -28,8 +30,12 @@ const useStyles = makeStyles((theme) => ({
 //TODO: This page should be linked to a database query
 export default function UserProfileModal(props) {
   const classes = useStyles();
+  var user = fire.auth().currentUser;
+  var db = fire.firestore();
+  // let didMount = false;
 
   const [open, setOpen] = React.useState(false);
+  const [userData, setUserData] = React.useState({});
 
   const handleSettingsOpen = () => {
     setOpen(true);
@@ -40,6 +46,35 @@ export default function UserProfileModal(props) {
     setOpen(false);
     props.handleOpen();
   };
+
+  useEffect(() => {
+    if (user.uid != null) {
+      // console.log("Getting data")
+      var unsub = db.collection("users").doc(user.uid).onSnapshot(doc => {
+        if (doc != null) {
+          setUserData(doc.data());
+        }
+      })
+
+      return (()=> {
+        unsub();
+      })
+    } 
+  }, [user, db])
+
+  const formatInterests = (interests) => {
+    if (interests == null) {
+      return "";
+    }
+    
+    let output = "";
+
+    interests.forEach(interest => {
+      output += interest + " ";
+    });
+
+    return output;
+  }
 
   return (
     <div>
@@ -57,16 +92,12 @@ export default function UserProfileModal(props) {
         >
             <Fade in={props.open}>
                 <div className={classes.paper} style = {{textAlign : "center"}}>
-                    <ImageAvatar img = {props.img} /> 
-                    <h2 style = {{color: '#fff'}}>{props.title}</h2>
-                    <p><b>Interests</b> : Sample Interests</p>
-                    <p><b>Favourite Album</b> : Place Holder Artist</p>
-                    <p><b>Favourite Artist</b> : Some Wierd and unknown artist</p>
+                    <ImageAvatar img = {user.photoURL} /> 
+                    <h2 style = {{color: '#fff'}}>{user.displayName}</h2>
+                    <p><b>Interests</b> : {formatInterests(userData.interests)} </p>
+                    <p><b>Favourite Album</b> : {userData.favAlbum} </p>
+                    <p><b>Favourite Artist</b> : {userData.favArtist} </p>
                     <p><b>Other Info</b> : Placeholder Text</p>
-                    {/* <p>Connected Platforms: Facebook, Spotify, Apple Music</p> */}
-                    {/* <Button variant="contained" color={props.connected ? "primary" : "secondary"}>
-                        {props.connected ? "Connect" : "Disconnect"}
-                    </Button> */}
                     <IconButton onClick = {handleSettingsOpen} style = {{color: "inherit"}}>
                         <SettingsIcon/>
                     </IconButton>

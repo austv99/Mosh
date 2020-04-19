@@ -3,8 +3,14 @@ import ReactDOM from 'react-dom';
 import './styles.css';
 import MainApp from "./mainApp"
 import * as serviceWorker from './serviceWorker';
-
+import App from "./components/Youtube/YoutubeDiscoverMusic"
 ReactDOM.render(<MainApp />, document.getElementById('root'));
+
+// import * as firebase from 'firebase';
+// import firebaseconfig from './firebase.config';
+// firebase.initializeApp(firebaseconfig);
+
+// ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

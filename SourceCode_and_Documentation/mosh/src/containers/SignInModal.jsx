@@ -10,6 +10,8 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { fire , uiConfig} from "../config/fire"
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth"
+//Youtube/Google
+import App from "../components/Youtube/YoutubeDiscoverMusic"
 
 const theme = createMuiTheme({
     palette: {
@@ -19,7 +21,7 @@ const theme = createMuiTheme({
 export default function SignInModal(props) {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
-
+    const [showLogin,setShowLogin] = React.useState(false)
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(email);
@@ -31,7 +33,16 @@ export default function SignInModal(props) {
             alert(error.message);
         });
     }
-
+    const handleGoogleLogin = (e) => {
+        e.preventDefault();
+        setShowLogin(true)
+    }
+    const renderGoogleBackgroundLogin = () => {
+        if (!showLogin) return '';
+        return (
+            <App />
+        );
+    }
     return (
         <Dialog open={props.inOpen} onClose={props.handleInClose} aria-labelledby="form-dialog-title" maxWidth='xl'>
             <ThemeProvider theme = {theme}>
@@ -72,8 +83,35 @@ export default function SignInModal(props) {
                     </Button>
                 </DialogActions>
                 <DialogContent>
-                  <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={fire.auth()}/>
+                    <div id="firebaseui_container" lang="en">
+                        <div className="firebaseui-container firebaseui-page-provider-sign-in firebaseui-id-page-provider-sign-in firebaseui-use-spinner">
+                            <div className="firebaseui-card-content">
+                                <ul className="firebaseui-idp-list">
+                                    <li className="firebaseui-list-item">
+                                        <button className="firebaseui-idp-button mdl-button mdl-js-button mdl-button--raised firebaseui-idp-google firebaseui-id-idp-button" onClick={handleGoogleLogin} data-provider-id="google.com" style={{backgroundColor: "#ffffff"}} data-upgraded=",MaterialButton">
+                                            <span className="firebaseui-idp-icon-wrapper">
+                                                <img className="firebaseui-idp-icon" alt="" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"/>
+                                            </span>
+                                            <span className="firebaseui-idp-text firebaseui-idp-text-long">Sign in with Google</span>
+                                            <span className="firebaseui-idp-text firebaseui-idp-text-short">Google</span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <StyledFirebaseAuth uiCallback=
+                        {ui => {
+                                    console.log(ui)
+                                    ui.disableAutoSignIn()
+                                }
+                        } uiConfig={uiConfig} firebaseAuth={fire.auth()}
+                    />
+                    {renderGoogleBackgroundLogin()}
+
                 </DialogContent>
+                
             </form>
             </ThemeProvider>
         </Dialog>

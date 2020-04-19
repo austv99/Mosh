@@ -13,9 +13,6 @@ import UserProfileModal from "./userProfileModal"
 import { makeStyles } from '@material-ui/core/styles';
 import { fire } from '../config/fire'
 
-
-let avatar_url = "https://scontent.fsyd4-1.fna.fbcdn.net/v/t1.0-9/p960x960/83084529_2426902500959534_3911554766622162944_o.jpg?_nc_cat=111&_nc_sid=09cbfe&_nc_oc=AQllXWmPqGoO6LfqqdQXj3li1iED8jgdjzvkZpYuheTtHyu36Z6s40d69qRY94r_bx4&_nc_ht=scontent.fsyd4-1.fna&_nc_tp=6&oh=37b6656b3e75b655ea06f9a44eb9c2e9&oe=5EBAD30E";
-
 const useStyles = makeStyles((theme) => ({
     iconButton: {
         color: 'inherit',
@@ -40,6 +37,7 @@ function NavBar(props) {
     const handleSignOut = () => {
         fire.auth().signOut().then(() => {
             console.log("user signed out")
+
         }).catch(err => {
             console.log(err);
         })
@@ -70,22 +68,22 @@ function NavBar(props) {
                 </div>
                 <Link to="/discover" style={{ textDecoration: 'none', color: 'inherit ', margin: "5px"}}>
                     <IconButton className = {classes.iconButton}>
-                        <SearchIcon />
+                        <SearchIcon/>
                     </IconButton>
                 </Link>
                 <Link to="/share" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
                     <IconButton className = {classes.iconButton}>
-                        <ShareIcon />
+                        <ShareIcon/>
                     </IconButton>
                 </Link>
                 <Link to="/" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
                     <IconButton className = {classes.iconButton} onClick = {handleSignOut}>
-                        <ExitToAppIcon />
+                        <ExitToAppIcon/>
                     </IconButton>
                 </Link>
             </div>
             </Toolbar>
-            <UserProfileModal open = {open} handleOpen = {handleOpen} handleClose = {handleClose} img = {avatar_url} title = "Austin Vuong"/>
+            <UserProfileModal open = {open} handleOpen = {handleOpen} handleClose = {handleClose}/>
         </AppBar>
     )
 }

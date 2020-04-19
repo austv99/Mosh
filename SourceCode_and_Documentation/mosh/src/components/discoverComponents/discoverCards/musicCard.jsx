@@ -59,7 +59,6 @@ export default function MusicCard(props) {
   };
 
   const handleCloseShare = () => {
-    setShare(false);
   };
 
   const handleClickOpen = () => {
@@ -69,6 +68,10 @@ export default function MusicCard(props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleOpenLink = () => {
+    setShare(false);
+  };
+  
 
   return (
     <Card className={classes.root}>
@@ -155,7 +158,7 @@ export default function MusicCard(props) {
           <Button onClick={handleCloseShare} color="primary">
             Disagree
           </Button>
-          <Button onClick={handleCloseShare} color="primary" autoFocus>
+          <Button onClick={handleOpenLink} color="primary" autoFocus>
             Agree
           </Button>
         </DialogActions>

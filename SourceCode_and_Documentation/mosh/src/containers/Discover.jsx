@@ -6,10 +6,10 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {Switch, Route} from 'react-router-dom'
 import discoverConcerts from '../components/discoverComponents/discoverConcerts'
-import discoverPeople from "../components/discoverComponents/discoverPeople"
+import DiscoverPeople from "../components/discoverComponents/discoverPeople"
 import discoverShared from "../components/discoverComponents/discoverShared"
 import discoverMusic from "../components/discoverComponents/discoverMusic"
-import yourConnections from "../components/discoverComponents/yourConnections"
+import YourConnections from "../components/discoverComponents/yourConnections"
 
 const drawerWidth = 200;
 
@@ -100,9 +100,9 @@ class Discover extends React.Component {
                         <Route path = "/discover" exact component = {discoverMusic}/>
                         <Route path = "/discover/music"  component = {discoverMusic}/>
                         <Route path = '/discover/concerts'  component = {discoverConcerts}/>
-                        <Route path = '/discover/people' component = {discoverPeople}/>
+                        <Route path = '/discover/people' component = {DiscoverPeople}/>
                         <Route path = '/discover/shared' component = {discoverShared}/>
-                        <Route path = '/discover/connections' component = {yourConnections}/>
+                        <Route path = '/discover/connections' component = {YourConnections}/>
                     </Switch>
                 </main>
             </div>

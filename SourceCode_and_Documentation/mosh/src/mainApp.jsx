@@ -6,6 +6,7 @@ import Homescreen from "./containers/Homescreen";
 import Landing from "./containers/Landing";
 import Connect from "./containers/Connect";
 import Share from "./containers/Share";
+// import firebase from 'firebase';
 
 import {Redirect} from "react-router-dom";
 
@@ -25,11 +26,13 @@ class App extends Component {
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
-
       if (user) {
-        console.log(user);
-        this.setState({ user });
+        // console.log(firebase.auth.AuthCredential.toJSON);
+        //console.log(user);
+        
         localStorage.setItem('user', user.uid);
+        
+        this.setState({ user });  
       } else {
         console.log("No user");
         this.setState({ user: null });

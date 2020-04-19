@@ -26,17 +26,27 @@ export default function SignUpModal(props) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fire.auth().createUserWithEmailAndPassword(email, password).then(() => {
+        fire.auth().createUserWithEmailAndPassword(email, password).then(user => {
           fire.auth().currentUser.updateProfile({
             displayName: name,
             photoURL: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
-          }).catch(err => {
-            alert(err.message);
+          })
+
+          fire.firestore().collection("users").doc(fire.auth().currentUser.uid).set({
+            connections: [],
+            displayName: name,
+            favAlbum: "Placeholder Text for fav album",
+            favArtist: "Placeholder for user's fav artist",
+            interests: ["Placholder 1", "Placeholder 2"],
+            photoURL: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
+          }, {merge: true}).catch( err => {
+            console.log(err.message);
           })
         })
         .catch((err) => {
-            alert(err.message);
+            console.log(err.message);
         })
+        
     }
 
     return (

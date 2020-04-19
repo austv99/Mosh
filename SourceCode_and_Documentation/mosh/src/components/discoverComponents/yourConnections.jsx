@@ -1,28 +1,61 @@
 import React from 'react'
 import {Grid} from '@material-ui/core'
 import PersonCard from "./discoverCards/personCard"
+import {fire} from "../../config/fire"
+import {useEffect} from 'react'
 
-function yourConnections() {
+export default function YourConnections() {
+    let db = fire.firestore();
+    let user = fire.auth().currentUser;
+
+    const [users, setUsers] = React.useState([]); 
+
+    useEffect(() => {
+        
+        var unsub = db.collection("users").where("connections", "array-contains", user.uid).onSnapshot(snapShot => {
+            let userList = [] 
+
+            snapShot.forEach(doc => {
+                let connectionData = doc.data();
+
+                connectionData["id"] = doc.id;
+                userList.push(connectionData);
+            });
+
+            setUsers(userList);
+        })
+
+        return () => {
+            unsub();
+        }
+    }, [db, user])
+
+    const formatInterests = (interests) => {
+        if (interests == null) {
+          return "";
+        }
+        
+        let output = "";
+    
+        interests.forEach(interest => {
+          output += interest + " ";
+        });
+    
+        return output;
+      }
+    
     const cardStyles = {
         marginBottom : "3%"
     }
     
     return (
         <div style = {{display: "flex", flexDirection: "column"}}> 
-            <Grid style = {cardStyles}>
-                <PersonCard title = "Sco Mo" likes = "Shaking Hands, Pauline Hansen" connected = {false} img = "https://pbs.twimg.com/profile_images/1116081523394891776/AYnEcQnG_400x400.png"/>
-            </Grid>
-            <Grid style = {cardStyles}>
-                <PersonCard title = "Donald Trump" likes = "Making America Great Again" connected = {false} img = "http://highlighthollywood.com/wp-content/uploads/2015/09/donald-trump-incapable-of-embarrassment-r.jpg"/>
-            </Grid>
-            <Grid style = {cardStyles}>
-                <PersonCard title = "Aang" likes = "Not being the last airbender lolz" connected = {false} img = "https://vignette.wikia.nocookie.net/avatar/images/7/79/Pilot_-_Aang.png/revision/latest/top-crop/width/360/height/360?cb=20120311133235"/>
-            </Grid>
-            <Grid style = {cardStyles}>
-                <PersonCard title = "Sun Wukong" likes = "The World's Biggest Migraine Relief" connected = {false} img = "https://journeytothewest3.files.wordpress.com/2011/05/55258641-1255926094-luc-tieu-linh-dong-3.jpg"/>
-            </Grid>
+            {users.map(user => 
+                <Grid style = {cardStyles} key = {user.id}>
+                    <PersonCard title = {user.displayName} likes = {formatInterests(user.interests)} connected = {true} img = {user.photoURL} favArtist = {user.favArtist} 
+                        favAlbum = {user.favAlbum}/>
+                </Grid> 
+            )}
     </div>
     )
 }
-
-export default yourConnections

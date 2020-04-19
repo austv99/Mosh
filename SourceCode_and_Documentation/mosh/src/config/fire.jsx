@@ -17,7 +17,7 @@ const config = {
 const uiConfig ={
   signInFlow: "popup",
   signInOptions: [
-    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID
   ],
   callbacks:{ signInSuccessWithAuthResult: () => false }
@@ -25,4 +25,4 @@ const uiConfig ={
 
 const fire = firebase.initializeApp(config);
 
-export {fire,uiConfig}
+export {fire,uiConfig, config}
