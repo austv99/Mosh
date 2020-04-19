@@ -55,6 +55,7 @@ class Homescreen extends React.Component {
         super(props);
         let path = window.location.pathname.replace("/home/", "");
         let token;
+        this.rerenderCallback = this.rerenderCallback.bind(this);
         if (path.startsWith("token/")) {
           token = path.replace("token/", "");
         }
@@ -64,10 +65,12 @@ class Homescreen extends React.Component {
             selectedTag: "",
             artists: [],
             token: token,
+            rerendering: false,
         }
         if (this.state.token) {
           spotifyApi.setAccessToken(this.state.token);
-      }
+          
+        }
     }
   //   getTopTracks() {
   //     let list = [];
@@ -81,12 +84,20 @@ class Homescreen extends React.Component {
   //     return list;
   // }
 
+    
     handleDrawerToggle = () => {
         this.setState((state) => ({
             mobileOpen : !state.mobileOpen
         }))
     }; 
-
+    rerenderCallback = () => {
+      this.setState(() => ({
+        rerendering: true
+      }))
+      console.log("rerendering home")
+      this.forceUpdate();
+      console.log("rerendering home1")
+    };
     handleSelection = (event, title) => {
         this.setState(() => ({
             selectedTag : title
@@ -96,10 +107,10 @@ class Homescreen extends React.Component {
           }
         })
     }
-    
     render () {
         const {classes} = this.props;
-        //console.log(this.state.gapi)
+        //console.log(this.rerenderCallback)
+        //console.log(this.handleSelection)
         console.log(window.gapi)
         return  (
             <div className={classes.root}>
@@ -112,10 +123,10 @@ class Homescreen extends React.Component {
 
                     <MobileDrawer type="home" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
                     drawerPaper = {classes.drawerPaper} primaryTags = {this.state.token} handleSelection = {this.handleSelection}
-                    selectedTag = {this.state.selectedTag}/>
+                    rerenderCallback = {this.rerenderCallback} selectedTag = {this.state.selectedTag}/>
                     
-                    <DesktopDrawer type="home" drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.token}
-                    handleSelection = {this.handleSelection} selectedTag = {this.state.selectedTag}/>
+                    <DesktopDrawer type="home"  drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.token}
+                    handleSelection = {this.handleSelection} rerenderCallback = {this.rerenderCallback} selectedTag = {this.state.selectedTag}/>
                 </nav>
 
 

@@ -129,7 +129,7 @@ async function getYoutubeData(type){
                     var output = [];
                     // var output = '<br>'
                     recommendedTitles.forEach(item => {
-                        console.log(item.split(' -'))
+                        //console.log(item.split(' -'))
                         output.push(item.split(' -')[0])
                         // output += `
                         //     <div>${item.split('-')[0]}, ${item.split('-')[1]}</div>

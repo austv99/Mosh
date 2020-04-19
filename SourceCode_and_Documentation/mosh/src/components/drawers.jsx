@@ -7,7 +7,7 @@ import {HomePri , HomeSec} from "./homescreenBar"
 
 class MobileDrawer extends React.Component {
     render() {
-        // console.log(window.location.pathname);
+        //console.log(window.location.pathname);
         var discoverTags = ["music", "concerts", "people", "shared"];
         var renderBars;
         if (window.location.pathname.startsWith("/discover")) {
@@ -20,7 +20,7 @@ class MobileDrawer extends React.Component {
         } else {
             renderBars = 
             <>
-            <HomePri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+            <HomePri primaryTags = {this.props.primaryTags} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
             <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
             </>
             ;
@@ -52,10 +52,9 @@ class MobileDrawer extends React.Component {
 
 class DesktopDrawer extends React.Component {
     render () {
-        // console.log(this.props.primaryTags)
+        //console.log(window.location.pathname)
         var discoverTags = ["music", "concerts", "people", "shared"];
         var renderBars;
-
         // console.log(this.props.primaryTags);
         
         if (window.location.pathname.startsWith("/discover")) {
@@ -66,11 +65,11 @@ class DesktopDrawer extends React.Component {
                 </>
             ;
         } else {
-            console.log(window.gapi)
+            //console.log(window.gapi)
             renderBars = 
             <>
-            <HomePri primaryTags = {this.props.primaryTags} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-            <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+            <HomePri primaryTags = {this.props.primaryTags} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+            <HomeSec selectedTag = {this.props.selectedTag}  handleSelection = {this.props.handleSelection}/>
             </>
             ;
         }

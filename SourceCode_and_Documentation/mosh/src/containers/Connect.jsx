@@ -62,6 +62,7 @@ class Connect extends React.Component {
     }
 
     render() {
+        console.log(this.state.token)
     return(
         <>
         <div style={styles.background}>
@@ -93,9 +94,9 @@ class Connect extends React.Component {
         </Button>
         
         <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "20vw", margin: "10px"}} >
-        <Link to={"/home/token/" + this.state.token} style={{textDecoration:'none', color:'inherit'}}>
-        Continue
-        </Link>
+            <Link to={"/home/token/" + this.state.token} style={{textDecoration:'none', color:'inherit'}}>
+            Continue
+            </Link>
         </Button>
         <Switch>
             <Route path="/home/:token" component={Homescreen} />

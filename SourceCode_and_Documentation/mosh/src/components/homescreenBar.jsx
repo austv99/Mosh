@@ -17,7 +17,9 @@ export class HomePri extends React.Component {
         this.state = {
             token: this.props.primaryTags,
             list: [],
-            //gapi:window.gapi,
+            youtubelist:[],
+            gapi:window.gapi,
+            finished:false,
         }
         if (this.state.token) {
           spotifyApi.setAccessToken(this.state.token);
@@ -25,24 +27,37 @@ export class HomePri extends React.Component {
       this.getTopArtists();
     }
     getTopArtists() {
-        // async function callAsync() {
-        //     var x = await handleIsSignedIn(false)
-        //     async function callAsync2() {
-        //         var YoutubeData = await getYoutubeData("tags")
-        //         console.log(YoutubeData)
-        //         return YoutubeData
-        //     }
-        //     return callAsync2()
-        // }
+        var rerenderCallback = this.props.rerenderCallback
+        //console.log(this.props.rerenderCallback)
+        //console.log(this.props.handleSelection)
 
-        // callAsync().then(YoutubeData => {
-        //     console.log(YoutubeData)
-        //     YoutubeData.map(obj => this.setState(prevState=> ({
-        //         list: [...prevState.list,obj]
+        async function callAsync() {
+            var x = await handleIsSignedIn(false)
+            async function callAsync2() {
+                var YoutubeData = await getYoutubeData("tags")
+                console.log(YoutubeData)
+                return YoutubeData
+            }
+            return callAsync2()
+        }
+
+        callAsync().then(YoutubeData => {
+            console.log(YoutubeData)
+            //var list = [...this.state.list]
+            // YoutubeData.forEach(item => {
+            //     this.state.list.push(item)
+            // })
+            YoutubeData.map(obj => this.setState(prevState=> ({
+                youtubelist: [...prevState.youtubelist,obj]
                 
-        //     })))
-        //     console.log(this.state.list)
-        // })
+            })))
+            console.log(this.state.youtubelist)
+        })
+        //.then(() =>{
+            //this.setState({finished:true})
+            //this.props.rerenderCallback();
+            //this.forceUpdate();
+        //})
         spotifyApi.getMyTopArtists()
         .then((response) => {
             response.items.map(obj => this.setState(prevState=> ({
@@ -68,30 +83,31 @@ export class HomePri extends React.Component {
     }
 
     renderButtons() {
-        let buttons = this.state.list.map(title => this.renderButton(title));
-
+        let buttons = this.state.youtubelist.map(title => this.renderButton(title));
+        console.log("butons are",buttons)
+        console.log(this.state)
         return buttons;
         
         
     }
 
     render () {
-        var buttons = this.renderButtons()
-        console.log(buttons)
-        var divdd = <div>what</div>
-        console.log(divdd)
-        return (
-            <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
-                <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
-                    <ListItemText primary = "Your Interests"/>
-                </ListSubheader>
-                <Divider/>      
-                <div>
-                    {buttons}
-                </div>   
-                {/* <App type={"tags"}></App> */}
-            </List>
-        )
+         console.log("HOMEBAR")
+        // var divdd = <div>what</div>
+        //console.log(this.state.list[0])
+        var returnval = (<List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
+                            <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
+                                <ListItemText primary = "Your Interests"/>
+                            </ListSubheader>
+                            <Divider/>      
+                            <div>
+                                {/* {this.state.list[0]} */}
+                                {this.renderButtons()}
+                            </div>   
+                            {/* <App type={"tags"}></App> */}
+                        </List>)
+        //console.log(returnval)
+        return (returnval)
     }   
 }
 
