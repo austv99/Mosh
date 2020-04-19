@@ -87,7 +87,7 @@ class Share extends React.Component {
   }
 
   renderButton(obj) {
-    // console.log(obj);
+
     return ( 
         // <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
         <Grid style = {cardStyles}>
@@ -105,8 +105,9 @@ renderCards() {
       
     return (
     <>
-        <NavBar token={this.state.token}/>
         <div style={styles.divContainer}>
+        {/* <iframe width="100%" height="150" src="https://embed.odesli.co/?url=spotify:track:1eQBEelI2NCy7AUTerX0KS&theme=dark" frameborder="0" allowtransparency allowfullscreen sandbox="allow-same-origin allow-scripts allow-presentation allow-popups allow-popups-to-escape-sandbox"></iframe>         */}
+        <NavBar token={this.state.token}/>
           <div style={{paddingBottom: "2vh"}}>
           <FormControl>
             <InputLabel htmlFor="input-with-icon-adornment" style={{color: "inherit"}}>Search for Music to Share</InputLabel>

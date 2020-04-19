@@ -22,39 +22,45 @@ class discoverMusic extends React.Component {
       
       
     }
+    getTopArtists() {
+        let artists = [];
+        
+        return artists;
+    }
       
-    getRecom() {
-        let artists = ["0Y5tJX1MQlPlqiwlOH1tJY", "5K4W6rqBFWDnAN6FQUkS6x"];
-        // let artists = [];
-        // spotifyApi.getMyTopArtists({
-        //     limit: 4
-        // })
-        //         .then((response) => {
-        //             console.log(response);
-        //             response.items.map(obj => artists.push(obj.id));
-        //         }, (err) => {
-        //             console.error(err);
-        //     })
-        // console.log(artists);
-        spotifyApi.getRecommendations({
-            // seed_artists: //CHANGE TO TOP ARTISTS
-            seed_artists: artists,
+    async getRecom() {
+        let result = [];
+        var callInstance = spotifyApi.getMyTopArtists({
+            limit: 5,
         })
                 .then((response) => {
-                    console.log(response);
-                    response.tracks.map(obj => this.setState(prevState=> ({
-                        list: [...prevState.list,{
-                          albumArt: obj.album.images[0].url,
-                          albumName: obj.album.name,
-                          songArtists: obj.artists[0].name, 
-                          songName: obj.name, 
-                          link: obj.external_urls.spotify,
-                        }]
-                        
-                      })))
+                    response.items.map(obj => result.push(obj.id));
                 }, (err) => {
                     console.error(err);
             })
+
+        try {
+            let response = await callInstance;
+            spotifyApi.getRecommendations({
+                seed_artists: result,
+            })
+                    .then((response) => {
+                        response.tracks.map(obj => this.setState(prevState=> ({
+                            list: [...prevState.list,{
+                            albumArt: obj.album.images[0].url,
+                            albumName: obj.album.name,
+                            songArtists: obj.artists[0].name, 
+                            songName: obj.name, 
+                            link: obj.external_urls.spotify,
+                            }]
+                            
+                        })))
+                    }, (err) => {
+                        console.error(err);
+                })
+        } catch (err) {
+            console.error(err);
+        }
     }
     renderButton(obj) {
         // console.log(obj);
