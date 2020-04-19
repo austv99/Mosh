@@ -79,11 +79,12 @@ export default function MusicCard(props) {
             className={classes.cover}
             image = {props.img}
             title="Album Art"
+          style={{width: "150px", height:"150px"}}
         />
         <div className={classes.details}>
             <CardContent className={classes.content}>
                 <ThemeProvider theme={textTheme}>
-                  <Typography variant="h6">
+                  <Typography variant="h7" style={{width: "100px", whiteSpace: "nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
                       <b> {props.title} </b>
                   </Typography>
                   <Typography variant="subtitle2" color="textSecondary">
@@ -119,7 +120,7 @@ export default function MusicCard(props) {
           <div style={{display: "flex", flexDirection: "column"}}>
           <div style={{display: "flex", alignItems: "center"}}>
           <img src={SpotifyIcon} alt="" style={{margin: "5px", paddingRight: "2vw"}}/>
-          <a href={props.link} style={{textDecoration: "none", color:"inherit"}}>
+          <a href={props.link} style={{textDecoration: "none", color:"inherit"}} target="_blank" rel="noopener noreferrer">
           <h4>Listen on Spotify</h4>
           </a>
           <IconButton onClick={handleClickShare}>
