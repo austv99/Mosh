@@ -129,11 +129,14 @@ class App extends Component {
 
             return (
             <div style={{ color: 'white' }}>
-                <h1>GAPI is loaded and ready to use.</h1>
+                {/* <h1>GAPI is loaded and ready to use.</h1> */}
                 {(this.state.isSignedIn === false || this.state.access_token === "") ? (
-				    <h2>Not Logged In Yet</h2>
+                    <div></div>
+
+				    // <h2>Not Logged In Yet</h2>
                 ) : (
-                    <YoutubeLiked params={this.state} ></YoutubeLiked>
+                    // <YoutubeLiked params={this.state} ></YoutubeLiked>
+                    <div></div>
                 )
                 }
                 

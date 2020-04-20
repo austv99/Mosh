@@ -84,7 +84,7 @@ export default function MusicCard(props) {
         <div className={classes.details}>
             <CardContent className={classes.content}>
                 <ThemeProvider theme={textTheme}>
-                  <Typography variant="h7" style={{width: "100px", whiteSpace: "nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
+                  <Typography variant="h6" style={{width: "100px", whiteSpace: "nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
                       <b> {props.title} </b>
                   </Typography>
                   <Typography variant="subtitle2" color="textSecondary">

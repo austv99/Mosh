@@ -5,7 +5,8 @@ import MainApp from "./mainApp"
 import * as serviceWorker from './serviceWorker';
 import App from "./components/Youtube/YoutubeDiscoverMusic"
 /*global gapi */
-ReactDOM.render(<MainApp/>, document.getElementById('root'));
+
+//NOTE: THIS NEEDS TIME TO LOAD THE SCRIPT SO CANT IMMEDIATELY LOAD FROM home/token have to go from landing -> home
 const script = document.createElement("script");
 script.src = "https://apis.google.com/js/api.js";
 script.onload = () => {
@@ -13,10 +14,13 @@ script.onload = () => {
         gapi.client.setApiKey("AIzaSyBhklDEhDYrLwf5mMkLKsA34Btqjpj8S7k");
         gapi.client.load('youtube', 'v3', () => {
         })
-    });
+    })
+    console.log("gapi loaded")
 
 }
 document.body.appendChild(script);
+ReactDOM.render(<MainApp/>, document.getElementById('root'));
+
 // import * as firebase from 'firebase';
 // import firebaseconfig from './firebase.config';
 // firebase.initializeApp(firebaseconfig);

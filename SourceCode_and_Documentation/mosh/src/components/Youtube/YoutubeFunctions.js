@@ -5,7 +5,7 @@ import firebase from 'firebase';
 import {fire,uiconfig} from '../../config/fire'
 import YoutubeLiked from './YoutubeLiked'
 var count = 0;
-var fb=fire;
+//var fb=fire;
 const API_KEY = 'AIzaSyBhklDEhDYrLwf5mMkLKsA34Btqjpj8S7k';
 const CLIENT_ID = '542831090816-nvuicfih0d0ulh87cjinkfrmg1tlfciq.apps.googleusercontent.com'
 const AUTH_SCOPES = [
@@ -19,6 +19,10 @@ const DISCOVERY_DOCS = [
 
 async function handleIsSignedIn(isSignedIn) {
     if (!isSignedIn) {
+        var gapi = window.gapi
+        if (gapi === undefined){
+            return "undefined"
+        }
         gapi.client.init({
             apiKey: API_KEY,
             clientId: CLIENT_ID,
@@ -32,10 +36,10 @@ async function handleIsSignedIn(isSignedIn) {
             const currentUser = auth2.currentUser.get()
             const authResponse = currentUser.getAuthResponse(true)
             console.log("already Signed In")
-
+            return "SignedIn"
         } else {
             let r1 = await auth2.signIn()
-            .then(() => {
+            .then( async () => {
                 console.log("SIGNING IN")
                 const currentUser = auth2.currentUser.get()
                 const profile = currentUser.getBasicProfile()
@@ -50,7 +54,7 @@ async function handleIsSignedIn(isSignedIn) {
                     authResponse.access_token
                 )
                 //sign in to firebase
-                fb.auth().signInWithCredential(credential)
+                let rr1 = await fire.auth().signInWithCredential(credential)
                 .then(({ user }) => {
                     console.log('firebase: user signed in!', {
                     displayName: user.displayName,
@@ -59,10 +63,13 @@ async function handleIsSignedIn(isSignedIn) {
                     })
                 }).then(() => {
                     console.log("rerender")
+
                 });
+                //console.log(rr1)
                 //make api calls from here
             })
-            return "finished"
+            console.log(r1)
+            return "SignedIn"
         }
         
 
@@ -74,6 +81,11 @@ async function handleIsSignedIn(isSignedIn) {
 async function getYoutubeData(type){
     var output = []
     var videoId;
+    var gapi = window.gapi;
+    console.log(gapi)
+    if (gapi === undefined){
+        return 
+    }
     console.log(gapi.auth2.getAuthInstance().currentUser.get())
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token
     const YoutubeType = type
@@ -92,6 +104,7 @@ async function getYoutubeData(type){
         console.log(responseData);
         if (responseData.items == null){
             console.log(responseData)
+            return "error"
         } else {
             //only grab music from liked list
             videoId = (responseData.items).filter(a => a.snippet.categoryId === "10").map(a => a.id);
@@ -99,10 +112,13 @@ async function getYoutubeData(type){
             console.log(responseData)
             //setResult(videoId[0])
         }
-    }).then(async () =>{
+    }).then(async (err) =>{
         //https://developers.google.com/youtube/v3/docs/search/list
         //relatedToVideoId
         //fetch();
+        if (err){
+            return err
+        }
         var relatedOptions = {
             key:API_KEY, 
             part:'snippet',

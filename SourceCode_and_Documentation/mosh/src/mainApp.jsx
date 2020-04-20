@@ -45,18 +45,20 @@ class App extends Component {
       <div className="App">
         <Router>
         <Route exact path="/">
-            {this.state.user === null ? <Landing/> : <Redirect to="/home/:token"/>}
+            {this.state.user === null ? <Landing/> : <Redirect to="/connect"/>}
           </Route>
           <Route path="/discover">
             {this.state.user !== null ? <Discover/> : <Redirect to="/"/>}
           </Route>
-          <Route path="/home/:token">
-            {this.state.user !== null ? <Homescreen/> : <Redirect to="/"/>}
+          <Route path="/home">
+            <Homescreen/>
+            {/* {this.state.user !== null ? <Homescreen/> : <Redirect to="/"/>} */}
           </Route>
           <Route path="/connect">
-            {this.state.user !== null ? <Connect/> : <Redirect to="/"/>}
+            <Connect/>
+            {/* //{this.state.user !== null ? <Connect/> : <Redirect to="/"/>} */}
           </Route>
-          <Route path="/share/:token">
+          <Route path="/share">
             {this.state.user !== null ? <Share/> : <Redirect to="/"/>}
           </Route>
         </Router>
@@ -75,13 +77,13 @@ class App extends Component {
 //         <Route path="/discover">
 //             <Discover/>
 //         </Route>
-//         <Route path="/home/:token">
+//         <Route path="/home/token">
 //             <Homescreen/>
 //         </Route>
 //         <Route path="/connect">
 //           <Connect />
 //         </Route>
-//         <Route path="/share/:token">
+//         <Route path="/share/token">
 //           <Share />
 //         </Route>
 //       </Router>

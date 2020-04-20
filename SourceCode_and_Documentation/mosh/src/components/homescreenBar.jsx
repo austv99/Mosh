@@ -24,15 +24,29 @@ export class HomePri extends React.Component {
         if (this.state.token) {
           spotifyApi.setAccessToken(this.state.token);
         }
-      this.getTopArtists();
+        this.getTopArtists();
     }
-    getTopArtists() {
-        var rerenderCallback = this.props.rerenderCallback
+    // componentDidMount = async () => {
+    //     var x = await 
+    //     console.log("x is ",x)
+    // }
+    getTopArtists = async () => {
+        //var rerenderCallback = this.props.rerenderCallback
         //console.log(this.props.rerenderCallback)
         //console.log(this.props.handleSelection)
 
         async function callAsync() {
+            if (!window.gapi){
+                return
+            }
+            if (!window.gapi.auth2.getAuthInstance()){
+                return
+            }
+            if (!window.gapi.auth2.getAuthInstance().isSignedIn.get()){
+                return
+            }
             var x = await handleIsSignedIn(false)
+
             async function callAsync2() {
                 var YoutubeData = await getYoutubeData("tags")
                 console.log(YoutubeData)
@@ -40,33 +54,36 @@ export class HomePri extends React.Component {
             }
             return callAsync2()
         }
-
-        callAsync().then(YoutubeData => {
+        var x = await callAsync().then(YoutubeData => {
             console.log(YoutubeData)
-            //var list = [...this.state.list]
-            // YoutubeData.forEach(item => {
-            //     this.state.list.push(item)
-            // })
-            YoutubeData.map(obj => this.setState(prevState=> ({
-                youtubelist: [...prevState.youtubelist,obj]
-                
-            })))
-            console.log(this.state.youtubelist)
+            if (YoutubeData === undefined){
+                YoutubeData = []
+            }
+            console.log(this.props)
+            YoutubeData.map(obj => this.props.rerenderCallback(obj))
+            //console.log(this.state.list)
+            //console.log("updated")
+            return YoutubeData
+        }).then(YoutubeData => {
+            if (this.state.token != "undefined" && this.state.token){
+                spotifyApi.getMyTopArtists()
+                .then((response) => {
+                    response.items.map(obj => this.state.list.push(obj.name))
+                    this.props.rerenderCallback(this.state.list)
+                }, (err) => {
+                    console.error(err);
+                })
+            }
+            
         })
+        //this.setState({finished:true})        
+        console.log(this.props.state)
+        //this.props.rerenderCallback()
         //.then(() =>{
             //this.setState({finished:true})
             //this.props.rerenderCallback();
             //this.forceUpdate();
         //})
-        spotifyApi.getMyTopArtists()
-        .then((response) => {
-            response.items.map(obj => this.setState(prevState=> ({
-                list: [...prevState.list,obj.name]
-                
-            })))
-        }, (err) => {
-            console.error(err);
-        })
     }
     renderButton(title) {
         //console.log(title);
@@ -83,9 +100,12 @@ export class HomePri extends React.Component {
     }
 
     renderButtons() {
-        let buttons = this.state.youtubelist.map(title => this.renderButton(title));
+        //first filter and remove dupes
+        console.log(this)
+        var UniqueList = this.props.state.artists.filter((a, b) => this.props.state.artists.indexOf(a) === b)
+        let buttons = UniqueList.map(title => this.renderButton(title));
         console.log("butons are",buttons)
-        console.log(this.state)
+        console.log(UniqueList)
         return buttons;
         
         
@@ -95,19 +115,19 @@ export class HomePri extends React.Component {
          console.log("HOMEBAR")
         // var divdd = <div>what</div>
         //console.log(this.state.list[0])
-        var returnval = (<List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
-                            <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
-                                <ListItemText primary = "Your Interests"/>
-                            </ListSubheader>
-                            <Divider/>      
-                            <div>
-                                {/* {this.state.list[0]} */}
-                                {this.renderButtons()}
-                            </div>   
-                            {/* <App type={"tags"}></App> */}
-                        </List>)
-        //console.log(returnval)
-        return (returnval)
+        return (
+            <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
+                <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
+                    <ListItemText primary = "Your Interests"/>
+                </ListSubheader>
+                <Divider/>      
+                <div>
+                    {/* {this.state.list[0]} */}
+                    {this.renderButtons()}
+                </div>   
+                {/* <App type={"tags"}></App> */}
+            </List>
+        )
     }   
 }
 

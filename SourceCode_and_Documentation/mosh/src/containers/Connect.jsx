@@ -8,7 +8,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import Spotify from 'spotify-web-api-js';
 import Homescreen from './Homescreen';
-
+import App from '../components/Youtube/YoutubeDiscoverMusic'
 const spotifyApi = new Spotify();
 
 const styles = {
@@ -48,8 +48,10 @@ class Connect extends React.Component {
         }
         this.state = {
             loggedIn: token ? true : false,
-            token: token
+            token: token,
+            showLogin: false
         }
+
     }
     getHashParams() {
         var hashParams = {};
@@ -60,9 +62,20 @@ class Connect extends React.Component {
         }
         return hashParams;
     }
+    handleGoogleLogin = (e) => {
+        e.preventDefault();
+        this.setState({showLogin:true})
+    }
+    renderGoogleBackgroundLogin = () => {
+        console.log(this.state.showLogin)
 
+        if (!this.state.showLogin) return '';
+        return (
+            <App />
+        );
+    }
     render() {
-        console.log(this.state.token)
+        console.log(this.state.showLogin)
     return(
         <>
         <div style={styles.background}>
@@ -81,16 +94,24 @@ class Connect extends React.Component {
                 </a>
             </Button>
             </div>
-            <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "40vw", margin: "10px"}} >
+            <Button color="inherit" onClick={this.handleGoogleLogin} style={{textTransform: 'none', backgroundColor:"#000000", width: "40vw", margin: "10px"}} >
             <div style={{display: "flex"}}>
                 <img src={YoutubeIcon} alt="" style={{paddingRight:"5vw"}}/>
                 <h3 style={{color: "#E4321A"}}>Connect with YouTube</h3>
+                {(this.state.showLogin === true) ? (
+				    <App/>
+                ) : (
+                    // <YoutubeLiked params={this.state} ></YoutubeLiked>
+                    <div></div>
+                )}
             </div>
             </Button>
         </div>
         <div style={{margin: "10px", display: "flex"}}>
         <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "20vw", margin: "10px"}} >
-        Skip for now
+            <Link to={"/home/"} style={{textDecoration:'none', color:'inherit'}}>
+            Skip for now
+            </Link>
         </Button>
         
         <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "20vw", margin: "10px"}} >
@@ -99,7 +120,7 @@ class Connect extends React.Component {
             </Link>
         </Button>
         <Switch>
-            <Route path="/home/:token" component={Homescreen} />
+            <Route path="/home/token/" component={Homescreen} />
         </Switch>
         </div>
         </div>

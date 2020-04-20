@@ -20,7 +20,7 @@ class MobileDrawer extends React.Component {
         } else {
             renderBars = 
             <>
-            <HomePri primaryTags = {this.props.primaryTags} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+            <HomePri primaryTags = {this.props.primaryTags}  state = {this.props.state} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
             <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
             </>
             ;
@@ -68,7 +68,7 @@ class DesktopDrawer extends React.Component {
             //console.log(window.gapi)
             renderBars = 
             <>
-            <HomePri primaryTags = {this.props.primaryTags} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
+            <HomePri primaryTags = {this.props.primaryTags}  state = {this.props.state} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
             <HomeSec selectedTag = {this.props.selectedTag}  handleSelection = {this.props.handleSelection}/>
             </>
             ;

@@ -90,13 +90,10 @@ class Homescreen extends React.Component {
             mobileOpen : !state.mobileOpen
         }))
     }; 
-    rerenderCallback = () => {
-      this.setState(() => ({
-        rerendering: true
-      }))
-      console.log("rerendering home")
-      this.forceUpdate();
-      console.log("rerendering home1")
+    rerenderCallback = (artists) => {
+      this.setState(prevState=> ({
+        artists: prevState.artists.concat(artists)
+    }))
     };
     handleSelection = (event, title) => {
         this.setState(() => ({
@@ -123,10 +120,10 @@ class Homescreen extends React.Component {
 
                     <MobileDrawer type="home" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
                     drawerPaper = {classes.drawerPaper} primaryTags = {this.state.token} handleSelection = {this.handleSelection}
-                    rerenderCallback = {this.rerenderCallback} selectedTag = {this.state.selectedTag}/>
+                    rerenderCallback = {this.rerenderCallback}  state = {this.state} selectedTag = {this.state.selectedTag}/>
                     
                     <DesktopDrawer type="home"  drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.token}
-                    handleSelection = {this.handleSelection} rerenderCallback = {this.rerenderCallback} selectedTag = {this.state.selectedTag}/>
+                    handleSelection = {this.handleSelection} rerenderCallback = {this.rerenderCallback} state = {this.state} selectedTag = {this.state.selectedTag}/>
                 </nav>
 
 
@@ -135,8 +132,8 @@ class Homescreen extends React.Component {
                     
                     {/* Main Body of page goes here */}
                     <Switch>
-                        <Route path = {"/home"}exact component = {newsFeed}/>
-                        <Route path = "/home/artist/:artist" component= {artistPage}/>
+                        <Route path = {["/home/token"]}  component = {newsFeed}/>
+                        <Route path = "/home/artist/" component= {artistPage}/>
                         {/* <Route path = "/home/TravisScott" component= {artistPage}/>
                         <Route path = "/home/LilUziVert" component= {artistPage}/>
                         <Route path = "/home/TheWeeknd" component= {artistPage}/> */}
