@@ -49,7 +49,7 @@ class Discover extends React.Component {
         super(props);
 
         this.state = {
-            mobileOpen : false, 
+            mobileOpen : false,
             primaryTags : ["music", "concerts", "people", "shared"],
             selectedTag: "music",
             token: window.location.pathname.replace("/discover/token/", ""),
@@ -60,7 +60,7 @@ class Discover extends React.Component {
         this.setState((state) => ({
             mobileOpen : !state.mobileOpen
         }))
-    }; 
+    };
 
     handleSelection = (event, title) => {
         this.setState(() => ({
@@ -80,13 +80,13 @@ class Discover extends React.Component {
 
                 {/* Navbar Goes Here */}
                 <NavBar token={this.state.token} appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
-                
+
                 <nav className={classes.drawer}>
 
-                    <MobileDrawer type="discover" token= {this.state.token} container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle} 
+                    <MobileDrawer type="discover" token= {this.state.token} container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle}
                     drawerPaper = {classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
-                    
+
                     <DesktopDrawer type="discover" token= {this.state.token} drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
                     handleSelection = {this.handleSelection} selectedTag = {this.state.selectedTag}/>
                 </nav>
@@ -94,7 +94,7 @@ class Discover extends React.Component {
 
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    
+
                     {/* Main Body of page goes here */}
                     <Switch>
                         <Route path = "/discover/token/:token" exact component = {discoverMusic}/>

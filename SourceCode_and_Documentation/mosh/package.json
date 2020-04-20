@@ -14,11 +14,17 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
+    "fetch": "^1.1.0",
+    "hooks": "^0.3.2",
+    "html-to-react-loader": "^1.0.0-alpha.10",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.13.1",
+    "react-html-parser": "^2.0.2",
     "react-router-dom": "^5.1.2",
+    "react-script-hook": "^1.0.17",
     "react-scripts": "3.4.0",
     "react-spotify-api": "^3.0.0",
     "react-spotify-login": "^0.9.1",
@@ -44,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "html-loader": "^1.1.0"
   }
 }
