@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -74,6 +74,7 @@ export default function MusicCard(props) {
   
 
   return (
+    <>
     <Card className={classes.root}>
         <CardMedia
             className={classes.cover}
@@ -107,7 +108,7 @@ export default function MusicCard(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <div style={{backgroundColor: "#292b2a", color:"#ffffff"}}>
+        {/* <div style={{backgroundColor: "#292b2a", color:"#ffffff"}}>
         <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
           <img src={props.img} alt="" style={{width: "250px", height:"250px"}}/>
@@ -120,6 +121,7 @@ export default function MusicCard(props) {
           <div style={{display: "flex", flexDirection: "column"}}>
           <div style={{display: "flex", alignItems: "center"}}>
           <img src={SpotifyIcon} alt="" style={{margin: "5px", paddingRight: "2vw"}}/>
+          {console.log(links)}
           <a href={props.link} style={{textDecoration: "none", color:"inherit"}} target="_blank" rel="noopener noreferrer">
           <h4>Listen on Spotify</h4>
           </a>
@@ -129,7 +131,9 @@ export default function MusicCard(props) {
           </div>
           <div style={{display: "flex", alignItems: "center"}}>
           <img src={YoutubeIcon} alt="" style={{margin: "5px", paddingRight: "2vw"}}/>
+          <a href={links.youtube} style={{textDecoration: "none", color:"inherit"}} target="_blank" rel="noopener noreferrer">
           <h4>Listen on Youtube</h4>
+          </a>
           <IconButton onClick={handleClickShare}>
             <ShareIcon style={{paddingLeft: "1vw", color: "#ffffff"}}/>
           </IconButton>
@@ -141,7 +145,9 @@ export default function MusicCard(props) {
             Close
           </Button>
         </DialogActions>
-        </div>
+        </div> */}
+        {/* <iframe width="1000" height="615" src={"https://embed.odesli.co/?url="+ props.link + "&theme=dark"} frameborder="0" allowtransparency allowfullscreen sandbox="allow-same-origin allow-scripts allow-presentation allow-popups allow-popups-to-escape-sandbox"></iframe> */}
+        <iframe width="600" height="500" src={"https://embed.odesli.co/?url="+ props.link + "&theme=dark"}frameBorder="0" allowtransparency="true" allowFullScreen sandbox="allow-same-origin allow-scripts allow-presentation allow-popups allow-popups-to-escape-sandbox"></iframe>
       </Dialog>
 
       <Dialog
@@ -168,5 +174,6 @@ export default function MusicCard(props) {
       </Dialog>
 
     </Card>
+    </>
   );    
 }

@@ -166,14 +166,17 @@ async function getYoutubeData(type){
                     console.log(recommendedTitlesId);
                     
                     //setResult(recommendedTitles.join(" , "))
-                    let output = '<br><h4 class="center-align">Recommended Videos</h4>';
-                
+                    //let output = '<br><h4 class="center-align">Recommended Videos</h4>';
+                    var output = [];
                     // Loop through videos and append output
-                    recommendedTitlesId.forEach(item => {
-                        output += `
-                            <iframe width="auto" height="auto" src="https://www.youtube.com/embed/${item}" frameborder="0" allowfullscreen></iframe>
-                        `;
-                    });
+                    // recommendedTitlesId.forEach(item => {
+                    //     output.push('https://www.youtube.com/watch?v='+item)
+                    //     // output += `
+                    //     //     <iframe width="auto" height="auto" src="https://www.youtube.com/embed/${item}" frameborder="0" allowfullscreen></iframe>
+                    //     // `;
+                    // });
+                    output = responseData.items
+                    return output
                     //setResult(output)
                     // // Output videos
                     // videoContainer.innerHTML = output;

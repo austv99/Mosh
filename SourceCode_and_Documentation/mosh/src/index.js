@@ -19,6 +19,7 @@ script.onload = () => {
 
 }
 document.body.appendChild(script);
+
 ReactDOM.render(<MainApp/>, document.getElementById('root'));
 
 // import * as firebase from 'firebase';
