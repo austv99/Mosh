@@ -72,7 +72,7 @@ export default function PersonCard(props) {
             </div>
         </div>
         <ProfileModal open = {open} handleClose = {handleClose} img = {props.img} title = {props.title} connected = {props.connected} favAlbum = {props.favAlbum} 
-        favArtist = {props.favArtist} interests = {props.likes}
+        favArtist = {props.favArtist} interests = {props.likes} id = {props.id}
         />
     </Card>
   );    

@@ -53,7 +53,7 @@ export default function YourConnections() {
             {users.map(user => 
                 <Grid style = {cardStyles} key = {user.id}>
                     <PersonCard title = {user.displayName} likes = {formatInterests(user.interests)} connected = {true} img = {user.photoURL} favArtist = {user.favArtist} 
-                        favAlbum = {user.favAlbum}/>
+                        favAlbum = {user.favAlbum} id = {user.id}/>
                 </Grid> 
             )}
     </div>

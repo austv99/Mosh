@@ -94,9 +94,9 @@ export default function UserProfileModal(props) {
                 <div className={classes.paper} style = {{textAlign : "center"}}>
                     <ImageAvatar img = {user.photoURL} /> 
                     <h2 style = {{color: '#fff'}}>{user.displayName}</h2>
-                    <p><b>Interests</b> : {formatInterests(userData.interests)} </p>
-                    <p><b>Favourite Album</b> : {userData.favAlbum} </p>
-                    <p><b>Favourite Artist</b> : {userData.favArtist} </p>
+                    <p><b>Interests</b> : {formatInterests(userData == null ? null : userData.interests)} </p>
+                    <p><b>Favourite Album</b> : {userData != null ? userData.favAlbum : ""} </p>
+                    <p><b>Favourite Artist</b> : {userData != null ? userData.favArtist : ""} </p>
                     <p><b>Other Info</b> : Placeholder Text</p>
                     <IconButton onClick = {handleSettingsOpen} style = {{color: "inherit"}}>
                         <SettingsIcon/>

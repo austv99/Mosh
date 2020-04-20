@@ -18,13 +18,14 @@ export default function DiscoverPeople() {
         var unsub = db.collection("users").onSnapshot(snapShot => {
             let userList = [] 
             
-            console.log("Got data");
+            // console.log("Got data");
             
             snapShot.forEach(doc => {
                 if (doc.id !== user.uid && !doc.data().connections.includes(user.uid)) {
                     let userData = doc.data();
                     userData["id"] = doc.id;
 
+                    // console.log(userData);
                     userList.push(userData);
                 }
             });
@@ -56,7 +57,7 @@ export default function DiscoverPeople() {
             {users.map(user => 
                 <div style = {cardStyles} key = {user.id}>
                     <PersonCard title = {user.displayName} likes = {formatInterests(user.interests)} connected = {false} img = {user.photoURL} favArtist = {user.favArtist} 
-                    favAlbum = {user.favAlbum}
+                    favAlbum = {user.favAlbum} id = {user.id}
                     />
                 </div>
             )}
