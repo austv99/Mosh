@@ -9,6 +9,16 @@ import { IconButton } from '@material-ui/core';
 import SettingsModal from "./discoverComponents/settingsModal"
 import {fire} from "../config/fire"
 import {useEffect} from "react";
+import ProgressBar from './progressBar';
+
+import SilverMedal from "./gamification/silver-medal.png"
+import GoldMedal from "./gamification/gold-medal.png"
+import BronzeMedal from "./gamification/bronze-medal.png"
+import EmptyMedal from "./gamification/empty-medal.png"
+
+import CloseIcon from '@material-ui/icons/Close';
+
+import AchievementsModal from './achievementsModal';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -32,10 +42,22 @@ export default function UserProfileModal(props) {
   const classes = useStyles();
   var user = fire.auth().currentUser;
   var db = fire.firestore();
-  // let didMount = false;
 
   const [open, setOpen] = React.useState(false);
-  const [userData, setUserData] = React.useState({});
+  const [userData, setUserData] = React.useState(null);
+  
+  const [achievementsOpen, setAchievementsOpen] = React.useState(false);
+  const [achievements, setAchievements] = React.useState(null);
+
+  const handleAchievementsOpen = () => {
+    setAchievementsOpen(true);
+    props.handleClose();
+  }
+
+  const handleAchievementsClose = () => {
+    setAchievementsOpen(false);
+    props.handleOpen();
+  }
 
   const handleSettingsOpen = () => {
     setOpen(true);
@@ -75,12 +97,90 @@ export default function UserProfileModal(props) {
 
     return output;
   }
+  
+  
+
+  const getProgress = (achievements) => {
+    if (achievements == null) {
+      return 0;
+    }
+    
+    let numAchieved = 0;
+    let numKeys = 0;
+
+    Object.keys(achievements).forEach(key => {
+      if (achievements[key] === true) {
+        numAchieved += 1;
+      }
+      numKeys += 1;
+    });
+
+    let result = Math.ceil((numAchieved/numKeys) * 100);
+    return result;
+  }
+
+  const renderMedal = (achievements) => {
+    if (achievements == null) {
+      return <img src = {EmptyMedal} style = {{marginBottom: "2%"}} alt = ""/>
+    }
+    
+    let numAchieved = 0;
+
+    Object.keys(achievements).forEach(key => {
+      if (achievements[key] === true) {
+        numAchieved += 1;
+      }
+    });
+
+    if (numAchieved === 0) {
+      return <img src = {EmptyMedal} style = {{marginBottom: "2%"}} alt = ""/>
+    } else if (numAchieved === 1) {
+      return <img src = {BronzeMedal} style = {{marginBottom: "2%"}} alt = ""/>
+    } else if (numAchieved === 2) {
+      return <img src = {SilverMedal} style = {{marginBottom: "2%"}} alt = ""/> 
+    } else {
+      return <img src = {GoldMedal} style = {{marginBottom: "2%"}} alt = ""/>
+    }
+  }
+  
+  useEffect(() => {
+    const calculateAchievements = () => {
+      let completed = {};
+      
+      if (userData == null) {
+        console.log("Nothing happened");
+        return completed;
+      } else {
+        //Check if post has been made
+        if (userData.posts.length >= 1) {
+          completed["post"] = true;
+        } else {
+          completed["post"] = false;
+        }
+  
+        //Check if >= 5 connections
+        if (userData.connections.length >= 5) {
+          completed["connections"] = true;
+        } else {
+          completed["connections"] = false;
+        }
+  
+        if (userData.comments.length >= 1) {
+          completed["comment"] = true;
+        } else {
+          completed["comment"] = false;
+        }
+
+        return completed;
+      }
+    }
+    
+    setAchievements(calculateAchievements());
+  }, [userData])
 
   return (
     <div>
         <Modal
-            // aria-labelledby="transition-modal-title"
-            // aria-describedby="transition-modal-description"
             className={classes.modal}
             open={props.open}
             onClose={props.handleClose}
@@ -92,8 +192,23 @@ export default function UserProfileModal(props) {
         >
             <Fade in={props.open}>
                 <div className={classes.paper} style = {{textAlign : "center"}}>
+                    <div style = {{display : "flex", justifyContent: "flex-end"}}>
+                      <IconButton onClick = {() => {
+                        props.handleClose();
+                        // console.log("test");
+                      }}>
+                        <CloseIcon style = {{color: "white"}}/>
+                      </IconButton>
+                    </div>
+
                     <ImageAvatar img = {user.photoURL} /> 
-                    <h2 style = {{color: '#fff'}}>{user.displayName}</h2>
+                    <h2 style = {{color: '#fff', marginBottom: "0"}}>{user.displayName}</h2>
+                    <h3 style = {{marginBottom: "0"}}> My Achievement Progress </h3>
+                    <IconButton onClick = {handleAchievementsOpen}>
+                      {renderMedal(achievements)}
+                    </IconButton>
+                    <ProgressBar progress = {getProgress(achievements)}/>
+                    
                     <p><b>Interests</b> : {formatInterests(userData == null ? null : userData.interests)} </p>
                     <p><b>Favourite Album</b> : {userData != null ? userData.favAlbum : ""} </p>
                     <p><b>Favourite Artist</b> : {userData != null ? userData.favArtist : ""} </p>
@@ -105,6 +220,7 @@ export default function UserProfileModal(props) {
             </Fade>
         </Modal>
         <SettingsModal open = {open} handleClose = {handleSettingsClose}/>
+        <AchievementsModal open = {achievementsOpen}  handleClose = {handleAchievementsClose} achievements = {achievements}/>
     </div>
   );
 }

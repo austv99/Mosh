@@ -39,6 +39,8 @@ export default function SignUpModal(props) {
             favArtist: "Placeholder for user's fav artist",
             interests: ["Placholder 1", "Placeholder 2"],
             photoURL: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
+            posts: [],
+            comments: [],
           }, {merge: true}).catch( err => {
             console.log(err.message);
           })

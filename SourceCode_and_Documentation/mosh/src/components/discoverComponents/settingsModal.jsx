@@ -5,6 +5,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import Button from "@material-ui/core/Button"
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import AvatarModal from "./avatarModal"
+
 
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -38,6 +40,15 @@ const theme = createMuiTheme({
 //TODO: This page should be linked to a database query
 export default function SettingsModal(props) {
   const classes = useStyles();
+  const [urlOpen, setUrlOpen] = React.useState(false);
+
+  const handleUrlOpen = () => {
+    setUrlOpen(true);
+  }
+
+  const handleUrlClose = () => {
+    setUrlOpen(false);
+  }
 
   return (
     <div>
@@ -75,6 +86,7 @@ export default function SettingsModal(props) {
                         variant="outlined"
                         className={classes.button}
                         endIcon={<ArrowForwardIcon/>}
+                        onClick = {handleUrlOpen}
                     >
                         Upload New Profile Picture
                     </Button>
@@ -93,6 +105,7 @@ export default function SettingsModal(props) {
             </div>
         </Fade>
     </Modal>
+    <AvatarModal open = {urlOpen} handleClose = {handleUrlClose}/>
     </div>
   );
 }

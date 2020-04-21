@@ -8,6 +8,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import IconButton from "@material-ui/core/IconButton"
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import CommentsModal from "./commentsModal"
 
 let textTheme = createMuiTheme();
 textTheme = responsiveFontSizes(textTheme);
@@ -45,6 +46,16 @@ const useStyles = makeStyles((theme) => ({
 export default function PostCard(props) {
   const classes = useStyles();
 
+  let [open, setOpen] = React.useState(false);
+
+  let handleOpen = () => {
+    setOpen(true);
+  };
+
+  let handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Card className={classes.root}>
         <CardMedia
@@ -72,12 +83,12 @@ export default function PostCard(props) {
                 <IconButton className = {classes.button} onClick = {props.handleLike}> 
                   <ThumbUpAltIcon/>
                 </IconButton>
-                <IconButton className = {classes.button}>
+                <IconButton className = {classes.button} onClick = {handleOpen}>
                   <ChatBubbleIcon/>
                 </IconButton >
             </div>
         </div>
-
+        <CommentsModal handleClose = {handleClose} open = {open} id = {props.id}/>
     </Card>
   );    
 }

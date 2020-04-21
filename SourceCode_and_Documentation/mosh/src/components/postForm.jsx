@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {fire} from "../config/fire"
 import { makeStyles } from '@material-ui/core/styles';
+import * as firebase from 'firebase/app';
 
 const useStyles = makeStyles((theme) => ({
     textField: {
@@ -34,17 +35,20 @@ export default function PostForm(props) {
 
         //Submit to firebase
         let newPost = {
-            author: fire.auth().currentUser.displayName,
             content: newContent,
-            img: fire.auth().currentUser.photoURL,
             likedBy: [],
             tag: tag,
+            uid: fire.auth().currentUser.uid,
         }
 
 
-        db.collection("posts").add(newPost).then(() => {
+        db.collection("posts").add(newPost).then((doc) => {
             setContent("");
             setTag("");
+
+            db.collection("users").doc(fire.auth().currentUser.uid).update({
+                posts: firebase.firestore.FieldValue.arrayUnion(doc.id),
+            })
         }).catch(err => {
             alert(err.message);
         })

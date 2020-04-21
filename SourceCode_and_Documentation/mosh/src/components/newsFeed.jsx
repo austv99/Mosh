@@ -42,42 +42,64 @@ export default function NewsFeed(props) {
             
     useEffect(() => {
         var unsub;
-        // console.log("Mounting news feed");
         
         if (props.artist != null) {
             unsub = db.collection("posts").where("tag", "==", props.artist).onSnapshot(snapshot => {                
                 let newPosts = [];
+                let promises = [];
                     
-                    snapshot.forEach(doc => {
+                snapshot.forEach(doc => {
                     let post = doc.data();
-                    // console.log(post);
-
+                
                     post["id"] = doc.id;
+                    let promise = db.collection("users").doc(post.uid).get();
 
+                    promises.push(promise);
                     newPosts.push(post);
                 })
 
-                setPosts(newPosts);
+                Promise.all(promises).then((promises) => {
+                    for (let i = 0; i < promises.length; i++) {
+                        
+                        newPosts[i]["author"] = promises[i].data().displayName;
+                        newPosts[i]["img"] = promises[i].data().photoURL;
+                    }
+
+                    setPosts(newPosts);
+                }).catch(() => {
+                    alert("Error has occured when fetching users from feed data");
+                })
             })
         } else {
             unsub = db.collection("posts").onSnapshot(snapshot => {                
                 let newPosts = [];
+                let promises = [];
                     
-                    snapshot.forEach(doc => {
+                snapshot.forEach(doc => {
                     let post = doc.data();
-                    // console.log(post);
-
+                
                     post["id"] = doc.id;
+                    let promise = db.collection("users").doc(post.uid).get();
 
+                    promises.push(promise);
                     newPosts.push(post);
                 })
 
-                setPosts(newPosts);
+                Promise.all(promises).then((promises) => {
+                    for (let i = 0; i < promises.length; i++) {
+                        
+                        newPosts[i]["author"] = promises[i].data().displayName;
+                        newPosts[i]["img"] = promises[i].data().photoURL;
+                    }
+
+                    setPosts(newPosts);
+                }).catch(() => {
+                    alert("Error has occured when fetching users from feed data");
+                })
             })
         }
 
         return () => {
-            // console.log("Unmounting newsfeed")
             unsub();
         };
     }, [db, props.artist])
@@ -89,7 +111,7 @@ export default function NewsFeed(props) {
             {posts.map((post) => 
                 <Grid key = {post.id} style = {cardStyles}>
                     <PostCard title = {post.author} content = {post.content} img = {post.img} count = {post.likedBy.length} 
-                    tag = {post.tag} handleLike = {(e) => handleLike(e, post.id)}/>
+                    tag = {post.tag} id = {post.id} handleLike = {(e) => handleLike(e, post.id)}/>
                 </Grid>
             )}
         </div>
