@@ -108,9 +108,12 @@ class discoverMusic extends React.Component {
                     console.log( response )
                     return response
                     })
-                
+                var  album_backup_backup= obj.snippet.thumbnails.default.url
                 if (!album){
                     album = album_backup
+                    if (!album){
+                        album = album_backup_backup
+                    }
                 }
                 console.log(album)
                 console.log(obj.snippet.title)

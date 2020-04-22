@@ -89,6 +89,7 @@ async function getYoutubeData(type){
     console.log(gapi.auth2.getAuthInstance().currentUser.get())
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token
     const YoutubeType = type
+    let videoTitles;
     var videoOptions = {
         access_token:access_token,
         key:API_KEY, 
@@ -108,82 +109,99 @@ async function getYoutubeData(type){
         } else {
             //only grab music from liked list
             videoId = (responseData.items).filter(a => a.snippet.categoryId === "10").map(a => a.id);
+            videoTitles = (responseData.items).filter(a => a.snippet.categoryId === "10").map(a => a.snippet.title);
             console.log(videoId);
+            console.log(videoTitles)
             console.log(responseData)
             //setResult(videoId[0])
         }
     }).then(async (err) =>{
+        let r3;
         //https://developers.google.com/youtube/v3/docs/search/list
         //relatedToVideoId
         //fetch();
         if (err){
             return err
         }
-        var relatedOptions = {
-            key:API_KEY, 
-            part:'snippet',
-            maxResults:10,
-            type:'video',
-            relatedToVideoId:videoId[0],
-            topicId:'/m/04rlf',
-            q:'Official Music Video'
-        }
-        console.log(videoId[0])
-        const relatedQuery = Object.keys(relatedOptions).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(relatedOptions[k])).join('&');
-        var relatedURL = 'https://www.googleapis.com/youtube/v3/search?' + relatedQuery;
-        let r3 = await fetch(relatedURL)
-        .then(response => response.json())
-        .then(responseData => {
-            console.log(responseData);
-            if (responseData.items == null){
-                console.log(responseData)
-            } else {
-                console.log(YoutubeType)
-                if (YoutubeType === "tags"){
-                    var recommendedTitles = (responseData.items).map(a => a.snippet.title);
-                    //loop through
-                    var output = [];
-                    // var output = '<br>'
-                    recommendedTitles.forEach(item => {
-                        //console.log(item.split(' -'))
-                        output.push(item.split(' -')[0])
-                        // output += `
-                        //     <div>${item.split('-')[0]}, ${item.split('-')[1]}</div>
-                        // `;
-                    });
-                    //var recommendedArtists = recommendedTitles.split('-')[0]
-
-                    //remove dupes
-                    var uniqueOutput = output.filter((a, b) => output.indexOf(a) === b)
-                    console.log(uniqueOutput); 
-                    output = uniqueOutput
-                    return output
-                    //setResult(output)
-                } else {
-                    var recommendedTitles = (responseData.items).map(a => a.snippet);
-                    console.log(recommendedTitles);
-                    var recommendedTitlesId = (responseData.items).map(a => a.id.videoId);
-                    console.log(recommendedTitlesId);
-                    
-                    //setResult(recommendedTitles.join(" , "))
-                    //let output = '<br><h4 class="center-align">Recommended Videos</h4>';
-                    var output = [];
-                    // Loop through videos and append output
-                    // recommendedTitlesId.forEach(item => {
-                    //     output.push('https://www.youtube.com/watch?v='+item)
-                    //     // output += `
-                    //     //     <iframe width="auto" height="auto" src="https://www.youtube.com/embed/${item}" frameborder="0" allowfullscreen></iframe>
-                    //     // `;
-                    // });
-                    output = responseData.items
-                    return output
-                    //setResult(output)
-                    // // Output videos
-                    // videoContainer.innerHTML = output;
-                }
-    
+        if (YoutubeType === "tags"){
+            async function tags() {
+                var output = [];
+                // var output = '<br>'
+                videoTitles.forEach(item => {
+                    output.push(item.split(' -')[0])
+                });
+                console.log(output)
+                return output;
             }
-        })
+            r3 = tags()
+        } else {
+            var relatedOptions = {
+                key:API_KEY, 
+                part:'snippet',
+                maxResults:10,
+                type:'video',
+                relatedToVideoId:videoId[0],
+                topicId:'/m/04rlf',
+                q:'Official Music Video'
+            }
+            console.log(videoId[0])
+            const relatedQuery = Object.keys(relatedOptions).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(relatedOptions[k])).join('&');
+            var relatedURL = 'https://www.googleapis.com/youtube/v3/search?' + relatedQuery;
+            r3 = await fetch(relatedURL)
+            .then(response => response.json())
+            .then(responseData => {
+                console.log(responseData);
+                if (responseData.items == null){
+                    console.log(responseData)
+                } else {
+                    console.log(YoutubeType)
+                    if (YoutubeType === "tags"){
+                        var recommendedTitles = (responseData.items).map(a => a.snippet.title);
+                        //loop through
+                        var output = [];
+                        // var output = '<br>'
+                        recommendedTitles.forEach(item => {
+                            //console.log(item.split(' -'))
+                            output.push(item.split(' -')[0])
+                            // output += `
+                            //     <div>${item.split('-')[0]}, ${item.split('-')[1]}</div>
+                            // `;
+                        });
+                        //var recommendedArtists = recommendedTitles.split('-')[0]
+    
+                        //remove dupes
+                        var uniqueOutput = output.filter((a, b) => output.indexOf(a) === b)
+                        console.log(uniqueOutput); 
+                        output = uniqueOutput
+                        return output
+                        //setResult(output)
+                    } else {
+                        var recommendedTitles = (responseData.items).map(a => a.snippet);
+                        console.log(recommendedTitles);
+                        var recommendedTitlesId = (responseData.items).map(a => a.id.videoId);
+                        console.log(recommendedTitlesId);
+                        
+                        //setResult(recommendedTitles.join(" , "))
+                        //let output = '<br><h4 class="center-align">Recommended Videos</h4>';
+                        var output = [];
+                        // Loop through videos and append output
+                        // recommendedTitlesId.forEach(item => {
+                        //     output.push('https://www.youtube.com/watch?v='+item)
+                        //     // output += `
+                        //     //     <iframe width="auto" height="auto" src="https://www.youtube.com/embed/${item}" frameborder="0" allowfullscreen></iframe>
+                        //     // `;
+                        // });
+                        output = responseData.items
+                        return output
+                        //setResult(output)
+                        // // Output videos
+                        // videoContainer.innerHTML = output;
+                    }
+        
+                }
+            })
+        }
+        
         console.log(r3)
         output = r3
     });

@@ -121,8 +121,8 @@ class App extends Component {
                 //console.log('gapi: client:auth2 loaded', gapi.auth2.getAuthInstance())
             if (!this.state.loading){
                 this.state.loading= true
+                console.log('handleSignIn')
                 this.handleIsSignedIn(this.state.isSignedIn)
-                this.state.loading= false
             }
             console.log(this.state)
             //console.log(this.state.type)

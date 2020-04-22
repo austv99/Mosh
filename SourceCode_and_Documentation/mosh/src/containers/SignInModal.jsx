@@ -39,6 +39,7 @@ export default function SignInModal(props) {
     }
     const renderGoogleBackgroundLogin = () => {
         if (!showLogin) return '';
+        console.log("logging in using google")
         return (
             <App />
         );

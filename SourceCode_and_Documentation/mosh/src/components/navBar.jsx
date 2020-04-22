@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from 'react-router-dom';
+import { Link , Redirect } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ShareIcon from '@material-ui/icons/Share';
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function NavBar(props) {
+    
     const classes = useStyles();
 
     const [open, setOpen] = React.useState(false);
@@ -37,15 +38,22 @@ function NavBar(props) {
         setOpen(false);
     };
 
-    const handleSignOut = () => {
-        console.log(gapi)
+    const handleSignOut = async () => {
+        console.log(gapi.auth)
+        gapi.auth.setToken(null)
+        gapi.auth.signOut()
         fire.auth().signOut().then(() => {
             console.log("user signed out")
         }).catch(err => {
             console.log(err);
         })
+        // async function logout() {
+            
+        // }
+        // let x = await logout();
+        // return (<Redirect to="/"/>)
+        //console.log('signed out and redirecting')
     }
-
     return (
         <AppBar position="fixed" className={props.appBar} style={{ background:'#303030', boxShadow: 'none'}}>
             <Toolbar>
@@ -113,11 +121,11 @@ function NavBar(props) {
                         <ShareIcon />
                     </IconButton>
                 </Link>
-                <Link to="/" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
-                    <IconButton className = {classes.iconButton} onClick = {handleSignOut}>
+                <div style={{ textDecoration: 'none', color: 'inherit', margin: "5px" }}>
+                    <IconButton onClick = {handleSignOut} className = {classes.iconButton}>
                         <ExitToAppIcon />
                     </IconButton>
-                </Link>
+                </div>
             </div>
             </Toolbar>
             <UserProfileModal open = {open} handleOpen = {handleOpen} handleClose = {handleClose} img = {avatar_url} title = "Austin Vuong"/>
