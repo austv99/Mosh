@@ -35,9 +35,9 @@ export default function SignUpModal(props) {
           fire.firestore().collection("users").doc(fire.auth().currentUser.uid).set({
             connections: [],
             displayName: name,
-            favAlbum: "Placeholder Text for fav album",
-            favArtist: "Placeholder for user's fav artist",
-            interests: ["Placholder 1", "Placeholder 2"],
+            favAlbum: "ASTROWORLD",
+            favArtist: "Travis Scott",
+            interests: ["Hip Hop", "Pop"],
             photoURL: "https://iupac.org/wp-content/uploads/2018/05/default-avatar.png",
             posts: [],
           }, {merge: true}).catch( err => {

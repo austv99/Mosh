@@ -103,9 +103,9 @@ class App extends Component {
                         db.collection("users").doc(user.uid).set({
                             connections: [],
                             displayName: user.displayName,
-                            favAlbum: "Placeholder Text for fav album",
-                            favArtist: "Placeholder for user's fav artist",
-                            interests: ["Placholder 1", "Placeholder 2"],
+                            favAlbum: "ASTROWORLD",
+                            favArtist: "Travis Scott",
+                            interests: ["Hip Hop", "Pop"],
                             photoURL: user.photoURL,
                             posts: [],
                         }, {merge: true}).catch(err => {
