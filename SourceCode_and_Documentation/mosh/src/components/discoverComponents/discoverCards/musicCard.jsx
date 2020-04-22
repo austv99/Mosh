@@ -55,6 +55,8 @@ export default function MusicCard(props) {
   const [share, setShare] = React.useState(false);
   const [connections, setConnections] = React.useState([]);
 
+
+
   const handleClickShare = () => {
     setShare(true);
   };
@@ -73,6 +75,20 @@ export default function MusicCard(props) {
   const handleOpenLink = () => {
     setShare(false);
   };
+
+  const handleShare = (spotifyId, targetId) => {
+    let db = fire.firestore();
+
+    db.collection("shares").add({
+      reciever: targetId,
+      sender: fire.auth().currentUser.uid,
+      spotifyID: spotifyId, 
+    }).then(() => {
+      console.log("Success");
+    }).catch(err => {
+      alert(err);
+    })
+  }
 
   return (
     <>
