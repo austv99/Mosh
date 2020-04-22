@@ -45,6 +45,7 @@ export default function UserProfileModal(props) {
 
   const [open, setOpen] = React.useState(false);
   const [userData, setUserData] = React.useState(null);
+  const [commentsNum, setCommentsNum] = React.useState(0);
   
   const [achievementsOpen, setAchievementsOpen] = React.useState(false);
   const [achievements, setAchievements] = React.useState(null);
@@ -71,7 +72,6 @@ export default function UserProfileModal(props) {
 
   useEffect(() => {
     if (user.uid != null) {
-      // console.log("Getting data")
       var unsub = db.collection("users").doc(user.uid).onSnapshot(doc => {
         if (doc != null) {
           setUserData(doc.data());
@@ -99,7 +99,6 @@ export default function UserProfileModal(props) {
   }
   
   
-
   const getProgress = (achievements) => {
     if (achievements == null) {
       return 0;
@@ -166,7 +165,7 @@ export default function UserProfileModal(props) {
 
       let docRef = fire.firestore().collection("users").doc(fire.auth().currentUser.uid);
 
-      fire.firestore().collection("comments").where("userRef", "==", docRef).get().then(snapshot => {
+      let unsub = fire.firestore().collection("comments").where("userRef", "==", docRef).onSnapshot(snapshot => {
         console.log(snapshot);
         
         if (!snapshot.empty) {
@@ -175,11 +174,12 @@ export default function UserProfileModal(props) {
           completed["comment"] = false;
         }
         setAchievements(completed);
-      }).catch(err => {
-        console.log(err.message);
       })
-  }
 
+      return () => {
+        unsub();
+        }
+      }
   }, [userData])
 
   return (

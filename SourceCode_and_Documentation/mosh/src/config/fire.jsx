@@ -25,18 +25,37 @@ const uiConfig ={
   ],
   callbacks:{ signInSuccessWithAuthResult: (authResult) => {
     console.log(authResult.user);
+    let db = fire.firestore();
 
-    fire.firestore().collection("users").doc(authResult.user.uid).set({
-      connections: [],
-      displayName: authResult.user.displayName,
-      favAlbum: "ASTROWORLD",
-      favArtist: "Travis Scott",
-      interests: ["Hip Hop", "Pop"],
-      photoURL: authResult.user.photoURL,
-      posts: [],
-    }, {merge: true}).catch( err => {
-      console.log(err.message);
-    })
+    // fire.firestore().collection("users").doc(authResult.user.uid).set({
+    //   connections: [],
+    //   displayName: authResult.user.displayName,
+    //   favAlbum: "ASTROWORLD",
+    //   favArtist: "Travis Scott",
+    //   interests: ["Hip Hop", "Pop"],
+    //   photoURL: authResult.user.photoURL,
+    //   posts: [],
+    // }, {merge: true}).catch( err => {
+    //   console.log(err.message);
+    // })
+
+    db.collection("users").doc(authResult.user.uid).get().then(doc => {
+      if (!doc.exists) {
+          console.log("Adding user data to firestore");
+          
+          db.collection("users").doc(authResult.user.uid).set({
+              connections: [],
+              displayName: authResult.user.displayName,
+              favAlbum: "ASTROWORLD",
+              favArtist: "Travis Scott",
+              interests: ["Hip Hop", "Pop"],
+              photoURL: authResult.user.photoURL,
+              posts: [],
+          }, {merge: true}).catch(err => {
+              console.log(err.message);
+          })
+      }
+  })
 
     return false;
   }}

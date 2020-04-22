@@ -100,16 +100,23 @@ class App extends Component {
                     .then(({ user }) => {
                         //Add user data to firebase
                         console.log(user);
-                        db.collection("users").doc(user.uid).set({
-                            connections: [],
-                            displayName: user.displayName,
-                            favAlbum: "ASTROWORLD",
-                            favArtist: "Travis Scott",
-                            interests: ["Hip Hop", "Pop"],
-                            photoURL: user.photoURL,
-                            posts: [],
-                        }, {merge: true}).catch(err => {
-                            console.log(err.message);
+
+                        db.collection("users").doc(user.uid).get().then(doc => {
+                            if (!doc.exists) {
+                                console.log("Adding user data to firestore");
+                                
+                                db.collection("users").doc(user.uid).set({
+                                    connections: [],
+                                    displayName: user.displayName,
+                                    favAlbum: "ASTROWORLD",
+                                    favArtist: "Travis Scott",
+                                    interests: ["Hip Hop", "Pop"],
+                                    photoURL: user.photoURL,
+                                    posts: [],
+                                }, {merge: true}).catch(err => {
+                                    console.log(err.message);
+                                })
+                            }
                         })
                     }).then(() => {
                         // this.state.access_token = authResponse.access_token
