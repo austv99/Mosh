@@ -65,6 +65,7 @@ class Share extends React.Component {
   this.getSearch = this.getSearch.bind(this);
   }
 
+
   getSearch() {
     this.setState(prevState => ({
       list:[]
@@ -74,6 +75,7 @@ class Share extends React.Component {
                 console.log(response);
                 response.tracks.items.map(obj => this.setState(prevState=> ({
                   list: [...prevState.list,{
+                    id: obj.id,
                     albumArt: obj.album.images[0].url,
                     albumName: obj.album.name,
                     songArtists: obj.artists[0].name, 
@@ -83,7 +85,6 @@ class Share extends React.Component {
                   
                 })))
             })
-        console.log(this.state.list);
   }
 
   renderButton(obj) {
@@ -91,7 +92,7 @@ class Share extends React.Component {
     return ( 
         // <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
         <Grid style = {cardStyles}>
-            <MusicCard title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
+            <MusicCard id={obj.id} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
         </Grid>
         // </Link>
     )

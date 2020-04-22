@@ -11,8 +11,14 @@ const cardStyles = {
 class discoverMusic extends React.Component {
     constructor(props) {
         super(props);
+        let currToken;
+        if (window.location.pathname.startsWith("/discover/token/")) {
+            currToken = window.location.pathname.replace("/discover/token/", "");
+        } else {
+            currToken = window.location.pathname.replace("/discover/music/", "");
+        }
         this.state = {
-            token: window.location.pathname.replace("/discover/token/", ""),
+            token: currToken,
             list: [],
         }
         if (this.state.token) {
@@ -21,11 +27,6 @@ class discoverMusic extends React.Component {
       this.getRecom();
       
       
-    }
-    getTopArtists() {
-        let artists = [];
-        
-        return artists;
     }
       
     async getRecom() {
@@ -47,6 +48,7 @@ class discoverMusic extends React.Component {
                     .then((response) => {
                         response.tracks.map(obj => this.setState(prevState=> ({
                             list: [...prevState.list,{
+                            id: obj.id,
                             albumArt: obj.album.images[0].url,
                             albumName: obj.album.name,
                             songArtists: obj.artists[0].name, 
@@ -67,7 +69,7 @@ class discoverMusic extends React.Component {
         return ( 
             // <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
             <Grid style = {cardStyles}>
-                <MusicCard title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
+                <MusicCard id={obj.id} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
             </Grid>
             // </Link>
         )
