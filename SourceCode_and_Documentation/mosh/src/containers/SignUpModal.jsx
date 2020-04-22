@@ -45,7 +45,7 @@ export default function SignUpModal(props) {
           })
         })
         .catch((err) => {
-            console.log(err.message);
+            alert(err.message);
         })
         
     }
