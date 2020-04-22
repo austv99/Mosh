@@ -4,8 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MusicCard from '../components/discoverComponents/discoverCards/musicCard';
-import NavBarShare from "../components/navBarShare";
-// import CssBaseline from '@material-ui/core/CssBaseline';
+// import NavBarShare from "../components/navBarShare";
 
 
 import NavBar from '../components/navBar';
@@ -14,12 +13,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-// import SearchIcon from '@material-ui/icons/Search';
-// import { makeStyles } from '@material-ui/core/styles';
-// import Grid from '@material-ui/core/Grid';
-// import MusicCard from '../components/musicCard';
 import Spotify from 'spotify-web-api-js';
 import Button from '@material-ui/core/Button';
+
+import {fire} from "../config/fire"
 
 const spotifyApi = new Spotify(); 
 const useStyles = makeStyles((theme) => ({
@@ -65,13 +62,43 @@ class Share extends React.Component {
     this.state = {
         token: window.location.pathname.replace("/share/token/", ""),
         list: [],
-        searchQuery: ""
+        searchQuery: "",
+        connections: [],
     }
     if (this.state.token) {
       spotifyApi.setAccessToken(this.state.token);
   }
-  // this.getSearch();
-  this.getSearch = this.getSearch.bind(this);
+    // this.getSearch();
+    this.getSearch = this.getSearch.bind(this);
+
+    this.unSub = null;
+  }
+
+
+  componentDidMount() {
+    let db = fire.firestore();
+    let user = fire.auth().currentUser;
+    
+    this.unSub = db.collection("users").where("connections", "array-contains", user.uid).onSnapshot(snapShot => {
+        let userList = [] 
+
+        snapShot.forEach(doc => {
+            let data = {};
+            data["displayName"] = doc.data()["displayName"];
+            data["uid"] = doc.id;
+
+            userList.push(data);
+        });
+
+        console.log(userList);
+        this.setState({
+          connections: userList,
+        })
+    })
+  }
+
+  componentWillUnmount() {
+    this.unSub();
   }
 
   getSearch() {
@@ -98,11 +125,10 @@ class Share extends React.Component {
   renderButton(obj) {
 
     return ( 
-        // <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
         <Grid style = {cardStyles}>
-            <MusicCard id={obj.id} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
+            <MusicCard id={obj.id} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link} 
+            connections = {this.state.connections}/>
         </Grid>
-        // </Link>
     )
 }
 renderCards() {
@@ -114,11 +140,7 @@ renderCards() {
       
     return (
     <>
-        {/* <CssBaseline/>
-        // <NavBarShare /> */}
-        {/* <NavBar token={this.state.token}/>  */}
         <div style={styles.divContainer}>
-        {/* <iframe width="100%" height="150" src="https://embed.odesli.co/?url=spotify:track:1eQBEelI2NCy7AUTerX0KS&theme=dark" frameborder="0" allowtransparency allowfullscreen sandbox="allow-same-origin allow-scripts allow-presentation allow-popups allow-popups-to-escape-sandbox"></iframe>         */}
         <NavBar token={this.state.token}/>
           <div style={{paddingBottom: "2vh"}}>
           <FormControl>

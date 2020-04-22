@@ -15,6 +15,9 @@ import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share'
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
+import {useEffect} from "react";
+import {fire} from "../../../config/fire"
+
 let textTheme = createMuiTheme();
 textTheme = responsiveFontSizes(textTheme);
 
@@ -50,6 +53,7 @@ export default function MusicCard(props) {
   // const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [share, setShare] = React.useState(false);
+  const [connections, setConnections] = React.useState([]);
 
   const handleClickShare = () => {
     setShare(true);
@@ -69,7 +73,6 @@ export default function MusicCard(props) {
   const handleOpenLink = () => {
     setShare(false);
   };
-  
 
   return (
     <>
