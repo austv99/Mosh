@@ -43,6 +43,7 @@ class Connect extends React.Component {
         super();
         const params = this.getHashParams();
         const token = params.access_token;
+        console.log(params);
         if (token) {
             spotifyApi.setAccessToken(token);
         }
@@ -57,7 +58,7 @@ class Connect extends React.Component {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
             q = window.location.hash.substring(1);
-        while ( e === r.exec(q)) {
+        while ( e = r.exec(q)) {
            hashParams[e[1]] = decodeURIComponent(e[2]);
         }
         return hashParams;
