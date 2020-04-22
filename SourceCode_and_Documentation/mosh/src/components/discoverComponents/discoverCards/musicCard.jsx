@@ -53,7 +53,6 @@ export default function MusicCard(props) {
   // const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [share, setShare] = React.useState(false);
-  const [connections, setConnections] = React.useState([]);
 
 
 
@@ -182,10 +181,13 @@ export default function MusicCard(props) {
       >
         <DialogTitle id="alert-dialog-title">{"Share this song with your mates!"}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Let Google help apps determine location. This means sending anonymous location data to
-            Google, even when no apps are running.
-          </DialogContentText>
+          {props.connections.map((user) =>
+                <Button onClick={() => {
+                  handleShare(props.id, user.uid)
+                }}>
+                  {user.displayName}
+                </Button>
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleOpenLink} color="primary" autoFocus>

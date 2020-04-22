@@ -110,6 +110,7 @@ class Share extends React.Component {
                 console.log(response);
                 response.tracks.items.map(obj => this.setState(prevState=> ({
                   list: [...prevState.list,{
+                    id: obj.id,
                     albumArt: obj.album.images[0].url,
                     albumName: obj.album.name,
                     songArtists: obj.artists[0].name, 

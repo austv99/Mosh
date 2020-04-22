@@ -5,6 +5,7 @@ import MusicCard from "./discoverCards/musicCard"
 import Spotify from 'spotify-web-api-js';
 import {handleIsSignedIn,getYoutubeData} from '../Youtube/YoutubeFunctions';
 import albumArt from 'album-art'
+import {fire} from "../../config/fire"
 const spotifyApi = new Spotify();
 const cardStyles = {
     marginBottom : "3%"
@@ -22,14 +23,43 @@ class discoverMusic extends React.Component {
         this.state = {
             token: currToken,
             list: [],
+            connections: [],
         }
         if (this.state.token) {
           spotifyApi.setAccessToken(this.state.token);
       }
       this.getRecom();
+      this.unSubConnections = null;
       
       
     }
+    componentDidMount() {
+        let db = fire.firestore();
+        let user = fire.auth().currentUser;
+        
+        this.unSubConnections = db.collection("users").where("connections", "array-contains", user.uid).onSnapshot(snapShot => {
+            let userList = [] 
+    
+            snapShot.forEach(doc => {
+                let data = {};
+                data["displayName"] = doc.data()["displayName"];
+                data["uid"] = doc.id;
+    
+                userList.push(data);
+            });
+    
+            console.log(userList);
+            this.setState({
+              connections: userList,
+            })
+        })
+    }
+    componentWillUnmount() {
+        this.unSubConnections();
+        // this.unSubSongs();
+    }
+
+
     getTopArtists() {
         let artists = [];
         
@@ -149,7 +179,7 @@ class discoverMusic extends React.Component {
         return ( 
             // <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
             <Grid style = {cardStyles}>
-                <MusicCard id={obj.id} key = {obj.songName} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
+                <MusicCard connections={this.state.connections} id={obj.id} key = {obj.songName} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
             </Grid>
             // </Link>
         )

@@ -63,11 +63,14 @@ class discoverShared extends React.Component {
             snapShot.forEach(doc => {
                 songList.push(doc.data().spotifyID);
             })
+            console.log(songList);
 
             this.setState({
                 songIds: songList,
             })
+
         })
+        
     }
     
     componentWillUnmount() {
@@ -77,7 +80,7 @@ class discoverShared extends React.Component {
 
 
     getTracks() {
-        spotifyApi.getTracks(this.state.songIds)
+        spotifyApi.getTracks(["0rKtyWc8bvkriBthvHKY8d"])
                 .then((response) => {
                     console.log(response);
                     response.tracks.map(obj => this.setState(prevState=> ({
