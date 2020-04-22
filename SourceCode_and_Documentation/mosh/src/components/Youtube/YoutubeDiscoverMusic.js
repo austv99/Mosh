@@ -90,7 +90,6 @@ class App extends Component {
                         interests: ["Placholder 1", "Placeholder 2"],
                         photoURL: user.photoURL,
                         posts: [],
-                        comments: [],
                     }, {merge: true}).catch(err => {
                         console.log(err.message);
                     })

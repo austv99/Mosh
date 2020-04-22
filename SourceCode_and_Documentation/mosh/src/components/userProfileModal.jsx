@@ -144,38 +144,42 @@ export default function UserProfileModal(props) {
   }
   
   useEffect(() => {
-    const calculateAchievements = () => {
-      let completed = {};
-      
-      if (userData == null) {
-        console.log("Nothing happened");
-        return completed;
+    let completed = {};
+    
+    if (userData == null) {
+      console.log("Nothing happened");
+      setAchievements(completed);
+    } else {
+      //Check if post has been made
+      if (userData.posts.length >= 1) {
+        completed["post"] = true;
       } else {
-        //Check if post has been made
-        if (userData.posts.length >= 1) {
-          completed["post"] = true;
-        } else {
-          completed["post"] = false;
-        }
-  
-        //Check if >= 5 connections
-        if (userData.connections.length >= 5) {
-          completed["connections"] = true;
-        } else {
-          completed["connections"] = false;
-        }
-  
-        if (userData.comments.length >= 1) {
+        completed["post"] = false;
+      }
+
+      //Check if >= 5 connections
+      if (userData.connections.length >= 5) {
+        completed["connections"] = true;
+      } else {
+        completed["connections"] = false;
+      }
+
+      let docRef = fire.firestore().collection("users").doc(fire.auth().currentUser.uid);
+
+      fire.firestore().collection("comments").where("userRef", "==", docRef).get().then(snapshot => {
+        console.log(snapshot);
+        
+        if (!snapshot.empty) {
           completed["comment"] = true;
         } else {
           completed["comment"] = false;
         }
+        setAchievements(completed);
+      }).catch(err => {
+        console.log(err.message);
+      })
+  }
 
-        return completed;
-      }
-    }
-    
-    setAchievements(calculateAchievements());
   }, [userData])
 
   return (

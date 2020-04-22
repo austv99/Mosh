@@ -10,7 +10,6 @@ import {useEffect} from "react"
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import { Divider, TextField } from '@material-ui/core';
-import * as firebase from 'firebase/app';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -65,10 +64,6 @@ export default function CommentsModal(props) {
             postId: props.id,
             userRef: db.doc("users/" + fire.auth().currentUser.uid),
         }).then((doc) => {
-            db.collection("users").doc(fire.auth().currentUser.uid).update({
-                comments : firebase.firestore.FieldValue.arrayUnion(doc.id),
-            })
-
             setComment("");
         })
         .catch(err => {

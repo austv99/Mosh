@@ -34,7 +34,6 @@ const uiConfig ={
       interests: ["Placholder 1", "Placeholder 2"],
       photoURL: authResult.user.photoURL,
       posts: [],
-      comments: [],
     }, {merge: true}).catch( err => {
       console.log(err.message);
     })
