@@ -85,15 +85,19 @@ export default function MusicCard(props) {
         <div className={classes.details}>
             <CardContent className={classes.content}>
                 <ThemeProvider theme={textTheme}>
-                  <Typography variant="h6" style={{width: "100px", whiteSpace: "nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
+                  <Typography variant="h6" style={{width: "300px", whiteSpace: "nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>
                       <b> {props.title} </b>
                   </Typography>
                   <Typography variant="subtitle2" color="textSecondary">
                       <b> Artist </b> : {props.artist}
                   </Typography>
+                  {props.album ?
                   <Typography variant="subtitle2" color="textSecondary">
                       <b> Album </b> : {props.album}
                   </Typography>
+                  :
+                  <div></div>
+                  }
                 </ThemeProvider>
             </CardContent>
             <div style = {{display: 'flex', justifyContent: "flex-end", alignItems : "flex-start"}}>
