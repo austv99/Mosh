@@ -3,19 +3,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import NavBar from "../components/navBar"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import newsFeed from '../components/newsFeed'
-// import artistPage from '../components/artistPage'
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useParams
 } from "react-router-dom";
 import { DesktopDrawer, MobileDrawer } from "../components/drawers";
 import Spotify from 'spotify-web-api-js';
 import ArtistFeed from '../components/artistFeed'
-// import DefaultFeed from "../components/defaultFeed"
+import DefaultFeed from "../components/defaultFeed"
 
 const spotifyApi = new Spotify();
 const drawerWidth = 200;
@@ -103,11 +98,13 @@ class Homescreen extends React.Component {
             mobileOpen : !state.mobileOpen
         }))
     }; 
+    
     rerenderCallback = (artists) => {
       this.setState(prevState=> ({
         artists: prevState.artists.concat(artists)
     }))
     };
+    
     handleSelection = (event, title) => {
         this.setState(() => ({
             selectedTag : title
@@ -117,11 +114,12 @@ class Homescreen extends React.Component {
           }
         })
     }
+    
     render () {
         const {classes} = this.props;
         //console.log(this.rerenderCallback)
         //console.log(this.handleSelection)
-        console.log(window.gapi)
+        // console.log(window.gapi)
         return  (
             <div className={classes.root}>
                 <CssBaseline />
@@ -145,12 +143,8 @@ class Homescreen extends React.Component {
                     
                     {/* Main Body of page goes here */}
                     <Switch>
-                        <Route path = {["/home/token"]}  component = {newsFeed}/>
+                        <Route path = {["/home/token"]}  component = {DefaultFeed}/>
                         <Route path = "/home/artist/" component= {ArtistFeed}/>
-                        {/* <Route path = "/home/TravisScott" component= {artistPage}/>
-                        <Route path = "/home/LilUziVert" component= {artistPage}/>
-                        <Route path = "/home/TheWeeknd" component= {artistPage}/> */}
-                        
                     </Switch>
                 </main>
             </div>
@@ -165,15 +159,6 @@ Homescreen.propTypes = {
     container: PropTypes.object,
     // token: PropTypes.string
 };
-
-
-// const discoverText = () => {
-//   return (
-//     <Typography>
-//         Please select something from the side bar
-//     </Typography>
-//   )
-// }
 
 
 export default withStyles(styles, {withTheme : true}) (Homescreen);

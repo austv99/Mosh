@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,9 +12,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import SpotifyIcon from '../../../containers/spotify.svg';
-import YoutubeIcon from '../../../containers/youtube.svg';
-import ShareIcon from '@material-ui/icons/Share';
 
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
@@ -59,6 +56,7 @@ export default function MusicCard(props) {
   };
 
   const handleCloseShare = () => {
+
   };
 
   const handleClickOpen = () => {

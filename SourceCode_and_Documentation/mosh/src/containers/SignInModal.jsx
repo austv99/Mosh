@@ -18,10 +18,12 @@ const theme = createMuiTheme({
       type: 'dark',
     },
   });
+
 export default function SignInModal(props) {
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [showLogin,setShowLogin] = React.useState(false)
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(email);
@@ -33,17 +35,13 @@ export default function SignInModal(props) {
             alert(error.message);
         });
     }
+    
+    
     const handleGoogleLogin = (e) => {
         e.preventDefault();
         setShowLogin(true)
     }
-    const renderGoogleBackgroundLogin = () => {
-        if (!showLogin) return '';
-        console.log("logging in using google")
-        return (
-            <App />
-        );
-    }
+    
     return (
         <Dialog open={props.inOpen} onClose={props.handleInClose} aria-labelledby="form-dialog-title" maxWidth='xl'>
             <ThemeProvider theme = {theme}>
@@ -109,8 +107,7 @@ export default function SignInModal(props) {
                                 }
                         } uiConfig={uiConfig} firebaseAuth={fire.auth()}
                     />
-                    {renderGoogleBackgroundLogin()}
-
+                    {showLogin === true ? <App/> : <div></div>}
                 </DialogContent>
                 
             </form>

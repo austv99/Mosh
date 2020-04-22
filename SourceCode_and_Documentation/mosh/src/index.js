@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './styles.css';
 import MainApp from "./mainApp"
 import * as serviceWorker from './serviceWorker';
-import App from "./components/Youtube/YoutubeDiscoverMusic"
 /*global gapi */
 
 //NOTE: THIS NEEDS TIME TO LOAD THE SCRIPT SO CANT IMMEDIATELY LOAD FROM home/token have to go from landing -> home

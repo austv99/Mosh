@@ -8,9 +8,11 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleIcon from '@material-ui/icons/People';
 import Spotify from 'spotify-web-api-js';
 import {Link} from 'react-router-dom';
-import App from './Youtube/YoutubeDiscoverMusic';
 import {handleIsSignedIn,getYoutubeData} from './Youtube/YoutubeFunctions';
+
+
 const spotifyApi = new Spotify();
+
 export class HomePri extends React.Component {    
     constructor(props) {
         super(props);
@@ -45,7 +47,8 @@ export class HomePri extends React.Component {
             if (!window.gapi.auth2.getAuthInstance().isSignedIn.get()){
                 return
             }
-            var x = await handleIsSignedIn(false)
+            
+            await handleIsSignedIn(false)
 
             async function callAsync2() {
                 var YoutubeData = await getYoutubeData("tags")
@@ -54,7 +57,7 @@ export class HomePri extends React.Component {
             }
             return callAsync2()
         }
-        var x = await callAsync().then(YoutubeData => {
+        await callAsync().then(YoutubeData => {
             console.log(YoutubeData)
             if (YoutubeData === undefined){
                 YoutubeData = []
@@ -63,9 +66,9 @@ export class HomePri extends React.Component {
             YoutubeData.map(obj => this.props.rerenderCallback(obj))
             //console.log(this.state.list)
             //console.log("updated")
-            return YoutubeData
+            return YoutubeData;
         }).then(YoutubeData => {
-            if (this.state.token != "undefined" && this.state.token){
+            if (this.state.token !== "undefined" && this.state.token){
                 spotifyApi.getMyTopArtists()
                 .then((response) => {
                     response.items.map(obj => this.state.list.push(obj.name))
@@ -77,7 +80,7 @@ export class HomePri extends React.Component {
             
         })
         //this.setState({finished:true})        
-        console.log(this.props.state)
+        // console.log(this.props.state)
         //this.props.rerenderCallback()
         //.then(() =>{
             //this.setState({finished:true})
@@ -101,24 +104,22 @@ export class HomePri extends React.Component {
 
     renderButtons() {
         //first filter and remove dupes
-        console.log(this)
+        // console.log(this)
         var UniqueList = this.props.state.artists.filter((a, b) => this.props.state.artists.indexOf(a) === b)
         let buttons = UniqueList.map(title => this.renderButton(title));
-        console.log("butons are",buttons)
-        console.log(UniqueList)
+        // console.log("butons are",buttons)
+        // console.log(UniqueList)
         return buttons;
         
         
     }
 
     render () {
-         console.log("HOMEBAR")
-        // var divdd = <div>what</div>
         //console.log(this.state.list[0])
         return (
             <List component="nav" aria-label="main list" style = {{flexGrow : 1}}>
                 <ListSubheader style = {{textAlign : "center", paddingBottom: "2%", color : "inherit"}}>
-                    <ListItemText primary = "Your Interests"/>
+                    <ListItemText primary = "Your Top Artists"/>
                 </ListSubheader>
                 <Divider/>      
                 <div>
@@ -142,7 +143,7 @@ export class HomeSec extends React.Component {
                             <ListItemIcon style = {{color: "inherit"}}>
                                 <PeopleIcon/>
                             </ListItemIcon>
-                            <ListItemText primary="Your Interests" />
+                            <ListItemText primary="Your Top Artists" />
                         </ListItem>
                     </Link>
                 </List>

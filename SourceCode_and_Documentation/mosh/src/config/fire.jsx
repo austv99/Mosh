@@ -20,11 +20,11 @@ const fire = firebase.initializeApp(config);
 const uiConfig ={
   signInFlow: "popup",
   signInOptions: [
-    //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    // firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID
   ],
   callbacks:{ signInSuccessWithAuthResult: (authResult) => {
-    // console.log(authResult.user);
+    console.log(authResult.user);
 
     fire.firestore().collection("users").doc(authResult.user.uid).set({
       connections: [],

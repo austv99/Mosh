@@ -1,11 +1,11 @@
 import React from 'react';
-import NavBar from './ConnectBar';
+// import NavBar from './ConnectBar';
 import Button from '@material-ui/core/Button';
 import SpotifyIcon from './spotify.svg';
 import YoutubeIcon from './youtube.svg';
 import Image from './landing_back.png';
 import DoneIcon from '@material-ui/icons/Done';
-import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import Spotify from 'spotify-web-api-js';
 import Homescreen from './Homescreen';
 import App from '../components/Youtube/YoutubeDiscoverMusic'
@@ -57,7 +57,7 @@ class Connect extends React.Component {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
             q = window.location.hash.substring(1);
-        while ( e = r.exec(q)) {
+        while ( e === r.exec(q)) {
            hashParams[e[1]] = decodeURIComponent(e[2]);
         }
         return hashParams;
@@ -80,7 +80,7 @@ class Connect extends React.Component {
         <>
         <div style={styles.background}>
         <div style={styles.divContainer}>
-        <NavBar />
+        {/* <NavBar /> */}
         <h1>MOSH</h1>
         <h3 style={{fontFamily: "Lato"}}>Connect your favourite streaming platforms for a more personal experience</h3>
         <div style={styles.buttons}>
