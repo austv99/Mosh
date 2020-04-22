@@ -122,7 +122,7 @@ class App extends Component {
             if (!this.state.loading){
                 this.state.loading= true
                 this.handleIsSignedIn(this.state.isSignedIn)
-
+                this.state.loading= false
             }
             console.log(this.state)
             //console.log(this.state.type)

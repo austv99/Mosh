@@ -45,7 +45,7 @@ class App extends Component {
       <div className="App">
         <Router>
         <Route exact path="/">
-            {this.state.user === null ? <Landing/> : <Redirect to="/connect/"/>}
+            {this.state.user === null ? <Landing/> : <Redirect to="/connect"/>}
           </Route>
           <Route path="/discover">
             {this.state.user !== null ? <Discover/> : <Redirect to="/"/>}
@@ -56,7 +56,8 @@ class App extends Component {
           </Route>
           <Route path="/connect">
             {/* //<Connect/> */}
-            {this.state.user !== null ? <Connect/> : <Redirect to="/"/>}
+            <Connect/>
+            {/* {this.state.user !== null ? <Connect/> : <Redirect to="/"/>} */}
           </Route>
           <Route path="/share">
             {this.state.user !== null ? <Share/> : <Redirect to="/"/>}
