@@ -36,7 +36,15 @@ export class HomePri extends React.Component {
         //var rerenderCallback = this.props.rerenderCallback
         //console.log(this.props.rerenderCallback)
         //console.log(this.props.handleSelection)
-
+        if (this.state.token !== "undefined" && this.state.token){
+            spotifyApi.getMyTopArtists()
+            .then((response) => {
+                response.items.map(obj => this.state.list.push(obj.name))
+                this.props.rerenderCallback(this.state.list)
+            }, (err) => {
+                console.error(err);
+            })
+        }
         async function callAsync() {
             if (!window.gapi){
                 return
@@ -67,18 +75,11 @@ export class HomePri extends React.Component {
             //console.log(this.state.list)
             //console.log("updated")
             return YoutubeData;
-        }).then(YoutubeData => {
-            if (this.state.token !== "undefined" && this.state.token){
-                spotifyApi.getMyTopArtists()
-                .then((response) => {
-                    response.items.map(obj => this.state.list.push(obj.name))
-                    this.props.rerenderCallback(this.state.list)
-                }, (err) => {
-                    console.error(err);
-                })
-            }
-            
         })
+        // }).then(YoutubeData => {
+           
+            
+        // })
         //this.setState({finished:true})        
         // console.log(this.props.state)
         //this.props.rerenderCallback()
