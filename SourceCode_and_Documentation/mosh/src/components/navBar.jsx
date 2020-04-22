@@ -113,11 +113,11 @@ function NavBar(props) {
                         <ShareIcon />
                     </IconButton>
                 </Link>
-                <Link to="/" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}>
+                {/* <Link to="/" style={{ textDecoration: 'none', color: 'inherit', margin: "5px"}}> */}
                     <IconButton className = {classes.iconButton} onClick = {handleSignOut}>
                         <ExitToAppIcon />
                     </IconButton>
-                </Link>
+                {/* </Link> */}
             </div>
             </Toolbar>
             <UserProfileModal open = {open} handleOpen = {handleOpen} handleClose = {handleClose} img = {avatar_url} title = "Austin Vuong"/>
