@@ -29,9 +29,9 @@ const uiConfig ={
     fire.firestore().collection("users").doc(authResult.user.uid).set({
       connections: [],
       displayName: authResult.user.displayName,
-      favAlbum: "Placeholder Text for fav album",
-      favArtist: "Placeholder for user's fav artist",
-      interests: ["Placholder 1", "Placeholder 2"],
+      favAlbum: "ASTROWORLD",
+      favArtist: "Travis Scott",
+      interests: ["Hip Hop", "Pop"],
       photoURL: authResult.user.photoURL,
       posts: [],
     }, {merge: true}).catch( err => {

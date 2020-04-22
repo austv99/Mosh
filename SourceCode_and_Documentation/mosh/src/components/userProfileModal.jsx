@@ -216,7 +216,7 @@ export default function UserProfileModal(props) {
                     <p><b>Interests</b> : {formatInterests(userData == null ? null : userData.interests)} </p>
                     <p><b>Favourite Album</b> : {userData != null ? userData.favAlbum : ""} </p>
                     <p><b>Favourite Artist</b> : {userData != null ? userData.favArtist : ""} </p>
-                    <p><b>Other Info</b> : Placeholder Text</p>
+                    {/* <p><b>Other Info</b> : Placeholder Text</p> */}
                     <IconButton onClick = {handleSettingsOpen} style = {{color: "inherit"}}>
                         <SettingsIcon/>
                     </IconButton>

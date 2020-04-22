@@ -53,7 +53,7 @@ class MobileDrawer extends React.Component {
 class DesktopDrawer extends React.Component {
     render () {
         //console.log(window.location.pathname)
-        var discoverTags = ["music", "concerts", "people", "shared"];
+        var discoverTags = ["music", "people", "shared"];
         var renderBars;
         // console.log(this.props.primaryTags);
         

@@ -12,7 +12,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-
+import ShareIcon from '@material-ui/icons/Share'
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
 let textTheme = createMuiTheme();
@@ -102,6 +102,9 @@ export default function MusicCard(props) {
               <IconButton aria-label="play/pause" style = {{paddingTop: 0}} onClick={handleClickOpen}>
                 <PlayArrowIcon className={classes.playIcon} />
               </IconButton>
+              <IconButton aria-label="play/pause" style = {{paddingTop: 0}} onClick={handleClickShare}>
+                <ShareIcon className={classes.playIcon} />
+              </IconButton>
             </div>
         </div>
         <Dialog
@@ -158,7 +161,7 @@ export default function MusicCard(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Share this song with your mates!"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Let Google help apps determine location. This means sending anonymous location data to
@@ -166,11 +169,8 @@ export default function MusicCard(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCloseShare} color="primary">
-            Disagree
-          </Button>
           <Button onClick={handleOpenLink} color="primary" autoFocus>
-            Agree
+            Close
           </Button>
         </DialogActions>
       </Dialog>

@@ -51,7 +51,7 @@ class Discover extends React.Component {
 
         this.state = {
             mobileOpen : false,
-            primaryTags : ["music", "concerts", "people", "shared"],
+            primaryTags : ["music", "people", "shared"],
             selectedTag: "music",
             token: window.location.pathname.replace("/discover/token/", ""),
         }
@@ -109,7 +109,7 @@ class Discover extends React.Component {
                     <Switch>
                         <Route path = "/discover/token/" component = {discoverMusic}/>
                         <Route path = "/discover/music/"  component = {discoverMusic}/>
-                        <Route path = '/discover/concerts'  component = {discoverConcerts}/>
+                        {/* <Route path = '/discover/concerts'  component = {discoverConcerts}/> */}
                         <Route path = '/discover/people' component = {DiscoverPeople}/>
                         <Route path = '/discover/shared' component = {discoverShared}/>
                         <Route path = '/discover/connections' component = {YourConnections}/>

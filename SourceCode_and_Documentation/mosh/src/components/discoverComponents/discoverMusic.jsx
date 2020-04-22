@@ -57,6 +57,7 @@ class discoverMusic extends React.Component {
                     .then((response) => {
                         response.tracks.map(obj => this.setState(prevState=> ({
                             list: [...prevState.list,{
+                            id: obj.id,
                             albumArt: obj.album.images[0].url,
                             albumName: obj.album.name,
                             songArtists: obj.artists[0].name, 
@@ -148,7 +149,7 @@ class discoverMusic extends React.Component {
         return ( 
             // <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
             <Grid style = {cardStyles}>
-                <MusicCard key = {obj.songName} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
+                <MusicCard id={obj.id} key = {obj.songName} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
             </Grid>
             // </Link>
         )
