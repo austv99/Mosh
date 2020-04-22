@@ -13,8 +13,14 @@ const cardStyles = {
 class discoverMusic extends React.Component {
     constructor(props) {
         super(props);
+        let currToken;
+        if (window.location.pathname.startsWith("/discover/token/")) {
+            currToken = window.location.pathname.replace("/discover/token/", "");
+        } else {
+            currToken = window.location.pathname.replace("/discover/music/", "");
+        }
         this.state = {
-            token: window.location.pathname.replace("/discover/token/", ""),
+            token: currToken,
             list: [],
         }
         if (this.state.token) {
