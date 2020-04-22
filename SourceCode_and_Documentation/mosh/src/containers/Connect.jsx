@@ -109,7 +109,7 @@ class Connect extends React.Component {
         </div>
         <div style={{margin: "10px", display: "flex"}}>
         <Button color="inherit" style={{textTransform: 'none', backgroundColor:"#000000", width: "20vw", margin: "10px"}} >
-            <Link to={"/home/"} style={{textDecoration:'none', color:'inherit'}}>
+            <Link to={"/home/token/"} style={{textDecoration:'none', color:'inherit'}}>
             Skip for now
             </Link>
         </Button>
