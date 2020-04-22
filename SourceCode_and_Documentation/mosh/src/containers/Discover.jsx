@@ -80,15 +80,15 @@ class Discover extends React.Component {
                 <CssBaseline />
 
                 {/* Navbar Goes Here */}
-                <NavBar appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
+                <NavBar token={this.state.token} appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
 
                 <nav className={classes.drawer}>
 
-                    <MobileDrawer type="discover" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle}
+                    <MobileDrawer token={this.state.token} type="discover" container = {classes.container} open = {this.state.mobileOpen} handleDrawerToggle = {this.handleDrawerToggle}
                     drawerPaper = {classes.drawerPaper} primaryTags = {this.state.primaryTags} handleSelection = {this.handleSelection}
                     selectedTag = {this.state.selectedTag}/>
 
-                    <DesktopDrawer type="discover" drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
+                    <DesktopDrawer token={this.state.token}  type="discover" drawerPaper = {classes.drawerPaper} toolbar = {classes.toolbar} primaryTags = {this.state.primaryTags}
                 // <NavBar token={this.state.token} appBar = {classes.appBar} menuButton = {classes.menuButton} handleDrawerToggle = {this.handleDrawerToggle}/>
                 
                 // <nav className={classes.drawer}>
@@ -107,8 +107,8 @@ class Discover extends React.Component {
 
                     {/* Main Body of page goes here */}
                     <Switch>
-                        <Route path = "/discover/token/:token" exact component = {discoverMusic}/>
-                        <Route path = "/discover/music/:token"  component = {discoverMusic}/>
+                        <Route path = "/discover/token/" component = {discoverMusic}/>
+                        <Route path = "/discover/music/"  component = {discoverMusic}/>
                         <Route path = '/discover/concerts'  component = {discoverConcerts}/>
                         <Route path = '/discover/people' component = {discoverPeople}/>
                         <Route path = '/discover/shared' component = {discoverShared}/>
