@@ -6,6 +6,9 @@ import {fire,uiconfig} from '../../config/fire'
 import YoutubeLiked from './YoutubeLiked'
 var count = 0;
 var fb=fire;
+var db = fire.firestore();
+
+
 const API_KEY = 'AIzaSyBhklDEhDYrLwf5mMkLKsA34Btqjpj8S7k';
 const CLIENT_ID = '542831090816-nvuicfih0d0ulh87cjinkfrmg1tlfciq.apps.googleusercontent.com'
 const AUTH_SCOPES = [
@@ -86,10 +89,18 @@ class App extends Component {
                     //sign in to firebase
                     fb.auth().signInWithCredential(credential)
                     .then(({ user }) => {
-                        console.log('firebase: user signed in!', {
-                        displayName: user.displayName,
-                        email: user.email,
-                        photoURL: user.photoURL,
+                        //Add user data to firebase
+                        console.log(user);
+                        db.collection("users").doc(user.uid).set({
+                            connections: [],
+                            displayName: user.displayName,
+                            favAlbum: "Placeholder Text for fav album",
+                            favArtist: "Placeholder for user's fav artist",
+                            interests: ["Placholder 1", "Placeholder 2"],
+                            photoURL: user.photoURL,
+                            posts: [],
+                        }, {merge: true}).catch(err => {
+                            console.log(err.message);
                         })
                     }).then(() => {
                         this.state.access_token = authResponse.access_token
@@ -102,10 +113,10 @@ class App extends Component {
             }
             
 
-        } else {
-            console.log('gapi: user is not signed in')
         }
+        // document.body.appendChild(script);
     }
+
 
 
 

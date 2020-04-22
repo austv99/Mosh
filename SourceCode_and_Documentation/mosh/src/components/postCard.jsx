@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,6 +8,7 @@ import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import IconButton from "@material-ui/core/IconButton"
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
+import CommentsModal from "./commentsModal"
 
 let textTheme = createMuiTheme();
 textTheme = responsiveFontSizes(textTheme);
@@ -45,8 +46,16 @@ const useStyles = makeStyles((theme) => ({
 export default function PostCard(props) {
   const classes = useStyles();
 
-  const[count, setCount] = useState(0);
-  
+  let [open, setOpen] = React.useState(false);
+
+  let handleOpen = () => {
+    setOpen(true);
+  };
+
+  let handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <Card className={classes.root}>
         <CardMedia
@@ -61,7 +70,7 @@ export default function PostCard(props) {
                     <Typography variant="h6">
                         <b> {props.title} </b>
                     </Typography>
-                    <Typography variant = "caption">{props.tag}</Typography> 
+                    <Typography variant = "caption"> Tag: {props.tag === "" ? "General" : props.tag} </Typography> 
                   </div>
 
                   <h5>
@@ -70,25 +79,16 @@ export default function PostCard(props) {
                 </ThemeProvider>
             </CardContent>
             <div style = {{display: 'flex', justifyContent: "flex-end", alignItems : "center", flexWrap: "wrap-reverse"}}>
-                {/* <h5>{props.tag}</h5>  */}
-                {/* <ThumbUpAltIcon/> */}
-                <h5>{count} likes </h5> 
-                <IconButton className = {classes.button} onClick={() => setCount(count + 1)}>
+                <h5>{props.count} likes </h5> 
+                <IconButton className = {classes.button} onClick = {props.handleLike}> 
                   <ThumbUpAltIcon/>
                 </IconButton>
-                <IconButton className = {classes.button}>
+                <IconButton className = {classes.button} onClick = {handleOpen}>
                   <ChatBubbleIcon/>
                 </IconButton >
-                
-                {/* <Button variant="contained" color="default" className = {classes.button} onClick={() => setCount(count + 1)} size = "small">
-                    Like
-                </Button> */}
-                {/* <Button variant="contained" color="default" className = {classes.button} size = "small">
-                    Comment
-                </Button> */}
             </div>
         </div>
-
+        <CommentsModal handleClose = {handleClose} open = {open} id = {props.id}/>
     </Card>
   );    
 }

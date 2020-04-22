@@ -1,73 +1,121 @@
 import React, { useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import PostCard from './postCard';
 import {Grid} from '@material-ui/core'
-
+import {fire} from "../config/fire"
+import {useEffect} from "react"
 
 export default function NewsFeed(props) {
-        const [post, setPost] = useState("");
-        
-        const cardStyles = {
-            marginBottom : "3%",
+    const [posts, setPosts] = useState([]);
+    const db = fire.firestore();
+
+    const cardStyles = {
+        marginBottom : "3%",
+    }
+    
+    const handleLike = (event, postid) => {
+        let uid = fire.auth().currentUser.uid;
+
+        db.collection('posts').doc(postid).get().then(doc => {
+            if (doc !== null) {
+                let likes = doc.data().likedBy;
+                // console.log(likes);
+
+                for (let i = 0; i < likes.length; i++) {
+                    if (likes[i] === uid) {
+                        // console.log("Already liked")
+                        return;
+                    }
+                }
+                
+                likes.push(uid);
+
+                db.collection("posts").doc(postid).update({
+                    likedBy: likes,
+                }).catch(err => {
+                    alert(err.message);
+                })
             }
-        
-            const handleChange = content => event => {
-            setPost({ ...post, [content]: event.target.value });
-        };
-        
-        var posts = 
-            <>
-                <Grid style = {cardStyles}>
-                    <PostCard title = "Donald Trump" tag="Tag: General" content = "Make music great again!" img = "http://highlighthollywood.com/wp-content/uploads/2015/09/donald-trump-incapable-of-embarrassment-r.jpg"/>
-                </Grid>
-                <Grid style = {cardStyles}>
-                    <PostCard title = "Sco Mo" tag="Tag: General" content = "Stay inside, listen to music" img = "https://pbs.twimg.com/profile_images/1116081523394891776/AYnEcQnG_400x400.png"/>
-                </Grid>
-            </>
-        ;
-        
-        const addPost = (content) => {
-            posts.push(
-                <Grid style = {cardStyles}>
-                    <PostCard title = "Sco Mo" content = {post} img = "https://pbs.twimg.com/profile_images/1116081523394891776/AYnEcQnG_400x400.png"/>
-                </Grid>
-            )
-            console.log(posts);
-        }
-        console.log(post);
-        
-        return(
-        <>
-
-            <TextField
-                id="filled-full-width"
-                label="What's on your mind?"
-                style={{ margin: 8 }}
-                placeholder="Share your thoughts..."
-                helperText=""
-                fullWidth
-                margin="normal"
-                multiline={true}
-                onChange={handleChange('post')}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                variant="filled"
-            />
-            <div style = {{display: "flex", justifyContent: "center", marginBottom: "10px"}}>
-                <Button variant="contained" color="primary" onClick={() => addPost(post)}>
-                    Post!
-                </Button>
-            </div>
-
-            <div style = {{display: "flex", flexDirection: "column"}}> 
-                {posts}
-            </div>
+        }).catch(err => {
+            alert(err.msg);
+        })
+    }
             
-        </>
+    useEffect(() => {
+        var unsub;
         
+        if (props.artist != null) {
+            unsub = db.collection("posts").where("tag", "==", props.artist).onSnapshot(snapshot => {                
+                let newPosts = [];
+                let promises = [];
+                    
+                snapshot.forEach(doc => {
+                    let post = doc.data();
+                
+                    post["id"] = doc.id;
+                    let promise = db.collection("users").doc(post.uid).get();
 
-        );
+                    promises.push(promise);
+                    newPosts.push(post);
+                })
+
+                Promise.all(promises).then((promises) => {
+                    for (let i = 0; i < promises.length; i++) {
+                        
+                        newPosts[i]["author"] = promises[i].data().displayName;
+                        newPosts[i]["img"] = promises[i].data().photoURL;
+                    }
+
+                    setPosts(newPosts);
+                }).catch(() => {
+                    alert("Error has occured when fetching users from feed data");
+                })
+            })
+        } else {
+            unsub = db.collection("posts").onSnapshot(snapshot => {                
+                let newPosts = [];
+                let promises = [];
+                    
+                snapshot.forEach(doc => {
+                    let post = doc.data();
+                
+                    post["id"] = doc.id;
+                    let promise = db.collection("users").doc(post.uid).get();
+
+                    promises.push(promise);
+                    newPosts.push(post);
+                })
+
+                Promise.all(promises).then((promises) => {
+                    for (let i = 0; i < promises.length; i++) {
+                        
+                        newPosts[i]["author"] = promises[i].data().displayName;
+                        newPosts[i]["img"] = promises[i].data().photoURL;
+                    }
+
+                    setPosts(newPosts);
+                }).catch(() => {
+                    alert("Error has occured when fetching users from feed data");
+                })
+            })
+        }
+
+        return () => {
+            unsub();
+        };
+    }, [db, props.artist])
+
+    
+    return(
+    <>
+        <div style = {{display: "flex", flexDirection: "column"}}> 
+            {posts.map((post) => 
+                <Grid key = {post.id} style = {cardStyles}>
+                    <PostCard title = {post.author} content = {post.content} img = {post.img} count = {post.likedBy.length} 
+                    tag = {post.tag} id = {post.id} handleLike = {(e) => handleLike(e, post.id)}/>
+                </Grid>
+            )}
+        </div>
+    </>
+    );
     
 }

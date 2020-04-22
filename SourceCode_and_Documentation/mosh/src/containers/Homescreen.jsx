@@ -4,7 +4,7 @@ import NavBar from "../components/navBar"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import newsFeed from '../components/newsFeed'
-import artistPage from '../components/artistPage'
+// import artistPage from '../components/artistPage'
 import {
   BrowserRouter as Router,
   Switch,
@@ -14,6 +14,8 @@ import {
 } from "react-router-dom";
 import { DesktopDrawer, MobileDrawer } from "../components/drawers";
 import Spotify from 'spotify-web-api-js';
+import ArtistFeed from '../components/artistFeed'
+// import DefaultFeed from "../components/defaultFeed"
 
 const spotifyApi = new Spotify();
 const drawerWidth = 200;
@@ -84,7 +86,18 @@ class Homescreen extends React.Component {
   //     return list;
   // }
 
-    
+    // componentDidMount() {
+    //   let db = fire.firestore();
+
+    //   db.collection('posts').get().then(snapshots => {
+    //     snapshots.forEach(doc => {
+    //       console.log(doc.data());
+    //     });
+    //   }).catch(err => {
+    //     alert(err.message);
+    //   })
+    // }
+
     handleDrawerToggle = () => {
         this.setState((state) => ({
             mobileOpen : !state.mobileOpen
@@ -133,7 +146,7 @@ class Homescreen extends React.Component {
                     {/* Main Body of page goes here */}
                     <Switch>
                         <Route path = {["/home/token"]}  component = {newsFeed}/>
-                        <Route path = "/home/artist/" component= {artistPage}/>
+                        <Route path = "/home/artist/" component= {ArtistFeed}/>
                         {/* <Route path = "/home/TravisScott" component= {artistPage}/>
                         <Route path = "/home/LilUziVert" component= {artistPage}/>
                         <Route path = "/home/TheWeeknd" component= {artistPage}/> */}

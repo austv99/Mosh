@@ -3,7 +3,7 @@ import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 
 import {DiscPri, DiscSec} from "./discoverComponents/discoverBar"
-import {HomePri , HomeSec} from "./homescreenBar"
+import {HomePri} from "./homescreenBar"
 
 class MobileDrawer extends React.Component {
     render() {
@@ -21,7 +21,7 @@ class MobileDrawer extends React.Component {
             renderBars = 
             <>
             <HomePri primaryTags = {this.props.primaryTags}  state = {this.props.state} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-            <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/>
+            {/* <HomeSec selectedTag = {this.props.selectedTag} handleSelection = {this.props.handleSelection}/> */}
             </>
             ;
         }
@@ -69,7 +69,7 @@ class DesktopDrawer extends React.Component {
             renderBars = 
             <>
             <HomePri primaryTags = {this.props.primaryTags}  state = {this.props.state} rerenderCallback = {this.props.rerenderCallback} handleSelection = {this.props.handleSelection} selectedTag = {this.props.selectedTag}/>
-            <HomeSec selectedTag = {this.props.selectedTag}  handleSelection = {this.props.handleSelection}/>
+            {/* <HomeSec selectedTag = {this.props.selectedTag}  handleSelection = {this.props.handleSelection}/> */}
             </>
             ;
         }

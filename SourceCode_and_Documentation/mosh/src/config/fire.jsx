@@ -1,4 +1,8 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+// import auth from 'firebase/auth'
+import 'firebase/auth'
+import 'firebase/firestore'
+// import 'firebase/admin'
 
 const config = {
   apiKey: "AIzaSyAeREgt3YM_FPtwhYnMWF_AijkdYwyykR0",
@@ -11,14 +15,33 @@ const config = {
   measurementId: "G-QVRJRKC8QL"
 };
 
+const fire = firebase.initializeApp(config);
+
 const uiConfig ={
   signInFlow: "popup",
   signInOptions: [
     //firebase.auth.GoogleAuthProvider.PROVIDER_ID,
     firebase.auth.FacebookAuthProvider.PROVIDER_ID
   ],
-  callbacks:{ signInSuccess: () => false }
-}
-const fire = firebase.initializeApp(config);
+  callbacks:{ signInSuccessWithAuthResult: (authResult) => {
+    // console.log(authResult.user);
 
-export {fire,uiConfig}
+    fire.firestore().collection("users").doc(authResult.user.uid).set({
+      connections: [],
+      displayName: authResult.user.displayName,
+      favAlbum: "Placeholder Text for fav album",
+      favArtist: "Placeholder for user's fav artist",
+      interests: ["Placholder 1", "Placeholder 2"],
+      photoURL: authResult.user.photoURL,
+      posts: [],
+    }, {merge: true}).catch( err => {
+      console.log(err.message);
+    })
+
+    return false;
+  }}
+}
+
+
+
+export {fire,uiConfig, config}

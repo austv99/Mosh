@@ -10,6 +10,7 @@ import firebase from 'firebase';
 
 import {Redirect} from "react-router-dom";
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -25,13 +26,13 @@ class App extends Component {
 
   authListener() {
     fire.auth().onAuthStateChanged((user) => {
-
       if (user) {
         console.log(firebase.auth.AuthCredential.toJSON);
         console.log(user);
         this.setState({ user });
         localStorage.setItem('user', user.uid);
-
+        
+        this.setState({ user });  
       } else {
         console.log("No user");
         this.setState({ user: null });

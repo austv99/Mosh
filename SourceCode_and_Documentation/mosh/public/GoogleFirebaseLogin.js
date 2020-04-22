@@ -1,6 +1,11 @@
 
 //const gapi = window.gapi
 import firebase from 'firebase'
+<<<<<<< HEAD
+=======
+import {config, fire} from "../src/config/fire"
+
+>>>>>>> origin/feature-gamification
 const AUTH_SCOPES = [
     'email',
     'profile',
@@ -31,7 +36,12 @@ const AUTH_SCOPES = [
     appId: "1:806342003387:web:f508ba713ee85e2683f79e",
     measurementId: "G-QVRJRKC8QL"
   }
+<<<<<<< HEAD
   const fb = firebase.initializeApp(FIREBASE_CONFIG)
+=======
+
+  // const fire = firebase.initializeApp(config)
+>>>>>>> origin/feature-gamification
 
   // OVERWRITE ME
   // ....apps.googleusercontent.com
@@ -53,6 +63,7 @@ const AUTH_SCOPES = [
         authResponse.id_token,
         authResponse.access_token
       )
+<<<<<<< HEAD
       fb.auth().signInWithCredential(credential)
         .then(({ user }) => {
           console.log('firebase: user signed in!', {
@@ -60,6 +71,11 @@ const AUTH_SCOPES = [
             email: user.email,
             photoURL: user.photoURL,
           })
+=======
+      fire.auth().signInWithCredential(credential)
+        .then(({ user }) => {
+          console.log("User signed in")
+>>>>>>> origin/feature-gamification
         })
 
       // Try to make a request to Google Analytics!
@@ -118,7 +134,11 @@ const AUTH_SCOPES = [
 
         auth2.signOut()
           .then(() => { console.log('gapi: sign out complete') })
+<<<<<<< HEAD
           .then(() => { return fb.auth().signOut() })
+=======
+          .then(() => { return fire.auth().signOut() })
+>>>>>>> origin/feature-gamification
           .then(() => { console.log('firebase: sign out complete') })
 
       })
