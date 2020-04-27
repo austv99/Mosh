@@ -4,17 +4,17 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import SettingsIcon from '@material-ui/icons/Settings';
-import ImageAvatar from "./avatar"
+import ImageAvatar from "../avatar"
 import { IconButton } from '@material-ui/core';
-import SettingsModal from "./discoverComponents/settingsModal"
-import {fire} from "../config/fire"
+import SettingsModal from "./settingsModal"
+import {fire} from "../../config/fire"
 import {useEffect} from "react";
-import ProgressBar from './progressBar';
+import ProgressBar from '../progressBar';
 
-import SilverMedal from "./gamification/silver-medal.png"
-import GoldMedal from "./gamification/gold-medal.png"
-import BronzeMedal from "./gamification/bronze-medal.png"
-import EmptyMedal from "./gamification/empty-medal.png"
+import SilverMedal from "../gamification/silver-medal.png"
+import GoldMedal from "../gamification/gold-medal.png"
+import BronzeMedal from "../gamification/bronze-medal.png"
+import EmptyMedal from "../gamification/empty-medal.png"
 
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -45,7 +45,6 @@ export default function UserProfileModal(props) {
 
   const [open, setOpen] = React.useState(false);
   const [userData, setUserData] = React.useState(null);
-  const [commentsNum, setCommentsNum] = React.useState(0);
   
   const [achievementsOpen, setAchievementsOpen] = React.useState(false);
   const [achievements, setAchievements] = React.useState(null);
@@ -146,7 +145,6 @@ export default function UserProfileModal(props) {
     let completed = {};
     
     if (userData == null) {
-      console.log("Nothing happened");
       setAchievements(completed);
     } else {
       //Check if post has been made
@@ -165,9 +163,7 @@ export default function UserProfileModal(props) {
 
       let docRef = fire.firestore().collection("users").doc(fire.auth().currentUser.uid);
 
-      let unsub = fire.firestore().collection("comments").where("userRef", "==", docRef).onSnapshot(snapshot => {
-        console.log(snapshot);
-        
+      let unsub = fire.firestore().collection("comments").where("userRef", "==", docRef).onSnapshot(snapshot => {        
         if (!snapshot.empty) {
           completed["comment"] = true;
         } else {

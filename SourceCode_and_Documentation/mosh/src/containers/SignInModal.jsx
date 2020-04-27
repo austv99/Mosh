@@ -26,8 +26,6 @@ export default function SignInModal(props) {
     
     const handleSubmit = (e) => {
         e.preventDefault();
-        // console.log(email);
-        // console.log(password);
 
         fire.auth().signInWithEmailAndPassword(email, password).then((u)=>{
             //Nothing to do here
@@ -102,7 +100,7 @@ export default function SignInModal(props) {
                     
                     <StyledFirebaseAuth uiCallback=
                         {ui => {
-                                    console.log(ui)
+                                    // console.log(ui)
                                     ui.disableAutoSignIn()
                                 }
                         } uiConfig={uiConfig} firebaseAuth={fire.auth()}

@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import SpotifyIcon from './spotify.svg';
 import YoutubeIcon from './youtube.svg';
 import Image from './landing_back.png';
-import DoneIcon from '@material-ui/icons/Done';
 import { Link, Route, Switch } from 'react-router-dom';
 import Spotify from 'spotify-web-api-js';
 import Homescreen from './Homescreen';
@@ -43,7 +42,7 @@ class Connect extends React.Component {
         super();
         const params = this.getHashParams();
         const token = params.access_token;
-        console.log(params);
+        // console.log(params);
         if (token) {
             spotifyApi.setAccessToken(token);
         }
@@ -68,20 +67,17 @@ class Connect extends React.Component {
         this.setState({showLogin:true})
     }
     renderGoogleBackgroundLogin = () => {
-        console.log(this.state.showLogin)
-
         if (!this.state.showLogin) return '';
         return (
             <App />
         );
     }
     render() {
-        console.log(this.state.showLogin)
+        // console.log(this.state.showLogin)
     return(
         <>
         <div style={styles.background}>
         <div style={styles.divContainer}>
-        {/* <NavBar /> */}
         <h1>MOSH</h1>
         <h3 style={{fontFamily: "Lato"}}>Connect your favourite streaming platforms for a more personal experience</h3>
         <div style={styles.buttons}>

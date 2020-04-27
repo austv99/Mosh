@@ -47,8 +47,7 @@ class discoverMusic extends React.Component {
     
                 userList.push(data);
             });
-    
-            console.log(userList);
+
             this.setState({
               connections: userList,
             })
@@ -99,7 +98,6 @@ class discoverMusic extends React.Component {
                     }, (err) => {
                         console.error(err);
                 })
-                console.log(this.state.list)
         } catch (err) {
             console.error(err);
         }
@@ -118,31 +116,25 @@ class discoverMusic extends React.Component {
 
             async function callAsync2() {
                 var YoutubeData = await getYoutubeData()
-                console.log(YoutubeData)
                 return YoutubeData
             }
             return callAsync2()
         }
         var x = await callAsync().then(async (YoutubeData) => {
-            console.log(YoutubeData)
             if (YoutubeData === undefined){
                 YoutubeData = []
             }
             //can just use the title and its fine
             albumArt( 'Rush' ).then( console.log )
-            // console.log('Igors Theme'.split('- ').pop()) 
-            // console.log('Joji - Slow dancing'.split('- ').pop()) 
             const functionWithPromise = item => { //a function that returns a promise
                 return Promise.resolve('ok')
             }
               
             const anAsyncFunction = async obj => {
                 var album = await albumArt(obj.snippet.title.split(' -')[0], ( error, response ) => {
-                    console.log( response )
                     return response
                     })
                 var album_backup = await albumArt(obj.snippet.channelTitle, ( error, response ) => {
-                    console.log( response )
                     return response
                     })
                 var  album_backup_backup= obj.snippet.thumbnails.default.url
@@ -152,8 +144,8 @@ class discoverMusic extends React.Component {
                         album = album_backup_backup
                     }
                 }
-                console.log(album)
-                console.log(obj.snippet.title)
+                // console.log(album)
+
                 this.setState(prevState =>({
                     list: [...prevState.list,{
                     albumArt: album,
@@ -169,19 +161,16 @@ class discoverMusic extends React.Component {
             const getData = async () => {
             return Promise.all(YoutubeData.map(item => anAsyncFunction(item)))
             }
+            
             let x = await getData()
-            console.log(this.state.list)
             return YoutubeData
         })
     }
     renderButton(obj) {
-        // console.log(obj);
         return ( 
-            // <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
             <Grid style = {cardStyles}>
                 <MusicCard connections={this.state.connections} id={obj.id} key = {obj.songName} title ={obj.songName} artist = {obj.songArtists} album = {obj.albumName} img = {obj.albumArt} link={obj.link}/>
             </Grid>
-            // </Link>
         )
     }
     renderCards() {

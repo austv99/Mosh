@@ -6,7 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import Button from "@material-ui/core/Button";
 
-import ConcertModal from "../concertModal"
+import ConcertModal from "../../concertComponents/concertModal"
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
 let textTheme = createMuiTheme();

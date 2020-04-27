@@ -9,7 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ShareIcon from '@material-ui/icons/Share';
 import PersonIcon from '@material-ui/icons/Person';
-import UserProfileModal from "./userProfileModal"
+import UserProfileModal from "./profileComponents/userProfileModal"
 import { makeStyles } from '@material-ui/core/styles';
 import { fire } from '../config/fire'
 /* global gapi */
@@ -35,7 +35,7 @@ function NavBar(props) {
     };
 
     const handleSignOut = async () => {
-        console.log(gapi.auth)
+        // console.log(gapi.auth)
         gapi.auth.setToken(null)
         gapi.auth.signOut()
         fire.auth().signOut().then(() => {

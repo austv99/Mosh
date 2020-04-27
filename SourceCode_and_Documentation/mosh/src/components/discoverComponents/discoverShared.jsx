@@ -50,7 +50,6 @@ class discoverShared extends React.Component {
                 userList.push(data);
             });
     
-            console.log(userList);
             this.setState({
               connections: userList,
             })
@@ -63,7 +62,7 @@ class discoverShared extends React.Component {
             snapShot.forEach(doc => {
                 songList.push(doc.data().spotifyID);
             })
-            console.log(songList);
+            // console.log(songList);
 
             this.setState({
                 songIds: songList,
@@ -82,7 +81,6 @@ class discoverShared extends React.Component {
     getTracks() {
         spotifyApi.getTracks(["0rKtyWc8bvkriBthvHKY8d"])
                 .then((response) => {
-                    console.log(response);
                     response.tracks.map(obj => this.setState(prevState=> ({
                         list: [...prevState.list,{
                         id: obj.id,
@@ -113,7 +111,6 @@ class discoverShared extends React.Component {
     }
     
     render() {
-        console.log(this.state.list);
         return (
             <div style = {{display: "flex", flexDirection: "column"}}> 
                 {this.renderCards()}

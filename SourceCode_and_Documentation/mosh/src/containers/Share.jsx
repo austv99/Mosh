@@ -1,43 +1,38 @@
 import React from 'react';
-
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import MusicCard from '../components/discoverComponents/discoverCards/musicCard';
-// import NavBarShare from "../components/navBarShare";
-
-
 import NavBar from '../components/navBar';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
-import TextField from '@material-ui/core/TextField';
 import Spotify from 'spotify-web-api-js';
 import Button from '@material-ui/core/Button';
 
 import {fire} from "../config/fire"
 
 const spotifyApi = new Spotify(); 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      padding: '2px 4px',
-      display: 'flex',
-      alignItems: 'center',
-      width: 400,
-    },
-    input: {
-      marginLeft: theme.spacing(1),
-      flex: 1,
-    },
-    iconButton: {
-      padding: 10,
-    },
-    divider: {
-      height: 28,
-      margin: 4,
-    },
-  }));
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//       padding: '2px 4px',
+//       display: 'flex',
+//       alignItems: 'center',
+//       width: 400,
+//     },
+//     input: {
+//       marginLeft: theme.spacing(1),
+//       flex: 1,
+//     },
+//     iconButton: {
+//       padding: 10,
+//     },
+//     divider: {
+//       height: 28,
+//       margin: 4,
+//     },
+//   }));
 
   const styles = {
     divContainer: {
@@ -90,7 +85,7 @@ class Share extends React.Component {
             userList.push(data);
         });
 
-        console.log(userList);
+        // console.log(userList);
         this.setState({
           connections: userList,
         })
@@ -107,7 +102,7 @@ class Share extends React.Component {
     }));
     spotifyApi.search(this.state.searchQuery,["track"])
             .then((response) => {
-                console.log(response);
+                // console.log(response);
                 response.tracks.items.map(obj => this.setState(prevState=> ({
                   list: [...prevState.list,{
                     id: obj.id,
@@ -120,7 +115,6 @@ class Share extends React.Component {
                   
                 })))
             })
-        console.log(this.state.list);
   }
 
   renderButton(obj) {
@@ -156,7 +150,6 @@ renderCards() {
               }
               onChange = {(e) => {
                 this.state.searchQuery = e.target.value;
-                console.log(this.state.searchQuery);
             }}
             />
           </FormControl>

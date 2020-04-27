@@ -9,8 +9,8 @@ import {
 } from "react-router-dom";
 import { DesktopDrawer, MobileDrawer } from "../components/drawers";
 import Spotify from 'spotify-web-api-js';
-import ArtistFeed from '../components/artistFeed'
-import DefaultFeed from "../components/defaultFeed"
+import ArtistFeed from '../components/feedComponents/artistFeed'
+import DefaultFeed from "../components/feedComponents/defaultFeed"
 
 const spotifyApi = new Spotify();
 const drawerWidth = 200;
@@ -69,29 +69,6 @@ class Homescreen extends React.Component {
           
         }
     }
-  //   getTopTracks() {
-  //     let list = [];
-  //     spotifyApi.getMyTopArtists()
-  //         .then((response) => {
-  //             // response.items.map(obj => list.push([obj.name, obj.images[0].url, obj.external_urls.spotify, obj.genres]))
-  //             response.items.map(obj => list.push(obj.name));
-              
-
-  //           })
-  //     return list;
-  // }
-
-    // componentDidMount() {
-    //   let db = fire.firestore();
-
-    //   db.collection('posts').get().then(snapshots => {
-    //     snapshots.forEach(doc => {
-    //       console.log(doc.data());
-    //     });
-    //   }).catch(err => {
-    //     alert(err.message);
-    //   })
-    // }
 
     handleDrawerToggle = () => {
         this.setState((state) => ({
@@ -117,9 +94,6 @@ class Homescreen extends React.Component {
     
     render () {
         const {classes} = this.props;
-        //console.log(this.rerenderCallback)
-        //console.log(this.handleSelection)
-        // console.log(window.gapi)
         return  (
             <div className={classes.root}>
                 <CssBaseline />

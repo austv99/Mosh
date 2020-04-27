@@ -9,13 +9,11 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import ShareIcon from '@material-ui/icons/Share'
 import { createMuiTheme, responsiveFontSizes, ThemeProvider } from '@material-ui/core/styles';
 
-import {useEffect} from "react";
 import {fire} from "../../../config/fire"
 
 let textTheme = createMuiTheme();
@@ -82,8 +80,6 @@ export default function MusicCard(props) {
       reciever: targetId,
       sender: fire.auth().currentUser.uid,
       spotifyID: spotifyId, 
-    }).then(() => {
-      console.log("Success");
     }).catch(err => {
       alert(err);
     })
@@ -131,45 +127,6 @@ export default function MusicCard(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        {/* <div style={{backgroundColor: "#292b2a", color:"#ffffff"}}>
-        <DialogTitle id="alert-dialog-title">{props.title}</DialogTitle>
-        <DialogContent>
-          <img src={props.img} alt="" style={{width: "250px", height:"250px"}}/>
-          <DialogContentText id="alert-dialog-description" style={{color:"#ffffff"}}>
-            {props.artist}
-          </DialogContentText>
-          <DialogContentText id="alert-dialog-description" style={{color:"#ffffff"}}>
-            {props.album}
-          </DialogContentText>
-          <div style={{display: "flex", flexDirection: "column"}}>
-          <div style={{display: "flex", alignItems: "center"}}>
-          <img src={SpotifyIcon} alt="" style={{margin: "5px", paddingRight: "2vw"}}/>
-          {console.log(links)}
-          <a href={props.link} style={{textDecoration: "none", color:"inherit"}} target="_blank" rel="noopener noreferrer">
-          <h4>Listen on Spotify</h4>
-          </a>
-          <IconButton onClick={handleClickShare}>
-            <ShareIcon style={{paddingLeft: "1vw", color: "#ffffff"}}/>
-          </IconButton>
-          </div>
-          <div style={{display: "flex", alignItems: "center"}}>
-          <img src={YoutubeIcon} alt="" style={{margin: "5px", paddingRight: "2vw"}}/>
-          <a href={links.youtube} style={{textDecoration: "none", color:"inherit"}} target="_blank" rel="noopener noreferrer">
-          <h4>Listen on Youtube</h4>
-          </a>
-          <IconButton onClick={handleClickShare}>
-            <ShareIcon style={{paddingLeft: "1vw", color: "#ffffff"}}/>
-          </IconButton>
-          </div>
-          </div>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Close
-          </Button>
-        </DialogActions>
-        </div> */}
-        {/* <iframe width="1000" height="615" src={"https://embed.odesli.co/?url="+ props.link + "&theme=dark"} frameborder="0" allowtransparency allowfullscreen sandbox="allow-same-origin allow-scripts allow-presentation allow-popups allow-popups-to-escape-sandbox"></iframe> */}
         <iframe width="600" height="500" src={"https://embed.odesli.co/?url="+ props.link + "&theme=dark"}frameBorder="0" allowtransparency="true" allowFullScreen sandbox="allow-same-origin allow-scripts allow-presentation allow-popups allow-popups-to-escape-sandbox"></iframe>
       </Dialog>
 

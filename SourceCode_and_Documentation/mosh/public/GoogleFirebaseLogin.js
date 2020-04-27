@@ -1,11 +1,8 @@
 
 //const gapi = window.gapi
 import firebase from 'firebase'
-<<<<<<< HEAD
-=======
 import {config, fire} from "../src/config/fire"
 
->>>>>>> origin/feature-gamification
 const AUTH_SCOPES = [
     'email',
     'profile',
@@ -36,12 +33,7 @@ const AUTH_SCOPES = [
     appId: "1:806342003387:web:f508ba713ee85e2683f79e",
     measurementId: "G-QVRJRKC8QL"
   }
-<<<<<<< HEAD
   const fb = firebase.initializeApp(FIREBASE_CONFIG)
-=======
-
-  // const fire = firebase.initializeApp(config)
->>>>>>> origin/feature-gamification
 
   // OVERWRITE ME
   // ....apps.googleusercontent.com
@@ -53,29 +45,15 @@ const AUTH_SCOPES = [
       const auth2 = gapi.auth2.getAuthInstance()
       const currentUser = auth2.currentUser.get()
       const profile = currentUser.getBasicProfile()
-      console.log('gapi: user signed in!', {
-        name: profile.getName(),
-        imageURL: profile.getImageUrl(),
-        email: profile.getEmail(),
-      })
+
       const authResponse = currentUser.getAuthResponse(true)
       const credential = firebase.auth.GoogleAuthProvider.credential(
         authResponse.id_token,
         authResponse.access_token
       )
-<<<<<<< HEAD
-      fb.auth().signInWithCredential(credential)
-        .then(({ user }) => {
-          console.log('firebase: user signed in!', {
-            displayName: user.displayName,
-            email: user.email,
-            photoURL: user.photoURL,
-          })
-=======
       fire.auth().signInWithCredential(credential)
         .then(({ user }) => {
           console.log("User signed in")
->>>>>>> origin/feature-gamification
         })
 
       // Try to make a request to Google Analytics!
@@ -97,7 +75,7 @@ const AUTH_SCOPES = [
       resolve()
     })
   })
-  .then(() => { console.log('gapi: client:auth2 loaded', gapi.client) })
+  .then(() => {})
   .then(() => {
     return gapi.client.init({
       apiKey: FIREBASE_CONFIG.apiKey,
@@ -107,7 +85,7 @@ const AUTH_SCOPES = [
   })
   .then(() => { console.log('gapi: client initialized') })
   .then(() => { return gapi.client.load('analytics', 'v3') })
-  .then(() => { console.log('gapi: analytics v3 loaded', gapi.client.analytics)})
+  .then(() => {})
   .then(() => {
     const auth2 = gapi.auth2.getAuthInstance()
     auth2.isSignedIn.listen(handleIsSignedIn)
@@ -134,12 +112,7 @@ const AUTH_SCOPES = [
 
         auth2.signOut()
           .then(() => { console.log('gapi: sign out complete') })
-<<<<<<< HEAD
           .then(() => { return fb.auth().signOut() })
-=======
-          .then(() => { return fire.auth().signOut() })
->>>>>>> origin/feature-gamification
           .then(() => { console.log('firebase: sign out complete') })
-
       })
   })

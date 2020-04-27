@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {fire} from "../config/fire"
+import {fire} from "../../config/fire"
 import { makeStyles } from '@material-ui/core/styles';
 import * as firebase from 'firebase/app';
 
@@ -26,7 +26,6 @@ export default function PostForm(props) {
     }
 
     const handleTagChange = (e) => {
-        // console.log(e.target.value);
         setTag(e.target.value);
     }
 

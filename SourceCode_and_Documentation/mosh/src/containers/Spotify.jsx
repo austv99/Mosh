@@ -28,7 +28,7 @@ getTopTracks() {
             response.items.map(obj => this.setState(prevState => ({
                 top: [...prevState.top, [obj.name, obj.images[0].url, obj.external_urls.spotify, obj.genres]]
             })))
-            console.log(this.state.top);
+            // console.log(this.state.top);
         })
 }
 

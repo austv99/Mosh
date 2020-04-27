@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PostCard from './postCard';
 import {Grid} from '@material-ui/core'
-import {fire} from "../config/fire"
+import {fire} from "../../config/fire"
 import {useEffect} from "react"
 
 export default function NewsFeed(props) {

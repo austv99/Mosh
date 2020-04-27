@@ -2,8 +2,7 @@
 //https://github.com/lacymorrow/album-art USE THIS FOR ALBUM ART
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import {fire,uiconfig} from '../../config/fire'
-import YoutubeLiked from './YoutubeLiked'
+import {fire} from '../../config/fire'
 var count = 0;
 var fb=fire;
 var db = fire.firestore();

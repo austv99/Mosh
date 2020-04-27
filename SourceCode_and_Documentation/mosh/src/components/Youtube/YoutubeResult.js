@@ -35,12 +35,10 @@ const YoutubeResult= (params) => {
             fetch(URL)
             .then(response => response.json())
             .then(responseData => {
-                //console.log(responseData);
                 if (responseData.items == null){
                     console.log(responseData)
                 } else {
                     var title = (responseData.items).map(a => a.snippet.title);
-                    console.log(title);
                     //title is an array
                     
                     setResult(title[0])

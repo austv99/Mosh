@@ -18,18 +18,14 @@ export default function DiscoverPeople() {
         var unsub = db.collection("users").onSnapshot(snapShot => {
             let userList = [] 
             
-            // console.log("Got data");
-            
             snapShot.forEach(doc => {
                 if (doc.id !== user.uid && !doc.data().connections.includes(user.uid)) {
                     let userData = doc.data();
                     userData["id"] = doc.id;
 
-                    // console.log(userData);
                     userList.push(userData);
                 }
             });
-            // console.log(userList);
             setUsers(userList);
         })
 

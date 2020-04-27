@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
     outline: 'none',
   },
   root: {
-    // '& .MuiTextField-root': {
-    //   margin: theme.spacing(1),
-    //   width: '50ch',
-    // },
     display: "flex",
     alignItems: "center",
     flexDirection: "column"
@@ -48,7 +44,6 @@ export default function AvatarModal(props) {
     const [url, setUrl] = React.useState("");
 
     const handleChange = (e) => {
-        console.log(e.target.value);
         setUrl(e.target.value);
     }
 

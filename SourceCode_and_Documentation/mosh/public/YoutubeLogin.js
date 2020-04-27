@@ -62,7 +62,7 @@ function updateSigninStatus(isSignedIn) {
     //getChannel(defaultChannel);
     //ReactDOM.render("<YoutubeLiked />", document.getElementById('root'));
     const access_token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).access_token
-    console.log(access_token)
+
     auth_token=access_token;
     var displayedToken = document.getElementById('token')
     displayedToken.innerHTML = access_token;
@@ -98,7 +98,6 @@ function getChannel(channel){
       forUsername: channel
     })
     .then(response => {
-      console.log(response.result)
       channel=response.result.items[0].id
       getMusicVideos(channel)
     })
@@ -111,7 +110,6 @@ function getMusicVideos(channel) {
     })
     .then(response => {
       const playlists = response.result.items;
-      console.log(playlists)  
       //we assume if position 0 its music videos
       musicVideos = playlists.find(item => item.snippet.position === 0);
       const playlistId = musicVideos.contentDetails.playlists[0];
@@ -135,7 +133,6 @@ function requestVideoPlaylist(playlistId) {
   const request = gapi.client.youtube.playlistItems.list(requestOptions);
 
   request.execute(response => {
-    console.log(response);
     const playListItems = response.result.items;
     if (playListItems) {
       let output = '<br><h4 class="center-align">Latest Videos</h4>';

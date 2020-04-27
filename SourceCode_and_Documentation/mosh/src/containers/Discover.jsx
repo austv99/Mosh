@@ -5,7 +5,6 @@ import {DesktopDrawer, MobileDrawer} from "../components/drawers"
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import {Switch, Route} from 'react-router-dom'
-import discoverConcerts from '../components/discoverComponents/discoverConcerts'
 import DiscoverPeople from "../components/discoverComponents/discoverPeople"
 import discoverShared from "../components/discoverComponents/discoverShared"
 import discoverMusic from "../components/discoverComponents/discoverMusic"
@@ -74,7 +73,7 @@ class Discover extends React.Component {
     }
     render () {
         const {classes} = this.props;
-        console.log(this.state.token);
+        // console.log(this.state.token);
         return  (
             <div className={classes.root}>
                 <CssBaseline />

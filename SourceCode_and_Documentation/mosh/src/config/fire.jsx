@@ -1,8 +1,6 @@
 import * as firebase from 'firebase/app';
-// import auth from 'firebase/auth'
 import 'firebase/auth'
 import 'firebase/firestore'
-// import 'firebase/admin'
 
 const config = {
   apiKey: "AIzaSyAeREgt3YM_FPtwhYnMWF_AijkdYwyykR0",
@@ -24,20 +22,7 @@ const uiConfig ={
     firebase.auth.FacebookAuthProvider.PROVIDER_ID
   ],
   callbacks:{ signInSuccessWithAuthResult: (authResult) => {
-    console.log(authResult.user);
     let db = fire.firestore();
-
-    // fire.firestore().collection("users").doc(authResult.user.uid).set({
-    //   connections: [],
-    //   displayName: authResult.user.displayName,
-    //   favAlbum: "ASTROWORLD",
-    //   favArtist: "Travis Scott",
-    //   interests: ["Hip Hop", "Pop"],
-    //   photoURL: authResult.user.photoURL,
-    //   posts: [],
-    // }, {merge: true}).catch( err => {
-    //   console.log(err.message);
-    // })
 
     db.collection("users").doc(authResult.user.uid).get().then(doc => {
       if (!doc.exists) {

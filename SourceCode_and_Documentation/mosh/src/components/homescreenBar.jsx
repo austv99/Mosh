@@ -28,14 +28,9 @@ export class HomePri extends React.Component {
         }
         this.getTopArtists();
     }
-    // componentDidMount = async () => {
-    //     var x = await 
-    //     console.log("x is ",x)
-    // }
+
     getTopArtists = async () => {
         //var rerenderCallback = this.props.rerenderCallback
-        //console.log(this.props.rerenderCallback)
-        //console.log(this.props.handleSelection)
         if (this.state.token !== "undefined" && this.state.token){
             spotifyApi.getMyTopArtists()
             .then((response) => {
@@ -60,43 +55,23 @@ export class HomePri extends React.Component {
 
             async function callAsync2() {
                 var YoutubeData = await getYoutubeData("tags")
-                console.log(YoutubeData)
                 return YoutubeData
             }
             return callAsync2()
         }
         await callAsync().then(YoutubeData => {
-            console.log(YoutubeData)
             if (YoutubeData === undefined){
                 YoutubeData = []
             }
-            console.log(this.props)
             YoutubeData.map(obj => this.props.rerenderCallback(obj))
-            //console.log(this.state.list)
-            //console.log("updated")
             return YoutubeData;
         })
-        // }).then(YoutubeData => {
-           
-            
-        // })
-        //this.setState({finished:true})        
-        // console.log(this.props.state)
-        //this.props.rerenderCallback()
-        //.then(() =>{
-            //this.setState({finished:true})
-            //this.props.rerenderCallback();
-            //this.forceUpdate();
-        //})
     }
+
     renderButton(title) {
-        //console.log(title);
         return ( 
             <Link to = {`/home/artist/${title.replace(/\s+/g, '')}`} key = {title} style = {{textDecoration: 'none', color: "inherit"}}>
                 <ListItem button onClick = {(event) => this.props.handleSelection(event,title)} selected = {this.props.selectedTag === title}> 
-                    {/* <ListItemIcon>
-                        {icon}
-                    </ListItemIcon> */}
                     <ListItemText primary = {title}/>
                 </ListItem>
             </Link>
@@ -105,10 +80,9 @@ export class HomePri extends React.Component {
 
     renderButtons() {
         //first filter and remove dupes
-        // console.log(this)
         var UniqueList = this.props.state.artists.filter((a, b) => this.props.state.artists.indexOf(a) === b)
         let buttons = UniqueList.map(title => this.renderButton(title));
-        // console.log("butons are",buttons)
+
         // console.log(UniqueList)
         return buttons;
         
